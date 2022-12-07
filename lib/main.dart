@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
+import 'resources/theme.dart';
 import 'router.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Appointments',
-      theme: AppTheme.theme,
+      theme: getApplicationTheme(),
       onGenerateRoute: onGenerateRoute,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'resources/theme.dart';
-import 'router.dart';
 import 'screens/profile.dart';
+import 'router.dart';
 
 void main() {
   runApp(const MyApp());

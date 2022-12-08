@@ -31,6 +31,8 @@ class AppString {
   static const String warning = "Warning";
   static const String alreadyDate = "Date or time already taken";
 
+  static const String requiredAdd = "This field is required";
+
   static const String updateAppoint = "Update Appointment";
 
   static const String title = "Title";

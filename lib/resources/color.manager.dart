@@ -15,7 +15,6 @@ class ColorManager {
 
   static Color error = HexColor.fromHex("#FB2576");
   static Color fadeOpacity70 = HexColor.fromHex("#B30d0d0d");
-
 }
 
 extension HexColor on Color {

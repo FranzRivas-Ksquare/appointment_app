@@ -64,10 +64,10 @@ ThemeData getApplicationTheme() {
 
       // Text theme
       textTheme: TextTheme(
-          headline1: getSemiBoldStyle(
-              color: ColorManager.darkGreen,
+          headline1: getBoldStyle(
+              color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s16),
+              fontSize: FontSize.s28),
           headline2: getRegularStyle(
               color: ColorManager.auxiliary,
               fontFamily: FontConstants.fontPrimary,
@@ -104,7 +104,7 @@ ThemeData getApplicationTheme() {
         // hint style
         hintStyle: getRegularStyle(
             fontFamily: FontConstants.fontPrimary,
-            color: ColorManager.textFieldText),
+            color: ColorManager.textFieldBackground),
         // label style
         labelStyle: getMediumStyle(
             fontFamily: FontConstants.fontPrimary,

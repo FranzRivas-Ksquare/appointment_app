@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'resources/theme.dart';
 import 'router.dart';
-import 'screens/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Appointments',
       theme: getApplicationTheme(),
       onGenerateRoute: onGenerateRoute,
-      home: const Profile(),
+      initialRoute: '/',
     );
   }
 }

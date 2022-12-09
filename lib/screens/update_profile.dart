@@ -15,7 +15,7 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   final TextEditingController _nameCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
-  var _formKey = GlobalKey<FormState>();
+  //var _formKey = GlobalKey<FormState>();
   bool passwordVisible = false;
 
   @override

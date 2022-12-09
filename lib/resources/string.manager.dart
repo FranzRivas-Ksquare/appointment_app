@@ -36,6 +36,7 @@ class AppString {
   static const String updateAppoint = "Update Appointment";
 
   static const String title = "Title";
+  static const String descr = "Description";
   static const String appointment = "Appointment";
   static const String date = "Date";
   static const String time = "Time";

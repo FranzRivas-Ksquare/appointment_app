@@ -14,6 +14,21 @@ class CustomTextStyle {
       color: ColorManager.darkGreen,
       fontFamily: FontConstants.fontPrimary,
       fontSize: FontSize.s14);
+
+  static TextStyle appointmentTitles = getSemiBoldStyle(
+      color: ColorManager.textFieldText,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
+
+  static TextStyle appointmentDate = getSemiBoldStyle(
+      color: ColorManager.darkPink,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
+
+  static TextStyle appointmentTime = getRegularStyle(
+      color: ColorManager.textColor,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
 }
 
 ThemeData getApplicationTheme() {
@@ -78,7 +93,7 @@ ThemeData getApplicationTheme() {
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ElevatedButton.styleFrom(
         textStyle: getSemiBoldStyle(
-            color: ColorManager.auxiliary,
+            color: ColorManager.titles,
             fontFamily: FontConstants.fontPrimary,
             fontSize: FontSize.s14),
         backgroundColor: ColorManager.lightGreen,

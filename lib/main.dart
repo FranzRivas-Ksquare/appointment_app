@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'resources/theme.dart';
-import 'screens/profile.dart';
 import 'router.dart';
+import 'screens/update_appointment.dart';
+import 'screens/profile.dart';
+import 'screens/new_appointment.dart';
 import 'screens/update_profile.dart';
 
 void main() {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Appointments',
       theme: getApplicationTheme(),
       onGenerateRoute: onGenerateRoute,
-      home: const UpdateProfile(),
+      home: const UpdateAppointment(),
     );
   }
 }

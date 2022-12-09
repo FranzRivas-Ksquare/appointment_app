@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Appointments',
       theme: getApplicationTheme(),
       onGenerateRoute: onGenerateRoute,
-      initialRoute: '/home',
+      initialRoute: '/',
     );
   }
 }

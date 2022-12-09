@@ -4,6 +4,33 @@ import 'styles.manager.dart';
 import 'values.manager.dart';
 import 'package:flutter/material.dart';
 
+class CustomTextStyle {
+  static TextStyle profileName = getSemiBoldStyle(
+      color: ColorManager.textColor,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s28);
+
+  static TextStyle profileEmail = getSemiBoldStyle(
+      color: ColorManager.darkGreen,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s14);
+
+  static TextStyle appointmentTitles = getSemiBoldStyle(
+      color: ColorManager.textFieldText,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
+
+  static TextStyle appointmentDate = getSemiBoldStyle(
+      color: ColorManager.darkPink,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
+
+  static TextStyle appointmentTime = getRegularStyle(
+      color: ColorManager.textColor,
+      fontFamily: FontConstants.fontPrimary,
+      fontSize: FontSize.s18);
+}
+
 ThemeData getApplicationTheme() {
   return ThemeData(
       // main colors of the app
@@ -27,7 +54,7 @@ ThemeData getApplicationTheme() {
           toolbarHeight: AppSize.s100,
           //shadowColor: ColorManager.fadeOpacity70,
           titleTextStyle: getSemiBoldStyle(
-              color: Colors.white, //ColorManager.auxiliary
+              color: ColorManager.titles,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s28)),
       // Button theme
@@ -58,9 +85,23 @@ ThemeData getApplicationTheme() {
           textStyle: getSemiBoldStyle(
               color: ColorManager.auxiliary,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14),
+              fontSize: FontSize.s16),
         ),
       ),
+
+      // outlined button theme
+      outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+        textStyle: getSemiBoldStyle(
+            color: ColorManager.titles,
+            fontFamily: FontConstants.fontPrimary,
+            fontSize: FontSize.s14),
+        backgroundColor: ColorManager.lightGreen,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSize.s28)),
+        foregroundColor: ColorManager.auxiliary,
+        fixedSize: const Size(AppSize.s160, AppSize.s52),
+      )),
 
       // Text theme
       textTheme: TextTheme(
@@ -81,7 +122,8 @@ ThemeData getApplicationTheme() {
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
           subtitle1: getMediumStyle(
-              color: ColorManager.lightPink,
+              //input textField
+              color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
           subtitle2: getMediumStyle(
@@ -100,6 +142,8 @@ ThemeData getApplicationTheme() {
 
       // input decoration theme (text form field)
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: ColorManager.textFieldBackground,
         contentPadding: const EdgeInsets.all(AppPadding.p8),
         // hint style
         hintStyle: getRegularStyle(

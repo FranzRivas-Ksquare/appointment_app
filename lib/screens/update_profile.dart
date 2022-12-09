@@ -4,12 +4,30 @@ import '../resources/color.manager.dart';
 import '../resources/string.manager.dart';
 import '../resources/values.manager.dart';
 
-class UpdateProfile extends StatelessWidget {
+class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
   static const String routeName = '/update_profile';
 
   @override
+  State<UpdateProfile> createState() => _UpdateProfileState();
+}
+
+class _UpdateProfileState extends State<UpdateProfile> {
+  final TextEditingController _nameCtrl = TextEditingController();
+  final TextEditingController _passwordCtrl = TextEditingController();
+  //var _formKey = GlobalKey<FormState>();
+  bool passwordVisible = false;
+
+  @override
   Widget build(BuildContext context) {
+    _nameCtrl.text = 'Sherly Cabrera';
+    _passwordCtrl.text = 'SherlyCabrera01';
+
+    void initState() {
+      super.initState();
+      passwordVisible = true;
+    }
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -47,31 +65,57 @@ class UpdateProfile extends StatelessWidget {
               ],
             ),
             Container(
-              padding: EdgeInsets.all(AppPadding.p14),
+              padding: EdgeInsets.fromLTRB(AppPadding.p16, AppPadding.p24,
+                  AppPadding.p16, AppPadding.p16),
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: _nameCtrl,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                        labelText: AppString.name, hintText: AppString.name),
+                      hintText: AppString.name,
+                      labelText: AppString.name,
+                      //helperText: AppString.requiredAdd
+                    ),
                   ),
                   SizedBox(
                     height: AppSize.s16,
                   ),
                   TextField(
-                    keyboardType: TextInputType.emailAddress,
+                    controller: _passwordCtrl,
+                    obscureText: passwordVisible,
                     decoration: InputDecoration(
-                        labelText: AppString.password,
-                        hintText: AppString.password),
+                      hintText: AppString.password,
+                      labelText: AppString.password,
+                      //helperText: AppString.requiredAdd,
+                      suffixIcon: IconButton(
+                        icon: Icon(passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(
+                            () {
+                              passwordVisible = !passwordVisible;
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
                   ),
                   SizedBox(
-                    height: AppSize.s52,
+                    height: AppSize.s60,
                   ),
+                  //
                   ElevatedButton(
-                      onPressed: () {}, child: Text(AppString.updatePro)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                      child: Text(AppString.updatePro)),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

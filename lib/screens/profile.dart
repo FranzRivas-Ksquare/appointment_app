@@ -1,4 +1,5 @@
 import 'package:appointment/resources/string.manager.dart';
+import 'package:appointment/resources/theme.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/color.manager.dart';
@@ -12,6 +13,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           flexibleSpace: Container(),
           title: Text(AppString.profile),
@@ -50,14 +52,28 @@ class Profile extends StatelessWidget {
               padding: EdgeInsets.all(AppPadding.p14),
               child: Column(
                 children: <Widget>[
-                  Text("Sherly Cabrera"),
-                  Text("SherlyCabrera@demo.com"),
+                  Text("Sherly Cabrera", style: CustomTextStyle.profileName),
                   SizedBox(
-                    height: AppSize.s120,
+                    height: AppSize.s8,
+                  ),
+                  Text("SherlyCabrera@demo.com",
+                      style: CustomTextStyle.profileEmail),
+                  SizedBox(
+                    height: AppSize.s110,
                   ),
                   ElevatedButton(
-                      onPressed: () {}, child: Text(AppString.updatePro)),
-                  TextButton(onPressed: () {}, child: Text(AppString.logout))
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/update_profile');
+                      },
+                      child: Text(AppString.updatePro)),
+                  SizedBox(
+                    height: AppSize.s20,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/');
+                      },
+                      child: Text(AppString.logout))
                 ],
               ),
             )

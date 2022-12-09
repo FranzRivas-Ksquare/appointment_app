@@ -1,3 +1,4 @@
+import 'package:appointment/screens/home.dart';
 import 'package:flutter/material.dart';
 
 // import 'screens/profile.dart';
@@ -25,4 +26,5 @@ var routes = <String, WidgetBuilder>{
   // UpdateProfile.routeName: (ctx) => const UpdateProfile(),
   // NewAppointment.routeName: (ctx) => const NewAppointment(),
   // UpdateAppointment.routeName: (ctx) => const UpdateAppointment(),
+  Home.routeName: (ctx) => const Home(),
 };

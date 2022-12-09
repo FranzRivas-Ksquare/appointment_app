@@ -6,6 +6,8 @@ class ColorManager {
   static Color darkPink = HexColor.fromHex("#a6325f");
   static Color lightPink = HexColor.fromHex("#e195bc");
   static Color auxiliary = HexColor.fromHex("#dedce1");
+  static Color appBarLightPink = HexColor.fromHex("#f3d5e4");
+  static Color appBarDarkPink = HexColor.fromHex("#b34d76");
 
   static Color backgroundColor = HexColor.fromHex("#eeeeee");
   static Color textColor = HexColor.fromHex("#0d0d0d");

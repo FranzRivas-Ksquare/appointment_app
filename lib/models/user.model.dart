@@ -1,9 +1,8 @@
-import 'package:appointment/models/appointment.model.dart';
-
 class User {
-  int? id;
+  static int id = 1;
   String? name;
-  String? email;
-  String? password;
-  List<Appointment>? appointments;
+  String email;
+  String password;
+
+  User(id, this.name, this.email, this.password);
 }

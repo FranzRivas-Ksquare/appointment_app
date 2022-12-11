@@ -11,6 +11,7 @@ class ColorManager {
 
   static Color backgroundColor = HexColor.fromHex("#eeeeee");
   static Color textColor = HexColor.fromHex("#0d0d0d");
+  static Color textWhite = HexColor.fromHex("#000000");
 
   static Color textFieldBackground = HexColor.fromHex("#E8E8E8");
   static Color textFieldText = HexColor.fromHex("#BDBDBD");

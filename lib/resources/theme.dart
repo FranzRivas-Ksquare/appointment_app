@@ -110,33 +110,42 @@ ThemeData getApplicationTheme() {
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s28),
           headline2: getRegularStyle(
-              color: ColorManager.auxiliary,
+              color: ColorManager.textWhite,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s16),
+              fontSize: FontSize.s26),
           headline3: getBoldStyle(
-              color: ColorManager.darkGreen,
-              fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s16),
+              color: ColorManager.textColor,
+              fontFamily: FontConstants.fontSecundary,
+              fontSize: FontSize.s24),
           headline4: getRegularStyle(
               color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14),
-          subtitle1: getMediumStyle(
-              //input textField
-              color: ColorManager.darkGreen,
+              fontSize: FontSize.s14),  // TODO: Headline4
+          headline5: getSemiBoldStyle(
+              color: ColorManager.textColor,
+              fontFamily: FontConstants.fontPrimary,
+              fontSize: FontSize.s16),
+          headline6: getSemiBoldStyle(
+              color: ColorManager.textWhite,
+              fontFamily: FontConstants.fontPrimary,
+              fontSize: FontSize.s16),
+          subtitle1: getLightStyle( // TODO:
+              color: ColorManager.textFieldText,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
-          subtitle2: getMediumStyle(
-              color: ColorManager.darkGreen,
+          subtitle2: getSemiBoldStyle( // TODO:
+              color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14),
-          bodyText2: getMediumStyle(
-              color: ColorManager.lightPink,
-              fontFamily: FontConstants.fontPrimary),
-          caption: getRegularStyle(
-              color: ColorManager.auxiliary,
-              fontFamily: FontConstants.fontPrimary),
+              fontSize: FontSize.s17),
           bodyText1: getRegularStyle(
+              color: ColorManager.textColor,
+              fontFamily: FontConstants.fontPrimary,
+              fontSize: FontSize.s14),
+          bodyText2: getMediumStyle( // TODO:
+              color: ColorManager.textColor,
+              fontFamily: FontConstants.fontPrimary,
+              fontSize: FontSize.s16),
+          caption: getRegularStyle( // TODO:
               color: ColorManager.auxiliary,
               fontFamily: FontConstants.fontPrimary)),
 

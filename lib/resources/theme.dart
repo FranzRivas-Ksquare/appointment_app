@@ -109,7 +109,7 @@ ThemeData getApplicationTheme() {
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s28),
-          headline2: getRegularStyle(
+          headline2: getSemiBoldStyle(
               color: ColorManager.textWhite,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s26),

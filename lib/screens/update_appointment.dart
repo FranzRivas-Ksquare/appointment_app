@@ -19,6 +19,23 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   @override
   Widget build(BuildContext context) {
+
+    void _showDatePicker() {
+      showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2027)
+      );
+    }
+
+    void _showTimePicker() {
+      showTimePicker(
+          context: context,
+          initialTime: TimeOfDay.now()
+      );
+    }
+
     _titleCtrl.text = 'Flutter Exam';
     _descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
@@ -27,7 +44,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: ColorManager.lightGreen,
-            title: Text(AppString.updateAppoint),
+            title: Text(AppString.updateAppoint, style: Theme.of(context).textTheme.headline2),
           ),
           body: Column(
             children: <Widget>[
@@ -76,7 +93,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     Row(
                       children: <Widget>[
                         OutlinedButton(
-                            onPressed: () {}, child: Text(AppString.date)),
+                            onPressed: _showDatePicker,
+                            child: Text(AppString.date)),
                         SizedBox(
                           width: AppSize.s28,
                         ),
@@ -87,12 +105,13 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                       ],
                     ),
                     SizedBox(
-                      height: AppSize.s40,
+                      height: AppSize.s28,
                     ),
                     Row(
                       children: <Widget>[
                         OutlinedButton(
-                            onPressed: () {}, child: Text(AppString.time)),
+                            onPressed: _showTimePicker,
+                            child: Text(AppString.time)),
                         SizedBox(
                           width: AppSize.s28,
                         ),

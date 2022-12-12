@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../resources/color.manager.dart';
-import '../resources/string.manager.dart';
+import '../resources/color_manager.dart';
+import '../resources/string_manager.dart';
 import '../resources/theme.dart';
-import '../resources/values.manager.dart';
+import '../resources/values_manager.dart';
 
 class UpdateAppointment extends StatefulWidget {
   const UpdateAppointment({super.key});

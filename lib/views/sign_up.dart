@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/string.manager.dart';
-import 'package:appointment/resources/values.manager.dart';
-import 'package:appointment/widgets/textfield_custom.dart';
+import 'package:appointment/resources/string_manager.dart';
+import 'package:appointment/resources/values_manager.dart';
+import 'package:appointment/custom_widgets/textfield_custom.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
-  static const String routeName = '/';
+  static const String routeName = '/sign_up';
 
   @override
   Widget build(BuildContext context) {
 
     var _formKey = GlobalKey<FormState>();
 
+    TextEditingController _nameCtrl = TextEditingController();
     TextEditingController _mailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
+    TextEditingController _verifyPassCtrl = TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -25,25 +27,30 @@ class SignIn extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                    AppString.signin, style: Theme.of(context).textTheme.headline1),
+                    AppString.signup, style: Theme.of(context).textTheme.headline1),
+                CustomTextFormField(
+                    controller: _nameCtrl, validate: false, isPassword: false),
                 CustomTextFormField(
                     controller: _mailCtrl, validate: true, isPassword: false),
                 CustomTextFormField(
                     controller: _passwordCtrl, validate: true, isPassword: true),
+                CustomTextFormField(
+                    controller: _verifyPassCtrl, validate: true, isPassword: true),
                 const Expanded(child: SizedBox()),
                 ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
+                    onPressed: () {  // TODO: Improve verify password logic
+                      if (!_formKey.currentState!.validate()
+                      && _passwordCtrl == _verifyPassCtrl) {
                         Navigator.pushReplacementNamed(context, '/home');
                       }
                     },
-                    child: const Text(AppString.signin)
+                    child: const Text(AppString.signup)
                 ),
                 TextButton(
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/sign_up');
+                      Navigator.pushReplacementNamed(context, '/');
                     },
-                    child: const Text(AppString.dontAccount)
+                    child: const Text(AppString.alreadyAccount)
                 )
               ],
             ),

@@ -1,10 +1,13 @@
 import 'package:appointment/models/testData.dart';
 import 'package:appointment/resources/color.manager.dart';
-import 'package:appointment/widgets/appsCard.dart';
+import 'package:appointment/resources/font.manager.dart';
+import 'package:appointment/widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/string.manager.dart';
 import '../resources/values.manager.dart';
+
+import '../widgets/time_ratio.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -17,7 +20,9 @@ class Home extends StatelessWidget {
     "Tomorrow",
     "Past",
   ];
-  static final String selected = buttons[0];
+
+  static final String selected = buttons[2];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +31,24 @@ class Home extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: false,
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(AppString.welcome, style: TextStyle(color: Colors.black)),
+          Text(AppString.welcome, style: Theme.of(context).textTheme.headline3),
           Text(AppString.hello,
               style:
-                  TextStyle(fontSize: 15, color: ColorManager.appBarDarkPink)),
+                  TextStyle(fontSize: FontSize.s16, color: ColorManager.appBarDarkPink)),
         ]),
+
         actions: [
-          CircleAvatar(
-            radius: AppSize.s28,
-            backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, "/profile");
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: AppPadding.p18),
+              child: CircleAvatar(
+                radius: AppSize.s28,
+                backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+              ),
+            ),
           )
         ],
       ),
@@ -43,38 +57,16 @@ class Home extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: 60,
-                width: 400,
+                height: AppSize.s60,
+                width: double.infinity,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: buttons.length,
                     itemBuilder: ((context, index) {
-                      return Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              height: 25,
-                              width: 80,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: (selected == buttons[index])
-                                    ? ColorManager.lightPink
-                                    : Colors.white,
-                              ),
-                              child: Text(
-                                buttons[index],
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: (selected == buttons[index])
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                      return Row(
+                        children: [
+                          TimeRatio(text: buttons[index], isSelect: false)
+                        ],
                       );
                     })),
               ),
@@ -82,11 +74,10 @@ class Home extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: textLines.appointments.length,
                       itemBuilder: (context, index) {
-                        return AppointmentsCard(
+                        return AppointmentCard(
                             title: textLines.appointments[index]["title"],
                             due: textLines.appointments[index]["due"],
-                            description: textLines.appointments[index]
-                                ["description"]);
+                            description: textLines.appointments[index]["description"]);
                       })),
             ],
           ),
@@ -94,7 +85,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, "/createad");
+          Navigator.pushNamed(context, "/new_appointment");
         },
         backgroundColor: ColorManager.darkGreen,
         child: const Icon(Icons.add),

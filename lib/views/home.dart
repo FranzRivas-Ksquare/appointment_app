@@ -1,13 +1,13 @@
-import 'package:appointment/models/testData.dart';
-import 'package:appointment/resources/color.manager.dart';
-import 'package:appointment/resources/font.manager.dart';
-import 'package:appointment/widgets/appointment_card.dart';
+import 'package:appointment/models/dummy_data.dart';
+import 'package:appointment/resources/color_manager.dart';
+import 'package:appointment/resources/font_manager.dart';
+import 'package:appointment/custom_widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 
-import '../resources/string.manager.dart';
-import '../resources/values.manager.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
 
-import '../widgets/time_ratio.dart';
+import '../custom_widgets/time_ratio.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

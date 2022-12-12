@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import 'screens/sign_in.dart';
-import 'screens/sign_up.dart';
-import 'screens/home.dart';
-import 'screens/profile.dart';
-import 'screens/update_profile.dart';
-import 'screens/new_appointment.dart';
-import 'screens/update_appointment.dart';
+import '../views/sign_in.dart';
+import '../views/sign_up.dart';
+import '../views/home.dart';
+import '../views/profile.dart';
+import '../views/update_profile.dart';
+import '../views/new_appointment.dart';
+import '../views/update_appointment.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   final name = settings.name;

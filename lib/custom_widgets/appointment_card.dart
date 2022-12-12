@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/color.manager.dart';
-import 'package:appointment/resources/values.manager.dart';
+import 'package:appointment/resources/color_manager.dart';
+import 'package:appointment/resources/values_manager.dart';
 
 class AppointmentCard extends StatelessWidget {
   String title;

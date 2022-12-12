@@ -1,9 +1,9 @@
-import 'package:appointment/resources/string.manager.dart';
+import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/theme.dart';
 import 'package:flutter/material.dart';
 
-import '../resources/color.manager.dart';
-import '../resources/values.manager.dart';
+import '../resources/color_manager.dart';
+import '../resources/values_manager.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

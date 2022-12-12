@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../resources/values.manager.dart';
-import '../resources/color.manager.dart';
+import '../resources/values_manager.dart';
+import '../resources/color_manager.dart';
 
 class TimeRatio extends StatelessWidget {
   TimeRatio({super.key, required this.text, required this.isSelect});

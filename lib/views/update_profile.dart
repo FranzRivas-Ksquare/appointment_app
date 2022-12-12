@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../resources/color.manager.dart';
-import '../resources/string.manager.dart';
-import '../resources/values.manager.dart';
+import '../resources/color_manager.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});

@@ -1,7 +1,7 @@
-import 'color.manager.dart';
-import 'font.manager.dart';
-import 'styles.manager.dart';
-import 'values.manager.dart';
+import 'color_manager.dart';
+import 'font_manager.dart';
+import 'styles_manager.dart';
+import 'values_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextStyle {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/string.manager.dart';
-import 'package:appointment/resources/values.manager.dart';
+import 'package:appointment/resources/string_manager.dart';
+import 'package:appointment/resources/values_manager.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({

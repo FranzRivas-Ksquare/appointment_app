@@ -4,5 +4,5 @@ class User {
   String email;
   String password;
 
-  User(id, this.name, this.email, this.password);
+  User({id, this.name, required this.email, required this.password});
 }

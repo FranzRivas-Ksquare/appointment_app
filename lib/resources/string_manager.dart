@@ -32,6 +32,7 @@ class AppString {
   static const String alreadyDate = "Date or time already taken";
 
   static const String requiredAdd = "This field is required";
+  static const String requiredPass = "Password must be 8 chars";
 
   static const String updateAppoint = "Update Appointment";
 

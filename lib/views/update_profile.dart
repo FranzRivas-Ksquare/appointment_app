@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../custom_widgets/textfield_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
@@ -13,20 +14,15 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
-  //var _formKey = GlobalKey<FormState>();
-  bool passwordVisible = false;
+  bool passwordVisible = true; //obsecure
 
   @override
   Widget build(BuildContext context) {
     _nameCtrl.text = 'Sherly Cabrera';
     _passwordCtrl.text = 'SherlyCabrera01';
-
-    void initState() {
-      super.initState();
-      passwordVisible = true;
-    }
 
     return SafeArea(
       child: Scaffold(
@@ -64,31 +60,29 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 ),
               ],
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(AppPadding.p16, AppPadding.p24,
-                  AppPadding.p16, AppPadding.p16),
-              child: Column(
-                children: <Widget>[
-                  TextField(
-                    controller: _nameCtrl,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
+            Form(
+              key: _formKey,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(AppPadding.p16, AppPadding.p24,
+                    AppPadding.p16, AppPadding.p16),
+                child: Column(
+                  children: <Widget>[
+                    CustomNameField(
+                      controller: _nameCtrl,
+                      validator: true,
                       hintText: AppString.name,
                       labelText: AppString.name,
-                      //helperText: AppString.requiredAdd
                     ),
-                  ),
-                  SizedBox(
-                    height: AppSize.s16,
-                  ),
-                  TextField(
-                    controller: _passwordCtrl,
-                    obscureText: passwordVisible,
-                    decoration: InputDecoration(
+                    SizedBox(
+                      height: AppSize.s16,
+                    ),
+                    CustomPasswordField(
+                      controller: _passwordCtrl,
+                      obsecure: passwordVisible,
+                      validator: true,
                       hintText: AppString.password,
                       labelText: AppString.password,
-                      //helperText: AppString.requiredAdd,
-                      suffixIcon: IconButton(
+                      suffix: IconButton(
                         icon: Icon(passwordVisible
                             ? Icons.visibility
                             : Icons.visibility_off),
@@ -101,19 +95,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         },
                       ),
                     ),
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                  ),
-                  SizedBox(
-                    height: AppSize.s60,
-                  ),
-                  //
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      child: Text(AppString.updatePro)),
-                ],
+                    SizedBox(
+                      height: AppSize.s60,
+                    ),
+                    //
+                    ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            Navigator.pushNamed(context, '/profile');
+                          }
+                        },
+                        child: Text(AppString.updatePro)),
+                  ],
+                ),
               ),
             ),
           ],

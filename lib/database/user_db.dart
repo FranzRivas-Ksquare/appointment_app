@@ -38,6 +38,35 @@ class UserDB {
     }
   }
 
+  Future<bool> create(String email, String name, String password) async {
+    final db = _db;
+    if (db == null) return false;
+    
+    try {
+      final id = await db.insert('USERS', {
+        'EMAIL': email,
+        'NAME': name,
+        'PASSWORD': password,
+      });
+
+      final user = User(
+        email: email,
+        name: name,
+        password: password,
+      );
+
+      _users.add(user);
+      _streamController.add(_users);
+
+      return true;
+
+    } catch(e) {
+      print('Create user: $e');
+      return false;
+    }
+
+  }
+
   Future<bool> close() async {
     final db = _db;
     if (db == null) return false;
@@ -59,11 +88,10 @@ class UserDB {
 
       // Create Table
       const create = '''CREATE TABLE IF NOT EXISTS USERS (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        NAME INTEGER,
-        EMAIL TEXT,
-        PASSWORD INTEGER,
-        CONSTRAINT ID PRIMARY KEY (ID)
+          EMAIL TEXT,
+          NAME TEXT,
+          PASSWORD TEXT,
+          CONSTRAINT USERS_PK PRIMARY KEY (EMAIL)
         );''';
 
       await db.execute(create);

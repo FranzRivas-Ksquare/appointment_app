@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:appointment/custom_widgets/textfield_custom.dart';
+import 'package:appointment/database/user_db.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -14,7 +15,7 @@ class SignUp extends StatelessWidget {
     var _formKey = GlobalKey<FormState>();
 
     TextEditingController _nameCtrl = TextEditingController();
-    TextEditingController _mailCtrl = TextEditingController();
+    TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
     TextEditingController _verifyPassCtrl = TextEditingController();
 
@@ -31,7 +32,7 @@ class SignUp extends StatelessWidget {
                 CustomTextFormField(
                     controller: _nameCtrl, validate: false, isPassword: false),
                 CustomTextFormField(
-                    controller: _mailCtrl, validate: true, isPassword: false),
+                    controller: _emailCtrl, validate: true, isPassword: false),
                 CustomTextFormField(
                     controller: _passwordCtrl, validate: true, isPassword: true),
                 CustomTextFormField(
@@ -39,8 +40,13 @@ class SignUp extends StatelessWidget {
                 const Expanded(child: SizedBox()),
                 ElevatedButton(
                     onPressed: () {  // TODO: Improve verify password logic
-                      if (!_formKey.currentState!.validate()
-                      && _passwordCtrl == _verifyPassCtrl) {
+                      if (!_formKey.currentState!.validate()) {
+                        UserDB(dbName: 'user.db').create(
+                            _emailCtrl.text,
+                            _nameCtrl.text,
+                            _passwordCtrl.text,
+                            null
+                        );
                         Navigator.pushReplacementNamed(context, '/home');
                       }
                     },

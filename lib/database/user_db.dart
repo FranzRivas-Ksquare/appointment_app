@@ -38,7 +38,7 @@ class UserDB {
       return true;
 
     } catch(e) {
-      print('Create user: $e');
+      print('Create user error: $e');
       return false;
     }
 
@@ -94,6 +94,7 @@ class UserDB {
       }
 
     } catch(e) {
+      print('Error updating user: $e');
       return false;
     }
   }
@@ -116,6 +117,7 @@ class UserDB {
         return false;
       }
     } catch(e) {
+      print('Error deleting user: $e');
       return false;
     }
   }

@@ -14,17 +14,31 @@ class User {
 
   @override
   String toString() {
-    return 'User {$name\nemail: $email\npassword: $password\navatar: $avatar}';
+    return 'User {name: $name\nemail: $email\npassword: $password\navatar: $avatar}';
   }
 }
 
 class Appointment {
-  static int id = 1;
+  final int? id;
   String title;
   String? description;
-  DateTime due;
-  int author;
+  String date;
+  String email;
 
   Appointment(
-      {id, required this.title, this.description, required this.due, required this.author});
+      {this.id, required this.title, this.description, required this.date, required this.email});
+
+  Appointment.fromRow(Map<String, Object?> row)
+      : id = row['ID'] as int,
+        title = row['TITLE'] as String,
+        description = row['DESCRIPTION'] as String,
+        date = row['DATE'] as String,
+        email = row['EMAIL'] as String;
+
+  @override
+  String toString() {
+    return
+      'User {title: $title\ndescription: $description\ndate: $date\nauthor: $email}';
+  }
+
 }

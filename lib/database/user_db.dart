@@ -13,7 +13,7 @@ class UserDB {
   UserDB({required this.dbName});
 
   // C in CRUD
-  Future<bool> create(String email, String name, String password) async {
+  Future<bool> create(String email, String? name, String password, String? avatar) async {
     final db = _db;
     if (db == null) return false;
     
@@ -22,12 +22,14 @@ class UserDB {
         'EMAIL': email,
         'NAME': name,
         'PASSWORD': password,
+        'AVATAR': avatar,
       });
 
       final user = User(
         email: email,
         name: name,
         password: password,
+        avatar: avatar,
       );
 
       _users.add(user);
@@ -52,12 +54,12 @@ class UserDB {
         'USERS',
         distinct: true,
         columns: [
-          'ID',
-          'NAME',
           'EMAIL',
+          'NAME',
           'PASSWORD',
+          'AVATAR'
         ],
-        orderBy: 'ID',
+        orderBy: 'NAME',
       );
 
       final users = read.map((row) => User.fromRow(row)).toList();
@@ -79,6 +81,7 @@ class UserDB {
       final updateCount = await db.update('USERS', {
         'NAME': user.name,
         'PASSWORD': user.password,
+        'AVATAR': user.avatar,
       }, where: 'EMAIL = ?', whereArgs: [user.email]);
 
       if (updateCount == 1) {
@@ -90,6 +93,28 @@ class UserDB {
         return false;
       }
 
+    } catch(e) {
+      return false;
+    }
+  }
+
+  // D in CRUD
+  Future<bool> delete(User user) async {
+    final db = _db;
+    if (db == null) return false;
+
+    try {
+      final deleteCount = await db.delete(
+          'USERS',
+          where: 'EMAIL = ?',
+          whereArgs: [user.email]);
+      if (deleteCount == 1) {
+        _users.remove(user);
+        _streamController.add(_users);
+        return true;
+      } else {
+        return false;
+      }
     } catch(e) {
       return false;
     }
@@ -119,6 +144,7 @@ class UserDB {
           EMAIL TEXT,
           NAME TEXT,
           PASSWORD TEXT,
+          AVATAR TEXT,
           CONSTRAINT USERS_PK PRIMARY KEY (EMAIL)
         );''';
 

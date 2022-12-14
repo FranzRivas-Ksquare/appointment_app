@@ -44,7 +44,9 @@ class SignUp extends StatelessWidget {
                         UserDB(dbName: 'user.db').create(
                             _emailCtrl.text,
                             _nameCtrl.text,
-                            _passwordCtrl.text);
+                            _passwordCtrl.text,
+                            null
+                        );
                         Navigator.pushReplacementNamed(context, '/home');
                       }
                     },

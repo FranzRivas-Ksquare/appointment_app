@@ -2,17 +2,19 @@ class User {
   String? name;
   String email;
   String password;
+  String? avatar;
 
-  User({this.name, required this.email, required this.password});
+  User({this.name, required this.email, required this.password, this.avatar});
 
   User.fromRow(Map<String, Object?> row)
       : name = row['NAME'] as String,
         email = row['EMAIL'] as String,
-        password = row['PASSWORD'] as String;
+        password = row['PASSWORD'] as String,
+        avatar = row['AVATAR'] as String;
 
   @override
   String toString() {
-    return 'User {$name\nemail: $email\npassword: $password}';
+    return 'User {$name\nemail: $email\npassword: $password\navatar: $avatar}';
   }
 }
 

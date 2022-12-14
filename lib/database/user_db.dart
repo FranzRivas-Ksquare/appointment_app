@@ -12,32 +12,7 @@ class UserDB {
 
   UserDB({required this.dbName});
 
-  Future<List<User>> _fetchUsers() async {
-    final db = _db;
-    if (db == null) return [];
-
-    try {
-      final read = await db.query(
-        'USERS',
-        distinct: true,
-        columns: [
-          'ID',
-          'NAME',
-          'EMAIL',
-          'PASSWORD',
-        ],
-        orderBy: 'ID',
-      );
-
-      final users = read.map((row) => User.fromRow(row)).toList();
-      return users;
-
-    } catch(e) {
-      print('Error fetching users: $e');
-      return [];
-    }
-  }
-
+  // C in CRUD
   Future<bool> create(String email, String name, String password) async {
     final db = _db;
     if (db == null) return false;
@@ -65,6 +40,59 @@ class UserDB {
       return false;
     }
 
+  }
+
+  // R in CRUD
+  Future<List<User>> _fetchUsers() async {
+    final db = _db;
+    if (db == null) return [];
+
+    try {
+      final read = await db.query(
+        'USERS',
+        distinct: true,
+        columns: [
+          'ID',
+          'NAME',
+          'EMAIL',
+          'PASSWORD',
+        ],
+        orderBy: 'ID',
+      );
+
+      final users = read.map((row) => User.fromRow(row)).toList();
+      return users;
+
+    } catch(e) {
+      print('Error fetching users: $e');
+      return [];
+    }
+  }
+
+  // U in CRUD
+  Future<bool> update(User user) async {
+    final db = _db;
+    if (db == null) return false;
+
+    try {
+
+      final updateCount = await db.update('USERS', {
+        'NAME': user.name,
+        'PASSWORD': user.password,
+      }, where: 'EMAIL = ?', whereArgs: [user.email]);
+
+      if (updateCount == 1) {
+        _users.removeWhere((other) => other.email == user.email);
+        _users.add(user);
+        _streamController.add(_users);
+        return true;
+      } else {
+        return false;
+      }
+
+    } catch(e) {
+      return false;
+    }
   }
 
   Future<bool> close() async {

@@ -1,55 +1,37 @@
 import 'dart:async';
-
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:appointment/models/models.dart';
 
 class AppointmentDB {
-  final String dbName;
-  Database? _db;
-  List<Appointment> _appointments = [];
-  final _streamController = StreamController<List<Appointment>>.broadcast();
+  Database db;
+  User user;
 
-  AppointmentDB({required this.dbName});
+  AppointmentDB({required this.db, required this.user});
 
   // C in CRUD
-  Future<bool> create(
-      String title, String? description, String date, String email) async {
-    final db = _db;
-    if (db == null) return false;
-
+  Future<bool> create(Appointment appointment) async {
     try {
       final id = await db.insert('APPOINTMENTS', {
-        'TITLE': title,
-        'DESCRIPTION': description,
-        'DATE': date,
-        'EMAIL': email,
+        'TITLE': appointment.title,
+        'DESCRIPTION': appointment.description,
+        'DATE': appointment.date,
+        'AUTHOR': appointment.author,
       });
 
-      final appointment = Appointment(
-        title: title,
-        description: description,
-        date: date,
-        email: email,
-      );
-
-      _appointments.add(appointment);
-      _streamController.add(_appointments);
+      if (kDebugMode) print('Create transaction succeed');
 
       return true;
 
     } catch(e) {
-      print('Error creating appointment: $e');
+      if (kDebugMode) print('Error creating appointment: $e');
       return false;
     }
 
   }
 
   // R in CRUD
-  Future<List<Appointment>> _fetchAppointments() async {
-    final db = _db;
-    if (db == null) return [];
-
+  Future<List<Appointment>> fetchAppointments(user) async {
     try {
       final read = await db.query(
         'APPOINTMENTS',
@@ -59,116 +41,65 @@ class AppointmentDB {
           'TITLE',
           'DESCRIPTION',
           'DATE',
-          'EMAIL'
+          'AUTHOR'
         ],
         orderBy: 'DATE',
+        where: 'AUTHOR = ?',
+        whereArgs: [user.email]
+
       );
 
-      final appointment = read.map((row) => Appointment.fromRow(row)).toList();
-      return appointment;
+      final appointments = read.map((row) => Appointment.fromRow(row)).toList();
+      return appointments;
 
     } catch(e) {
-      print('Error fetching appointments: $e');
+      if (kDebugMode) print('Error fetching appointments: $e');
       return [];
     }
   }
 
   // U in CRUD
   Future<bool> update(Appointment appointment) async {
-    final db = _db;
-    if (db == null) return false;
-
     try {
-
       final updateCount = await db.update('APPOINTMENTS', {
         'TITLE': appointment.title,
         'DESCRIPTION': appointment.description,
         'DATE': appointment.date,
-        'EMAIL': appointment.email,
+        'AUTHOR': appointment.author,
       }, where: 'ID = ?', whereArgs: [appointment.id]);
 
       if (updateCount == 1) {
-        _appointments.removeWhere((other) => other.id == appointment.id);
-        _appointments.add(appointment);
-        _streamController.add(_appointments);
+        if (kDebugMode) print('Update transaction succeed');
         return true;
       } else {
+        if (kDebugMode) print('Update transaction failed');
         return false;
       }
 
     } catch(e) {
-      print('Error updating appointment: $e');
+      if (kDebugMode) print('Error updating appointment: $e');
       return false;
     }
   }
 
   // D in CRUD
   Future<bool> delete(Appointment appointment) async {
-    final db = _db;
-    if (db == null) return false;
-
     try {
       final deleteCount = await db.delete(
           'APPOINTMENTS',
           where: 'ID = ?',
           whereArgs: [appointment.id]);
       if (deleteCount == 1) {
-        _appointments.remove(appointment);
-        _streamController.add(_appointments);
+        if (kDebugMode) print('Delete transaction succeed');
         return true;
       } else {
+        if (kDebugMode) print('Delete transaction failed');
         return false;
       }
     } catch(e) {
-      print('Error deleting appointment: $e');
+      if (kDebugMode) print('Error deleting appointment: $e');
       return false;
     }
   }
-
-  Future<bool> close() async {
-    final db = _db;
-    if (db == null) return false;
-
-    await db.close();
-    return true;
-
-  }
-
-  Future<bool> open() async {
-    if (_db != null) return true;
-
-    final databasesPath = await getApplicationDocumentsDirectory();
-    String path = '$databasesPath/$dbName';
-
-    try {
-      final db = await openDatabase(path);
-      _db = db;
-
-      // Create Table
-      const create = '''CREATE TABLE IF NOT EXISTS APPOINTMENTS (
-        TITLE TEXT,
-        DESCRIPTION TEXT,
-        DATE TEXT,
-        EMAIL TEXT,
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        CONSTRAINT APPOINTMENT_PK PRIMARY KEY (ID),
-        CONSTRAINT APPOINTMENT_FK FOREIGN KEY (EMAIL) REFERENCES USERS(EMAIL)
-        );''';
-
-      await db.execute(create);
-
-      // Read all existing users objects from the db
-      final _appointment = await _fetchAppointments();
-      _streamController.add(_appointment);
-      return true;
-
-    } catch(e){
-      print('Error opening db = $e');
-      return false;
-    }
-
-  }
-
-  Stream<List<Appointment>> all() => _streamController.stream.map((appointments) => appointments..sort());
 
 }

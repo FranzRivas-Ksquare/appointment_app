@@ -32,25 +32,25 @@ class Appointment {
   String title;
   String? description;
   String date;
-  String email;
+  String author;
 
   Appointment(
       {this.id,
       required this.title,
       this.description,
       required this.date,
-      required this.email});
+      required this.author});
 
   Appointment.fromRow(Map<String, Object?> row)
       : id = row['ID'] as int,
         title = row['TITLE'] as String,
         description = row['DESCRIPTION'] as String,
         date = row['DATE'] as String,
-        email = row['EMAIL'] as String;
+        author = row['AUTHOR'] as String;
 
   @override
   String toString() {
-    return 'User {title: $title\ndescription: $description\ndate: $date\nauthor: $email}';
+    return 'User {title: $title\ndescription: $description\ndate: $date\nauthor: $author}';
   }
 
   Map<String, dynamic> toMap() {
@@ -59,7 +59,7 @@ class Appointment {
       'title': title,
       'description': description,
       'date': date,
-      'email': email
+      'author': author
     };
   }
 }

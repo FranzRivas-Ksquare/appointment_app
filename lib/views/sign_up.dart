@@ -41,13 +41,8 @@ class SignUp extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {  // TODO: Improve verify password logic
                       if (!_formKey.currentState!.validate()) {
-                        UserDB(dbName: 'user.db').create(
-                            _emailCtrl.text,
-                            _nameCtrl.text,
-                            _passwordCtrl.text,
-                            null
-                        );
                         Navigator.pushReplacementNamed(context, '/home');
+
                       }
                     },
                     child: const Text(AppString.signup)

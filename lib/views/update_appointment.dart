@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../resources/color_manager.dart';
 import '../resources/string_manager.dart';
@@ -17,23 +18,32 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   final TextEditingController _titleCtrl = TextEditingController();
   final TextEditingController _descrCtrl = TextEditingController();
 
+  String dateNow = DateFormat('yMd').format(DateTime.now());
+  String timeNow = DateFormat('jm').format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
+    Future<void> _showDatePicker() async {
+      DateTime? newDate = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2022),
+          lastDate: DateTime(2027));
 
-    void _showDatePicker() {
-      showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2027)
-      );
+      if (newDate == null) return;
+      setState(() {
+        dateNow = DateFormat('yMd').format(newDate);
+      });
     }
 
-    void _showTimePicker() {
-      showTimePicker(
-          context: context,
-          initialTime: TimeOfDay.now()
-      );
+    Future<void> _showTimePicker() async {
+      TimeOfDay? newTime =
+          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+
+      if (newTime == null) return;
+      setState(() {
+        timeNow = newTime.format(context).toString();
+      });
     }
 
     _titleCtrl.text = 'Flutter Exam';
@@ -44,7 +54,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: ColorManager.lightGreen,
-            title: Text(AppString.updateAppoint, style: Theme.of(context).textTheme.headline2),
+            title: Text(AppString.updateAppoint,
+                style: Theme.of(context).textTheme.headline2),
           ),
           body: Column(
             children: <Widget>[
@@ -99,7 +110,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                           width: AppSize.s28,
                         ),
                         Text(
-                          '12/05/22',
+                          dateNow,
                           style: CustomTextStyle.appointmentDate,
                         )
                       ],
@@ -115,14 +126,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                         SizedBox(
                           width: AppSize.s28,
                         ),
-                        Text('02:00 P.M.',
-                            style: CustomTextStyle.appointmentTime)
+                        Text(timeNow, style: CustomTextStyle.appointmentTime)
                       ],
                     ),
                     SizedBox(height: AppSize.s52),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/home');
+                          print(dateNow);
+                          print(timeNow);
                         },
                         child: Text(AppString.updateAppoint)),
                   ],

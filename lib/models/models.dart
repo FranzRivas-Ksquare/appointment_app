@@ -16,6 +16,15 @@ class User {
   String toString() {
     return 'User {name: $name\nemail: $email\npassword: $password\navatar: $avatar}';
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'password': password,
+      'avatar': avatar
+    };
+  }
 }
 
 class Appointment {
@@ -26,7 +35,11 @@ class Appointment {
   String email;
 
   Appointment(
-      {this.id, required this.title, this.description, required this.date, required this.email});
+      {this.id,
+      required this.title,
+      this.description,
+      required this.date,
+      required this.email});
 
   Appointment.fromRow(Map<String, Object?> row)
       : id = row['ID'] as int,
@@ -37,8 +50,16 @@ class Appointment {
 
   @override
   String toString() {
-    return
-      'User {title: $title\ndescription: $description\ndate: $date\nauthor: $email}';
+    return 'User {title: $title\ndescription: $description\ndate: $date\nauthor: $email}';
   }
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'date': date,
+      'email': email
+    };
+  }
 }

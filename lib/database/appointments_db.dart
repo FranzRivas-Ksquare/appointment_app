@@ -18,6 +18,9 @@ class AppointmentDB {
         'DATE': appointment.date,
         'AUTHOR': appointment.author,
       });
+
+      if (kDebugMode) print('Create transaction succeed');
+
       return true;
 
     } catch(e) {

@@ -54,9 +54,19 @@ class AppSize {
 }
 
 class ElementRatio {
+  static const double r0 = 0;
+  static const double r20 = 20.0;
   static const double r50 = 50.0;
+}
+
+class ElementElevation {
+  static const double e0 = 0;
+  static const double e2 = 2;
 }
 
 class DurationConstant {
   static const int d300 = 300;
+  static const int d1500 = 1500;
+  static const int d2000 = 2000;
+  static const int d4000 = 4000;
 }

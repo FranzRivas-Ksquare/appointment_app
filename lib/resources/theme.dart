@@ -54,7 +54,7 @@ ThemeData getApplicationTheme() {
           toolbarHeight: AppSize.s100,
           //shadowColor: ColorManager.fadeOpacity70,
           titleTextStyle: getSemiBoldStyle(
-              color: ColorManager.titles,
+              color: ColorManager.textWhite,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s28)),
       // Button theme
@@ -93,7 +93,7 @@ ThemeData getApplicationTheme() {
       outlinedButtonTheme: OutlinedButtonThemeData(
           style: ElevatedButton.styleFrom(
         textStyle: getSemiBoldStyle(
-            color: ColorManager.titles,
+            color: ColorManager.textWhite,
             fontFamily: FontConstants.fontPrimary,
             fontSize: FontSize.s14),
         backgroundColor: ColorManager.lightGreen,
@@ -120,7 +120,7 @@ ThemeData getApplicationTheme() {
           headline4: getRegularStyle(
               color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14),  // TODO: Headline4
+              fontSize: FontSize.s14), // TODO: Headline4
           headline5: getSemiBoldStyle(
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
@@ -129,11 +129,13 @@ ThemeData getApplicationTheme() {
               color: ColorManager.textWhite,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s16),
-          subtitle1: getLightStyle( // TODO:
+          subtitle1: getLightStyle(
+              // TODO:
               color: ColorManager.textFieldText,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
-          subtitle2: getSemiBoldStyle( // TODO:
+          subtitle2: getSemiBoldStyle(
+              // TODO:
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s17),
@@ -141,13 +143,34 @@ ThemeData getApplicationTheme() {
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
-          bodyText2: getMediumStyle( // TODO:
+          bodyText2: getMediumStyle(
+              // TODO:
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s16),
-          caption: getRegularStyle( // TODO:
+          caption: getRegularStyle(
+              // TODO: Alert Text
               color: ColorManager.auxiliary,
-              fontFamily: FontConstants.fontPrimary)),
+              fontFamily: FontConstants.fontPrimary,
+              fontSize: FontSize.s14)),
+
+      //SnackBar
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: ColorManager.darkPink,
+        elevation: ElementElevation.e2,
+        contentTextStyle: getSemiBoldStyle(
+            color: ColorManager.textWhite,
+            fontFamily: FontConstants.fontPrimary,
+            fontSize: FontSize.s16),
+        shape: RoundedRectangleBorder(
+            side:
+                BorderSide(color: ColorManager.snackBorder, width: AppSize.s1),
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(ElementRatio.r20),
+              bottom: Radius.circular(ElementRatio.r0),
+            )),
+        behavior: SnackBarBehavior.fixed,
+      ),
 
       // input decoration theme (text form field)
       inputDecorationTheme: InputDecorationTheme(

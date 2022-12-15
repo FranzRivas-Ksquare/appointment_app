@@ -97,7 +97,7 @@ class DBHelper {
             title: maps[index]['title'],
             description: maps[index]['description'],
             date: maps[index]['date'],
-            email: maps[index]['userEmail']));
+            author: maps[index]['userEmail']));
     return data;
   }
 

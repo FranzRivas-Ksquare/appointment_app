@@ -5,9 +5,8 @@ import 'package:appointment/models/models.dart';
 
 class AppointmentDB {
   Database db;
-  User user;
 
-  AppointmentDB({required this.db, required this.user});
+  AppointmentDB({required this.db});
 
   // C in CRUD
   Future<bool> create(Appointment appointment) async {
@@ -31,7 +30,7 @@ class AppointmentDB {
   }
 
   // R in CRUD
-  Future<List<Appointment>> fetchAppointments(user) async {
+  Future<List<Appointment>> fetchAppointments(User user) async {
     try {
       final read = await db.query(
         'APPOINTMENTS',

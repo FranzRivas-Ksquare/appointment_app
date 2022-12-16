@@ -53,13 +53,9 @@ class AppDB {
     }
   }
 
-  Future<Database?> get getDB async {
-    try{
-      if (_db == null) final createDB = await open();
-      return _db;
-    } catch(e) {
-      if (kDebugMode) print('Error getting database: $e');
-      return null;
-    }
+  Future<Database> get getDB async {
+    if (_db == null) final createDB = await open();
+    Database db = _db!;
+    return db;
   }
 }

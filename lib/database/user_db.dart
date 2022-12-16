@@ -31,7 +31,7 @@ class UserDB {
   }
 
   // R in CRUD
-  Future<List<User>> fetchUser(User user) async {
+  Future<List<User>> fetchUser(String email) async {
     try {
       final read = await db.query(
         'USERS',
@@ -43,7 +43,7 @@ class UserDB {
           'AVATAR'
         ],
         where: 'EMAIL = ?',
-        whereArgs: [user.email]
+        whereArgs: [email]
       );
 
       final useResult = read.map((row) => User.fromRow(row)).toList();

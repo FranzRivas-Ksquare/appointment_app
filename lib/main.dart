@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'resources/theme.dart';
 import 'resources/router.dart';
-import 'controller/data_crud.dart';
+import 'controller/data_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Appointments',
         theme: getApplicationTheme(),
         onGenerateRoute: onGenerateRoute,
-        initialRoute: '/home',
+        initialRoute: '/',
       ),
     );
   }

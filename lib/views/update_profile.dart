@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import '../custom_widgets/textfield_custom.dart';
 import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
-  static const String routeName = '/update_profile';
+  static const String routeName = AppRoutes.updateProfileScreen;
 
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
@@ -29,7 +30,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             flexibleSpace: Container(),
-            title: Text(AppString.updatePro),
+            title: const Text(AppString.updatePro),
             backgroundColor: ColorManager.auxiliary),
         body: Column(
           children: <Widget>[
@@ -43,7 +44,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: AppSize.s110,
                       width: double.infinity,
                     ),
-                    Container(
+                    const SizedBox(
                       height: AppSize.s60,
                       width: double.infinity,
                     ),
@@ -63,8 +64,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
             Form(
               key: _formKey,
               child: Container(
-                padding: EdgeInsets.fromLTRB(AppPadding.p16, AppPadding.p24,
-                    AppPadding.p16, AppPadding.p16),
+                padding: const EdgeInsets.fromLTRB(AppPadding.p16,
+                    AppPadding.p24, AppPadding.p16, AppPadding.p16),
                 child: Column(
                   children: <Widget>[
                     CustomNameField(
@@ -73,7 +74,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       hintText: AppString.name,
                       labelText: AppString.name,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: AppSize.s16,
                     ),
                     CustomPasswordField(
@@ -95,17 +96,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: AppSize.s60,
                     ),
                     //
                     ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.pushNamed(context, '/profile');
+                            Navigator.pushNamed(
+                                context, AppRoutes.profileScreen);
                           }
                         },
-                        child: Text(AppString.updatePro)),
+                        child: const Text(AppString.updatePro)),
                   ],
                 ),
               ),

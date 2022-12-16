@@ -4,6 +4,8 @@ import 'package:appointment/resources/font_manager.dart';
 import 'package:appointment/custom_widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 
+import '../custom_widgets/button_custom.dart';
+import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 
@@ -11,7 +13,7 @@ import '../custom_widgets/time_ratio.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
-  static const String routeName = '/home';
+  static const String routeName = AppRoutes.homeScreen;
 
   static final textLines = Appointments();
   static final List buttons = [
@@ -30,17 +32,20 @@ class Home extends StatelessWidget {
         backgroundColor: ColorManager.appBarLightPink,
         automaticallyImplyLeading: false,
         centerTitle: false,
-        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(AppString.welcome, style: Theme.of(context).textTheme.headline3),
-          Text(AppString.hello,
-              style:
-                  TextStyle(fontSize: FontSize.s16, color: ColorManager.appBarDarkPink)),
-        ]),
-
+        title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(AppString.welcome,
+                  style: Theme.of(context).textTheme.headline3),
+              Text(AppString.hello,
+                  style: TextStyle(
+                      fontSize: FontSize.s16,
+                      color: ColorManager.appBarDarkPink)),
+            ]),
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, "/profile");
+              Navigator.pushNamed(context, AppRoutes.profileScreen);
             },
             child: const Padding(
               padding: EdgeInsets.only(right: AppPadding.p18),
@@ -55,7 +60,7 @@ class Home extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: AppSize.s60,
                 width: double.infinity,
@@ -77,19 +82,17 @@ class Home extends StatelessWidget {
                         return AppointmentCard(
                             title: textLines.appointments[index]["title"],
                             due: textLines.appointments[index]["due"],
-                            description: textLines.appointments[index]["description"]);
+                            description: textLines.appointments[index]
+                                ["description"],
+                            date: textLines.appointments[index]["date"],
+                            time: textLines.appointments[index]["time"]);
                       })),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, "/new_appointment");
-        },
-        backgroundColor: ColorManager.darkGreen,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton:
+          CustomButton().floatingButton(context, AppRoutes.newAppScreen),
     );
   }
 }

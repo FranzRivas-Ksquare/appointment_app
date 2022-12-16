@@ -1,3 +1,5 @@
+import 'package:appointment/resources/routes_manager.dart';
+import 'package:appointment/resources/string_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'resources/theme.dart';
@@ -19,10 +21,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DataProvider()),
       ],
       child: MaterialApp(
-        title: 'Appointments',
+        title: AppString.appTitle,
         theme: getApplicationTheme(),
         onGenerateRoute: onGenerateRoute,
-        initialRoute: '/',
+        initialRoute: AppRoutes.signInScreen,
       ),
     );
   }

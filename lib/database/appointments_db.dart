@@ -31,7 +31,7 @@ class AppointmentDB {
   }
 
   // R in CRUD
-  Future<List<Appointment>> fetchAppointments(user) async {
+  Future<List<Appointment>> fetchAppointments() async {
     try {
       final read = await db.query(
         'APPOINTMENTS',

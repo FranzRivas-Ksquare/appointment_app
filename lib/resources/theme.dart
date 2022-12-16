@@ -201,7 +201,7 @@ ThemeData getApplicationTheme() {
         // hint style
         hintStyle: getRegularStyle(
             fontFamily: FontConstants.fontPrimary,
-            color: ColorManager.textFieldBackground),
+            color: ColorManager.textFieldBackground), //darkGreen
         // label style
         labelStyle: getMediumStyle(
             fontFamily: FontConstants.fontPrimary,

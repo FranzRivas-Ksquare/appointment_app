@@ -30,11 +30,19 @@ class SignIn extends StatelessWidget {
                   Text(AppString.signin,
                       style: Theme.of(context).textTheme.headline1),
                   CustomTextFormField(
-                      controller: _mailCtrl, validate: true, isPassword: false),
+                    controller: _mailCtrl,
+                    validate: true,
+                    isPassword: false,
+                    labelText: AppString.email,
+                    hintText: AppString.email,
+                  ),
                   CustomTextFormField(
-                      controller: _passwordCtrl,
-                      validate: true,
-                      isPassword: true),
+                    controller: _passwordCtrl,
+                    validate: true,
+                    isPassword: true,
+                    labelText: AppString.password,
+                    hintText: AppString.password,
+                  ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
                       onPressed: () {

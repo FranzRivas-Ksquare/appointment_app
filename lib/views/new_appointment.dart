@@ -81,8 +81,10 @@ class _NewAppointmentState extends State<NewAppointment> {
                       TextField(
                         controller: _titleCtrl,
                         keyboardType: TextInputType.text,
+                        style: (TextStyle(color: ColorManager.darkGreen)),
                         decoration: InputDecoration(
                           hintText: AppString.title,
+                          hintStyle: TextStyle(color: ColorManager.darkPink),
                           //labelText: AppString.title,
                           //helperText: AppString.requiredAdd
                         ),
@@ -96,8 +98,10 @@ class _NewAppointmentState extends State<NewAppointment> {
                         controller: _descrCtrl,
                         keyboardType: TextInputType.multiline,
                         maxLines: 5,
+                        style: (TextStyle(color: ColorManager.darkGreen)),
                         decoration: InputDecoration(
-                          hintText: AppString.descr,
+                          hintText: AppString.appointment,
+                          hintStyle: TextStyle(color: ColorManager.darkPink),
                           //labelText: AppString.descr,
                           //helperText: AppString.requiredAdd
                         ),

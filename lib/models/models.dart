@@ -30,14 +30,14 @@ class User {
 class Appointment {
   final int? id;
   String title;
-  String? description;
+  String description;
   String date;
   String author;
 
   Appointment(
       {this.id,
       required this.title,
-      this.description,
+      required this.description,
       required this.date,
       required this.author});
 

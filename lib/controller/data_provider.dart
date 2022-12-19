@@ -5,19 +5,20 @@ import 'package:appointment/database/database.dart';
 import 'package:appointment/database/user_db.dart';
 import 'package:appointment/database/appointments_db.dart';
 
-
 class DataProvider extends ChangeNotifier {
-  AppDB appDB = AppDB(dbName: 'db.sqlite');
-  String? email;
-  UserDB? userCtrl;
-  AppointmentDB? appointmentCtrl;
+  static AppDB appDB = AppDB(dbName: 'db.sqlite');
+  static String? email;
+  static UserDB? userCtrl;
+  static AppointmentDB? appointmentCtrl;
   User? currentUser;
   List<Appointment> appointments = [];
 
-  DataProvider();
-  DataProvider.initDB();
+  DataProvider() {
+    DataProvider.initDB();
+  }
 
-  void initDB() async {
+  static void initDB() async {
+    print("Provider initialized");
     appDB.open();
     Database db = await appDB.getDB;
     UserDB userDB = UserDB(db: db);
@@ -26,11 +27,14 @@ class DataProvider extends ChangeNotifier {
     appointmentCtrl = appointmentDB;
   }
 
-  void signUpUser(User user) async {
+  Future<bool> signUpUser(User user) async {
     bool validate = await userCtrl!.create(user);
     if (validate) {
       currentUser = user;
       notifyListeners();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -50,11 +54,14 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void createAppointments(Appointment appointment) async {
+  Future<bool> createAppointments(Appointment appointment) async {
     bool validate = await appointmentCtrl!.create(appointment);
     if (validate) {
       appointments.add(appointment);
       notifyListeners();
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -67,9 +74,14 @@ class DataProvider extends ChangeNotifier {
   void deleteAppointments(Appointment appointment) async {
     bool validate = await appointmentCtrl!.delete(appointment);
     if (validate) {
-      appointments = appointments.where((element) => element.id != appointment.id).toList();
+      appointments = appointments
+          .where((element) => element.id != appointment.id)
+          .toList();
     }
     notifyListeners();
   }
 
+  getAppointments() {
+    return appointments;
+  }
 }

@@ -47,13 +47,10 @@ class SignIn extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
-                      onPressed: () async
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                        if (await dbProvider.signInUSer(
-                            _mailCtrl.text, _passwordCtrl.text)) {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.homeScreen);
-                              }
                         }
                       },
                       child: const Text(AppString.signin)),

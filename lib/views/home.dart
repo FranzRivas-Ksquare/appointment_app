@@ -5,7 +5,6 @@ import 'package:appointment/custom_widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controller/data_provider.dart';
-import '../models/models.dart';
 import '../custom_widgets/button_custom.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -87,27 +86,11 @@ class Home extends StatelessWidget {
                             title: dbProvider.appointments[index].title,
                             due: dbProvider.appointments[index].date,
                             description:
-                                dbProvider.appointments[index].description);
-                      })
-                  /* child: FutureBuilder(
-                    future: dbProvider.getAppointments(),
-                    builder: ((context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<Appointment> apps = dbProvider.getAppointments();
-                        return ListView.builder(
-                            itemCount: apps.length,
-                            itemBuilder: (context, index) {
-                              return AppointmentCard(
-                                  title: apps[index].title,
-                                  due: apps[index].date,
-                                  description: apps[index].description);
-                            });
-                      } else {
-                        return Center(
-                          child: Text("Something wrong"),
+                                dbProvider.appointments[index].description,
+                          date: dbProvider.appointments[index].date,
+                          time: dbProvider.appointments[index].date,
                         );
-                      }
-                    })), */
+                      })
                   ),
             ],
           ),

@@ -65,7 +65,7 @@ class SignUp extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // TODO: Improve verify password logic
                         if (!_formKey.currentState!.validate()) {
                          User tempUser = User(
@@ -73,9 +73,9 @@ class SignUp extends StatelessWidget {
                             name: _nameCtrl.text,
                             password: _passwordCtrl.text,
                             avatar: "avatar.jpg");
-                            if (await dbProvider.signUpUser(tempUser)) {
-                          Navigator.pushReplacementNamed(
-                              context, AppRoutes.homeScreen);
+                         bool validate = await dbProvider.signUpUser(tempUser);
+                         if (validate) {
+                           Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
                         } else {
                           print("No user");
                         }

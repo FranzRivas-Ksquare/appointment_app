@@ -19,8 +19,8 @@ class ColorManager {
   static Color error = HexColor.fromHex("#FB2576");
   static Color fadeOpacity70 = HexColor.fromHex("#B30d0d0d");
 
-  static Color snackPicker = HexColor.fromHex("#FFFFFF");
-  static Color snackBorder = HexColor.fromHex("#000000");
+  static Color colorWhite = HexColor.fromHex("#FFFFFF");
+  static Color colorBlack = HexColor.fromHex("#000000");
 }
 
 extension HexColor on Color {

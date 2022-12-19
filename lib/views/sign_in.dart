@@ -6,52 +6,65 @@ import 'package:provider/provider.dart';
 
 import '../controller/data_provider.dart';
 
+import '../custom_widgets/hideKeyboard_custom.dart';
+import '../resources/routes_manager.dart';
+
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
 
-  static const String routeName = '/';
+  static const String routeName = AppRoutes.signInScreen;
 
   @override
   Widget build(BuildContext context) {
     var dbProvider = Provider.of<DataProvider>(context);
     var _formKey = GlobalKey<FormState>();
-
     TextEditingController _mailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
-
-    return Scaffold(
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(AppPadding.p16),
-            child: Column(
-              children: [
-                Text(AppString.signin,
-                    style: Theme.of(context).textTheme.headline1),
-                CustomTextFormField(
-                    controller: _mailCtrl, validate: true, isPassword: false),
-                CustomTextFormField(
+    return HideKeyboard(
+      child: Scaffold(
+        body: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(AppPadding.p16),
+              child: Column(
+                children: [
+                  Text(AppString.signin,
+                      style: Theme.of(context).textTheme.headline1),
+                  CustomTextFormField(
+                    controller: _mailCtrl,
+                    validate: true,
+                    isPassword: false,
+                    labelText: AppString.email,
+                    hintText: AppString.email,
+                  ),
+                  CustomTextFormField(
                     controller: _passwordCtrl,
                     validate: true,
-                    isPassword: true),
-                const Expanded(child: SizedBox()),
-                ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                    isPassword: true,
+                    labelText: AppString.password,
+                    hintText: AppString.password,
+                  ),
+                  const Expanded(child: SizedBox()),
+                  ElevatedButton(
+                      onPressed: () async
+                        if (_formKey.currentState!.validate()) {
                         if (await dbProvider.signInUSer(
                             _mailCtrl.text, _passwordCtrl.text)) {
-                          Navigator.pushReplacementNamed(context, '/home');
+                          Navigator.pushReplacementNamed(
+                              context, AppRoutes.homeScreen);
+                              }
                         }
-                      }
-                    },
-                    child: const Text(AppString.signin)),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/sign_up');
-                    },
-                    child: const Text(AppString.dontAccount))
-              ],
+                      },
+                      child: const Text(AppString.signin)),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.signUpScreen);
+                      },
+                      child: const Text(AppString.dontAccount))
+                ],
+              ),
             ),
           ),
         ),

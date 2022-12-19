@@ -10,10 +10,10 @@ class CustomTextStyle {
       fontFamily: FontConstants.fontPrimary,
       fontSize: FontSize.s28);
 
-  static TextStyle profileEmail = getSemiBoldStyle(
-      color: ColorManager.darkGreen,
-      fontFamily: FontConstants.fontPrimary,
-      fontSize: FontSize.s14);
+  // static TextStyle profileEmail = getSemiBoldStyle(
+  //     color: ColorManager.darkGreen,
+  //     fontFamily: FontConstants.fontPrimary,
+  //     fontSize: FontSize.s14);
 
   static TextStyle appointmentTitles = getSemiBoldStyle(
       color: ColorManager.textFieldText,
@@ -25,10 +25,10 @@ class CustomTextStyle {
       fontFamily: FontConstants.fontPrimary,
       fontSize: FontSize.s18);
 
-  static TextStyle appointmentTime = getRegularStyle(
-      color: ColorManager.textColor,
-      fontFamily: FontConstants.fontPrimary,
-      fontSize: FontSize.s18);
+  // static TextStyle appointmentTime = getRegularStyle(
+  //     color: ColorManager.textColor,
+  //     fontFamily: FontConstants.fontPrimary,
+  //     fontSize: FontSize.s18);
 }
 
 ThemeData getApplicationTheme() {
@@ -130,29 +130,51 @@ ThemeData getApplicationTheme() {
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s16),
           subtitle1: getLightStyle(
-              // TODO:
+              // TODO: card due
               color: ColorManager.textFieldText,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
           subtitle2: getSemiBoldStyle(
-              // TODO:
-              color: ColorManager.textColor,
+              // TODO: profile email
+              color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s17),
+              fontSize: FontSize.s14),
           bodyText1: getRegularStyle(
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
           bodyText2: getMediumStyle(
-              // TODO:
+              // TODO: Dialog text
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s16),
+              fontSize: FontSize.s18),
           caption: getRegularStyle(
               // TODO: Alert Text
               color: ColorManager.auxiliary,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14)),
+
+      //dialog
+      dialogTheme: DialogTheme(
+        elevation: ElementElevation.e2,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(color: ColorManager.colorBlack, width: AppSize.s1),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(ElementRatio.r20),
+            )),
+        iconColor: ColorManager.darkGreen,
+        backgroundColor: ColorManager.colorWhite,
+        titleTextStyle: getSemiBoldStyle(
+            color: ColorManager.darkGreen,
+            fontFamily: FontConstants.fontPrimary,
+            fontSize: FontSize.s24),
+        contentTextStyle: getSemiBoldStyle(
+            color: ColorManager.darkPink,
+            fontFamily: FontConstants.fontPrimary,
+            fontSize: FontSize.s18),
+        actionsPadding: const EdgeInsets.all(AppPadding.p8),
+        alignment: Alignment.center,
+      ),
 
       //SnackBar
       snackBarTheme: SnackBarThemeData(
@@ -163,8 +185,7 @@ ThemeData getApplicationTheme() {
             fontFamily: FontConstants.fontPrimary,
             fontSize: FontSize.s16),
         shape: RoundedRectangleBorder(
-            side:
-                BorderSide(color: ColorManager.snackBorder, width: AppSize.s1),
+            side: BorderSide(color: ColorManager.colorBlack, width: AppSize.s1),
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(ElementRatio.r20),
               bottom: Radius.circular(ElementRatio.r0),
@@ -180,7 +201,7 @@ ThemeData getApplicationTheme() {
         // hint style
         hintStyle: getRegularStyle(
             fontFamily: FontConstants.fontPrimary,
-            color: ColorManager.textFieldBackground),
+            color: ColorManager.textFieldBackground), //darkGreen
         // label style
         labelStyle: getMediumStyle(
             fontFamily: FontConstants.fontPrimary,

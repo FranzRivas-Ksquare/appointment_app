@@ -1,4 +1,6 @@
 class AppString {
+  static const String appTitle = 'Appointments';
+
   static const String signup = "Sign up";
   static const String signin = "Sign in";
   static const String name = "Name";
@@ -43,4 +45,6 @@ class AppString {
   static const String time = "Time";
   static const String newAppoint = "New Appointment";
   static const String upSuccess = "Update Success";
+
+  static const String home = "Home";
 }

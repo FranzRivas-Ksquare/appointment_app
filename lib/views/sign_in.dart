@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:appointment/custom_widgets/textfield_custom.dart';
+import 'package:provider/provider.dart';
+
+import '../controller/data_provider.dart';
 
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/routes_manager.dart';
@@ -13,11 +16,10 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dbProvider = Provider.of<DataProvider>(context);
     var _formKey = GlobalKey<FormState>();
-
     TextEditingController _mailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
-
     return HideKeyboard(
       child: Scaffold(
         body: SafeArea(
@@ -45,10 +47,13 @@ class SignIn extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async
                         if (_formKey.currentState!.validate()) {
+                        if (await dbProvider.signInUSer(
+                            _mailCtrl.text, _passwordCtrl.text)) {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.homeScreen);
+                              }
                         }
                       },
                       child: const Text(AppString.signin)),

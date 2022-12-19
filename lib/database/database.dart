@@ -21,31 +21,23 @@ class AppDB {
 
     final databasesPath = await getApplicationDocumentsDirectory();
     String path = '$databasesPath/$dbName';
+    String Testpath = '$databasesPath/testDb2.db';
 
     try {
-      final db = await openDatabase(path);
+      final db = await openDatabase(Testpath);
       _db = db;
-
+      print("Database created");
       // Create Table
-      const tableAppoint = '''CREATE TABLE IF NOT EXISTS APPOINTMENTS (
-        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-        TITLE TEXT NOT NULL,
-        DESCRIPTION TEXT,
-        DATE TEXT NOT NULL,
-        AUTHOR TEXT NOT NULL,
-        CONSTRAINT APPOINTMENTS_FK FOREIGN KEY (AUTHOR) REFERENCES USERS(EMAIL),       
-        );''';
+      const tableAppoint =
+          'CREATE TABLE IF NOT EXISTS APPOINTMENTS (ID INTEGER NOT NULL UNIQUE,TITLE TEXT NOT NULL,DESCRIPTION TEXT, DATE TEXT NOT NULL,AUTHOR TEXT NOT NULL,CONSTRAINT APPOINTMENTS_FK FOREIGN KEY (AUTHOR) REFERENCES USERS(EMAIL),PRIMARY KEY(id)       )';
 
-      const tableUser = '''CREATE TABLE IF NOT EXISTS USERS (
-        EMAIL	TEXT NOT NULL UNIQUE,
-        PASSWORD TEXT NOT NULL,
-        NAME TEXT,
-        CONSTRAINT USERS_PK PRIMARY KEY (EMAIL),
-      );''';
+      const tableUser =
+          'CREATE TABLE IF NOT EXISTS USERS (EMAIL	TEXT NOT NULL UNIQUE,PASSWORD TEXT NOT NULL,NAME TEXT NOT NULL,AVATAR TEXT,CONSTRAINT USERS_PK PRIMARY KEY (EMAIL))';
 
       await db.execute(tableAppoint);
+      print("APPOINTMENTS TABLE CREATED");
       await db.execute(tableUser);
-
+      print("USERS TABLE CREATED");
       return true;
     } catch (e) {
       if (kDebugMode) print('Error opening database: $e');

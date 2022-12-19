@@ -3,7 +3,9 @@ import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/font_manager.dart';
 import 'package:appointment/custom_widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../controller/data_provider.dart';
+import '../models/models.dart';
 import '../custom_widgets/button_custom.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -27,6 +29,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dbProvider = Provider.of<DataProvider>(context);
+    dbProvider.fetchAppointments();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.appBarLightPink,
@@ -77,16 +81,34 @@ class Home extends StatelessWidget {
               ),
               Expanded(
                   child: ListView.builder(
-                      itemCount: textLines.appointments.length,
+                      itemCount: dbProvider.appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
-                            title: textLines.appointments[index]["title"],
-                            due: textLines.appointments[index]["due"],
-                            description: textLines.appointments[index]
-                                ["description"],
-                            date: textLines.appointments[index]["date"],
-                            time: textLines.appointments[index]["time"]);
-                      })),
+                            title: dbProvider.appointments[index].title,
+                            due: dbProvider.appointments[index].date,
+                            description:
+                                dbProvider.appointments[index].description);
+                      })
+                  /* child: FutureBuilder(
+                    future: dbProvider.getAppointments(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Appointment> apps = dbProvider.getAppointments();
+                        return ListView.builder(
+                            itemCount: apps.length,
+                            itemBuilder: (context, index) {
+                              return AppointmentCard(
+                                  title: apps[index].title,
+                                  due: apps[index].date,
+                                  description: apps[index].description);
+                            });
+                      } else {
+                        return Center(
+                          child: Text("Something wrong"),
+                        );
+                      }
+                    })), */
+                  ),
             ],
           ),
         ),

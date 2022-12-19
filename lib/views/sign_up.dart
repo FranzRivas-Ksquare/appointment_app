@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:appointment/custom_widgets/textfield_custom.dart';
-//import 'package:appointment/database/user_db.dart';
-
+import 'package:appointment/database/user_db.dart';
+import 'package:provider/provider.dart';
+import '../controller/data_provider.dart';
+import '../models/models.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/routes_manager.dart';
+
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -15,12 +18,12 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _formKey = GlobalKey<FormState>();
-
+    var dbProvider = Provider.of<DataProvider>(context);
     TextEditingController _nameCtrl = TextEditingController();
     TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
     TextEditingController _verifyPassCtrl = TextEditingController();
-
+    
     return HideKeyboard(
       child: Scaffold(
         body: SafeArea(
@@ -65,8 +68,18 @@ class SignUp extends StatelessWidget {
                       onPressed: () {
                         // TODO: Improve verify password logic
                         if (!_formKey.currentState!.validate()) {
+                         User tempUser = User(
+                            email: _emailCtrl.text,
+                            name: _nameCtrl.text,
+                            password: _passwordCtrl.text,
+                            avatar: "avatar.jpg");
+                            if (await dbProvider.signUpUser(tempUser)) {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.homeScreen);
+                        } else {
+                          print("No user");
+                        }
+                          
                         }
                       },
                       child: const Text(AppString.signup)),

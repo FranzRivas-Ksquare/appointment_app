@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../controller/data_provider.dart';
+import '../models/models.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
+
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -26,6 +30,7 @@ class _NewAppointmentState extends State<NewAppointment> {
 
   @override
   Widget build(BuildContext context) {
+    var dbProvider = Provider.of<DataProvider>(context);
     Future<void> _showDatePicker() async {
       DateTime? newDate = await showDatePicker(
           context: context,
@@ -140,7 +145,15 @@ class _NewAppointmentState extends State<NewAppointment> {
                       ),
                       const SizedBox(height: AppSize.s52),
                       ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async{
+                          Appointment newApp = Appointment(
+                              title: _titleCtrl.text,
+                              date: dateNow + timeNow,
+                              description: _descrCtrl.text,
+                              author: dbProvider.currentUser!.email);
+                          if (await dbProvider.createAppointments(newApp)) {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          }
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,

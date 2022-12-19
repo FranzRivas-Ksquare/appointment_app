@@ -8,11 +8,15 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.validate,
     required this.isPassword,
+    required this.labelText,
+    required this.hintText,
   });
 
-  TextEditingController controller;
-  bool validate;
-  bool isPassword;
+  final TextEditingController controller;
+  final bool validate;
+  final bool isPassword;
+  final String labelText;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,10 @@ class CustomTextFormField extends StatelessWidget {
           if (value!.isEmpty) return AppString.requiredAdd;
           return null;
         },
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+        ),
       ),
     );
   }

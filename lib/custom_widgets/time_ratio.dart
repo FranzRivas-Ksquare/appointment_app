@@ -13,29 +13,20 @@ class TimeRatio extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.s24,
-      margin: const EdgeInsets.only(
-          left: AppMargin.m8,
-          right: AppMargin.m8),
-      padding: const EdgeInsets.only(
-          left: AppPadding.p8,
-          right: AppPadding.p8),
+      margin: const EdgeInsets.only(left: AppMargin.m8, right: AppMargin.m8),
+      padding: const EdgeInsets.only(left: AppPadding.p8, right: AppPadding.p8),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ElementRatio.r50),
-        color: isSelect
-            ? ColorManager.lightPink
-            : Colors.white,
+        color: isSelect ? ColorManager.lightPink : Colors.white,
       ),
       child: Text(
         text,
         style: TextStyle(
           fontSize: 14,
-          color: isSelect
-              ? Colors.white
-              : Colors.black,
+          color: isSelect ? Colors.white : Colors.black,
         ),
       ),
     );
   }
-
 }

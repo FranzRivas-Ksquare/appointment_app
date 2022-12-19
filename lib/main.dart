@@ -1,10 +1,15 @@
+import 'package:appointment/resources/routes_manager.dart';
+import 'package:appointment/resources/string_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'resources/theme.dart';
 import 'resources/router.dart';
 import 'controller/data_provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
@@ -19,10 +24,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DataProvider()),
       ],
       child: MaterialApp(
-        title: 'Appointments',
+        title: AppString.appTitle,
         theme: getApplicationTheme(),
         onGenerateRoute: onGenerateRoute,
-        initialRoute: '/',
+        initialRoute: AppRoutes.signInScreen,
       ),
     );
   }

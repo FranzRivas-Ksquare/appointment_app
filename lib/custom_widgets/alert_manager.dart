@@ -151,14 +151,14 @@ class AlertManager {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 OutlinedButton(
-                    onPressed: () {}, child: Text(AppString.gallery)),
-                OutlinedButton(onPressed: () {}, child: Text(AppString.camera)),
+                    onPressed: () {}, child: const Text(AppString.gallery)),
+                OutlinedButton(onPressed: () {}, child: const Text(AppString.camera)),
               ],
             ),
           ],
         ),
       ),
-      backgroundColor: ColorManager.snackPicker,
+      backgroundColor: ColorManager.colorWhite,
     ));
   }
 }

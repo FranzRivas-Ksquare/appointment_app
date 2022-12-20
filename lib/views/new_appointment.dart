@@ -55,98 +55,93 @@ class _NewAppointmentState extends State<NewAppointment> {
       });
     }
 
-    _titleCtrl.text = 'Flutter Exam';
-    _descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
+    //_titleCtrl.text = 'Flutter Exam';
+    //_descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
-    return HideKeyboard(
-      child: SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              flexibleSpace: Container(),
-              title: Text(AppString.newAppoint,
-                  style: Theme.of(context).textTheme.headline2),
-            ),
-            body: Column(
-              children: <Widget>[
-                Container(
-                  color: ColorManager.darkPink,
-                  height: AppSize.s110,
-                  width: double.infinity,
-                ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(AppPadding.p14,
-                      AppPadding.p28, AppPadding.p24, AppPadding.p14),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        AppString.title,
-                        style: CustomTextStyle.appointmentTitles,
+    return SafeArea(
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            flexibleSpace: Container(),
+            title: Text(AppString.newAppoint,
+                style: Theme.of(context).textTheme.headline2),
+          ),
+          body: Column(
+            children: <Widget>[
+              Container(
+                color: ColorManager.darkPink,
+                height: AppSize.s110,
+                width: double.infinity,
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(AppPadding.p14,
+                    AppPadding.p28, AppPadding.p24, AppPadding.p14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      AppString.title,
+                      style: CustomTextStyle.appointmentTitles,
+                    ),
+                    TextField(
+                      controller: _titleCtrl,
+                      keyboardType: TextInputType.text,
+                      style: (TextStyle(color: ColorManager.darkGreen)),
+                      decoration: InputDecoration(
+                        hintText: AppString.title,
+                        hintStyle: TextStyle(color: ColorManager.darkPink),
                       ),
-                      TextField(
-                        controller: _titleCtrl,
-                        keyboardType: TextInputType.text,
-                        style: (TextStyle(color: ColorManager.darkGreen)),
-                        decoration: InputDecoration(
-                          hintText: AppString.title,
-                          hintStyle: TextStyle(color: ColorManager.darkPink),
-                          //labelText: AppString.title,
-                          //helperText: AppString.requiredAdd
+                    ),
+                    const SizedBox(
+                      height: AppSize.s24,
+                    ),
+                    Text(AppString.appointment,
+                        style: CustomTextStyle.appointmentTitles),
+                    TextField(
+                      controller: _descrCtrl,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 5,
+                      style: (TextStyle(color: ColorManager.darkGreen)),
+                      decoration: InputDecoration(
+                        hintText: AppString.appointment,
+                        hintStyle: TextStyle(color: ColorManager.darkPink),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AppSize.s40,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        OutlinedButton(
+                            onPressed: _showDatePicker,
+                            child: const Text(AppString.date)),
+                        const SizedBox(
+                          width: AppSize.s28,
                         ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s24,
-                      ),
-                      Text(AppString.appointment,
-                          style: CustomTextStyle.appointmentTitles),
-                      TextField(
-                        controller: _descrCtrl,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        style: (TextStyle(color: ColorManager.darkGreen)),
-                        decoration: InputDecoration(
-                          hintText: AppString.appointment,
-                          hintStyle: TextStyle(color: ColorManager.darkPink),
-                          //labelText: AppString.descr,
-                          //helperText: AppString.requiredAdd
+                        Text(
+                          dateNow,
+                          style: CustomTextStyle.appointmentDate,
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppSize.s28,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        OutlinedButton(
+                            onPressed: _showTimePicker,
+                            child: const Text(AppString.time)),
+                        const SizedBox(
+                          width: AppSize.s28,
                         ),
-                      ),
-                      const SizedBox(
-                        height: AppSize.s40,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          OutlinedButton(
-                              onPressed: _showDatePicker,
-                              child: const Text(AppString.date)),
-                          const SizedBox(
-                            width: AppSize.s28,
-                          ),
-                          Text(
-                            dateNow,
-                            style: CustomTextStyle.appointmentDate,
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: AppSize.s28,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          OutlinedButton(
-                              onPressed: _showTimePicker,
-                              child: const Text(AppString.time)),
-                          const SizedBox(
-                            width: AppSize.s28,
-                          ),
-                          Text(timeNow,
-                              style: Theme.of(context).textTheme.bodyText2)
-                        ],
-                      ),
-                      const SizedBox(height: AppSize.s52),
-                      ElevatedButton(
-                          onPressed: () async {
+                        Text(timeNow,
+                            style: Theme.of(context).textTheme.bodyText2)
+                      ],
+                    ),
+                    const SizedBox(height: AppSize.s52),
+                    ElevatedButton(
+                        onPressed: () async {
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
                               date: '$dateNow $timeNow',
@@ -154,23 +149,23 @@ class _NewAppointmentState extends State<NewAppointment> {
                               author: dataServices.getCurrentUser!.email);
                           // TODO: Validate all appointments date in a loop to verify availability
                           if (await dataServices.createAppointments(newApp)) {
-                            Navigator.pushReplacementNamed(context, '/home');
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.homeScreen);
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,
                                 AppRoutes.homeScreen,
                                 AppString.home);
                           }
-                            print(dateNow);
-                            print(timeNow);
-                          },
-                          child: const Text(AppString.newAppoint)),
-                    ],
-                  ),
-                )
-              ],
-            )),
-      ),
+                          print(dateNow);
+                          print(timeNow);
+                        },
+                        child: const Text(AppString.newAppoint)),
+                  ],
+                ),
+              )
+            ],
+          )),
     );
   }
 }

@@ -27,9 +27,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
     var dataServices = Provider.of<DataProvider>(context);
 
-    _nameCtrl.text = dataServices.getCurrentUser.name;
-    _passwordCtrl.text = dataServices.getCurrentUser.password;
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

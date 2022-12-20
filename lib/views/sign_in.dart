@@ -16,7 +16,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dbProvider = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DataProvider>(context);
     var _formKey = GlobalKey<FormState>();
     TextEditingController _mailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();

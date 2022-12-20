@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/string_manager.dart';
-import 'package:appointment/resources/theme.dart';
-
+import 'package:provider/provider.dart';
+import '../resources/string_manager.dart';
+import '../resources/theme.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/values_manager.dart';
+import '../controller/data_provider.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -12,6 +13,9 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var dataServices = Provider.of<DataProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -53,11 +57,13 @@ class Profile extends StatelessWidget {
               padding: const EdgeInsets.all(AppPadding.p14),
               child: Column(
                 children: <Widget>[
-                  Text("Sherly Cabrera", style: CustomTextStyle.profileName),
+                  Text(
+                      dataServices.getCurrentUser.name,
+                      style: CustomTextStyle.profileName),
                   const SizedBox(
                     height: AppSize.s8,
                   ),
-                  Text("SherlyCabrera@demo.com",
+                  Text(dataServices.getCurrentUser.email,
                       style: Theme.of(context).textTheme.subtitle2),
                   const SizedBox(
                     height: AppSize.s110,

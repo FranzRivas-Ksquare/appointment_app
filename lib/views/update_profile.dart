@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
-import '../custom_widgets/textfield_custom.dart';
+import 'package:provider/provider.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
+import '../custom_widgets/textfield_custom.dart';
+import '../models/models.dart';
+import '../controller/data_provider.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({super.key});
@@ -22,8 +24,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    _nameCtrl.text = 'Sherly Cabrera';
-    _passwordCtrl.text = 'SherlyCabrera01';
+
+    var dataServices = Provider.of<DataProvider>(context);
+
+    _nameCtrl.text = dataServices.getCurrentUser.name;
+    _passwordCtrl.text = dataServices.getCurrentUser.password;
 
     return SafeArea(
       child: Scaffold(
@@ -103,6 +108,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
+                            User updateUser = User(
+                              name: _nameCtrl.text,
+                              email: dataServices.getCurrentUser.email,
+                              password: _passwordCtrl.text,
+                              avatar: '',
+                            );
+
+                            dataServices.updateUser(updateUser);
                             Navigator.pushNamed(
                                 context, AppRoutes.profileScreen);
                           }

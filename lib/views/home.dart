@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
             children: <Widget>[
               Text(AppString.welcome,
                   style: Theme.of(context).textTheme.headline3),
-              Text(AppString.hello,
+              Text('${AppString.hello} ${dataServices.getCurrentUser.name}',
                   style: TextStyle(
                       fontSize: FontSize.s16,
                       color: ColorManager.appBarDarkPink)),

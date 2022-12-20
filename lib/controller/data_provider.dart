@@ -55,6 +55,16 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> updateUser(User user) async {
+    bool validate = await userCtrl!.update(user);
+    if (validate) {
+      currentUser = user;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   get getCurrentUser => currentUser;
 
   //--Appointments services

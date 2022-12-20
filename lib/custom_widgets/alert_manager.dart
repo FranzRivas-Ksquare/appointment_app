@@ -121,7 +121,7 @@ class AlertManager {
     ));
   }
 
-  displaySnackbarPicker(context) {
+  displaySnackbarPicker(context, Widget buttonGallery, Widget buttonCamera) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(milliseconds: DurationConstant.d4000),
       content: SizedBox(
@@ -150,9 +150,8 @@ class AlertManager {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                OutlinedButton(
-                    onPressed: () {}, child: const Text(AppString.gallery)),
-                OutlinedButton(onPressed: () {}, child: const Text(AppString.camera)),
+                buttonGallery,
+                buttonCamera,
               ],
             ),
           ],

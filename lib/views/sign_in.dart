@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/string_manager.dart';
-import 'package:appointment/resources/values_manager.dart';
-import 'package:appointment/custom_widgets/textfield_custom.dart';
 import 'package:provider/provider.dart';
-
-import '../controller/data_provider.dart';
-
-import '../custom_widgets/hideKeyboard_custom.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
 import '../resources/routes_manager.dart';
+import '../custom_widgets/textfield_custom.dart';
+import '../custom_widgets/hideKeyboard_custom.dart';
+import '../custom_widgets/alert_manager.dart';
+import '../controller/data_provider.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -16,10 +15,13 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     var dataServices = Provider.of<DataProvider>(context);
     var _formKey = GlobalKey<FormState>();
-    TextEditingController _mailCtrl = TextEditingController();
+
+    TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
+
     return HideKeyboard(
       child: Scaffold(
         body: SafeArea(
@@ -32,7 +34,7 @@ class SignIn extends StatelessWidget {
                   Text(AppString.signin,
                       style: Theme.of(context).textTheme.headline1),
                   CustomTextFormField(
-                    controller: _mailCtrl,
+                    controller: _emailCtrl,
                     validate: true,
                     isPassword: false,
                     labelText: AppString.email,
@@ -49,8 +51,16 @@ class SignIn extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushReplacementNamed(
-                              context, AppRoutes.homeScreen);
+                          bool validate = await dataServices.signInUser(
+                              _emailCtrl.text, _passwordCtrl.text);
+                          if (validate) {
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.homeScreen);
+                          } else {
+                            // TODO: Fix singInUser service before continue!!!
+                            AlertManager().displaySnackbarLogIn(
+                                context, AppString.message, AppString.noUser);
+                          }
                         }
                       },
                       child: const Text(AppString.signin)),

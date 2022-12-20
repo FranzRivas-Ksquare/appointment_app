@@ -25,6 +25,7 @@ class _NewAppointmentState extends State<NewAppointment> {
   final TextEditingController _titleCtrl = TextEditingController();
   final TextEditingController _descrCtrl = TextEditingController();
 
+  // TODO: Create a DateTime type variable with dateNow and timeNow values
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
 
@@ -148,17 +149,18 @@ class _NewAppointmentState extends State<NewAppointment> {
                           onPressed: () async {
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
-                              date: dateNow + timeNow,
+                              date: '$dateNow $timeNow',
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
+                          // TODO: Validate all appointments date in a loop to verify availability
                           if (await dataServices.createAppointments(newApp)) {
                             Navigator.pushReplacementNamed(context, '/home');
-                          }
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,
                                 AppRoutes.homeScreen,
                                 AppString.home);
+                          }
                             print(dateNow);
                             print(timeNow);
                           },

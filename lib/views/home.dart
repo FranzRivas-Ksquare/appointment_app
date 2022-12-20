@@ -16,6 +16,7 @@ class Home extends StatelessWidget {
   static const String routeName = AppRoutes.homeScreen;
 
   static final textLines = Appointments();
+  // TODO: Filter appointments per date range
   static final List buttons = [
     "All",
     "Today",
@@ -84,12 +85,11 @@ class Home extends StatelessWidget {
                       itemCount: dataServices.appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
-                            title: dataServices.appointments[index].title,
-                            due: dataServices.appointments[index].date,
-                            description:
-                                dataServices.appointments[index].description,
-                          date: dataServices.appointments[index].date,
-                          time: dataServices.appointments[index].date,
+                          title: dataServices.appointments[index].title,
+                          due: dataServices.appointments[index].date.split(' ')[0],
+                          description: dataServices.appointments[index].description,
+                          date: dataServices.appointments[index].date.split(' ')[0],
+                          time: dataServices.appointments[index].date.split(' ')[1],
                         );
                       })
                   ),

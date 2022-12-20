@@ -53,6 +53,7 @@ class AppointmentCard extends StatelessWidget {
                               style: Theme.of(context).textTheme.bodyText1))
                     ])),
             const Expanded(child: SizedBox()),
+            // TODO from DateTime data mutate to weekday 'DateTime.parse('1969-07-20 20:18:04Z').weekday'
             Align(
               alignment: Alignment.topRight,
               child: Text(due, style: Theme.of(context).textTheme.subtitle1),

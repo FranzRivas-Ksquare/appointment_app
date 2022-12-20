@@ -41,10 +41,13 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> signInUSer(String email, String password) async {
-    List<User> tempUser = await userCtrl!.fetchUser(email);
-    if (tempUser[0].password == password) {
-      currentUser = tempUser[0];
+  // TODO: "Error no match user = Array range error" Fix this!!!
+  Future<bool> signInUser(String email, String password) async {
+    User tempUser = await userCtrl!
+        .fetchUser(email)
+        .then((value) => value[0]);
+    if (tempUser.password == password) {
+      currentUser = tempUser;
       notifyListeners();
       return true;
     } else {

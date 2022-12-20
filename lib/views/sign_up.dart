@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:appointment/resources/string_manager.dart';
-import 'package:appointment/resources/values_manager.dart';
-import 'package:appointment/custom_widgets/textfield_custom.dart';
-import 'package:appointment/database/user_db.dart';
 import 'package:provider/provider.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
+import '../resources/routes_manager.dart';
+import '../custom_widgets/textfield_custom.dart';
+import '../custom_widgets/hideKeyboard_custom.dart';
+import '../custom_widgets/alert_manager.dart';
 import '../controller/data_provider.dart';
 import '../models/models.dart';
-import '../custom_widgets/hideKeyboard_custom.dart';
-import '../resources/routes_manager.dart';
 
 
 class SignUp extends StatelessWidget {
@@ -65,21 +65,20 @@ class SignUp extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
-                      onPressed: () async {
-                        // TODO: Improve verify password logic
-                        if (!_formKey.currentState!.validate()) {
-                         User tempUser = User(
-                            email: _emailCtrl.text,
-                            name: _nameCtrl.text,
-                            password: _passwordCtrl.text,
-                            avatar: "avatar.jpg");
-                         bool validate = await dataServices.signUpUser(tempUser);
-                         if (validate) {
-                           Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
-                        } else {
-                          print("No user");
-                        }
-                          
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (_passwordCtrl.text != _verifyPassCtrl.text) {
+                            AlertManager().displaySnackbarSignUp(
+                                context, AppString.error, AppString.noMatch);
+                          } else {
+                            User tempUser = User(
+                                email: _emailCtrl.text,
+                                name: _nameCtrl.text,
+                                password: _passwordCtrl.text,
+                                avatar: "avatar.jpg");
+                            dataServices.signUpUser(tempUser);
+                            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                          }
                         }
                       },
                       child: const Text(AppString.signup)),

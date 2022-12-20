@@ -18,7 +18,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _formKey = GlobalKey<FormState>();
-    var dbProvider = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DataProvider>(context);
     TextEditingController _nameCtrl = TextEditingController();
     TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
@@ -73,7 +73,7 @@ class SignUp extends StatelessWidget {
                             name: _nameCtrl.text,
                             password: _passwordCtrl.text,
                             avatar: "avatar.jpg");
-                         bool validate = await dbProvider.signUpUser(tempUser);
+                         bool validate = await dataServices.signUpUser(tempUser);
                          if (validate) {
                            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
                         } else {

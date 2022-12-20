@@ -1,16 +1,15 @@
-import 'package:appointment/models/dummy_data.dart';
-import 'package:appointment/resources/color_manager.dart';
-import 'package:appointment/resources/font_manager.dart';
-import 'package:appointment/custom_widgets/appointment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../controller/data_provider.dart';
-import '../custom_widgets/button_custom.dart';
+import '../resources/color_manager.dart';
+import '../resources/font_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
-
+import '../custom_widgets/appointment_card.dart';
+import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
+import '../models/dummy_data.dart';
+import '../controller/data_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -28,8 +27,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dbProvider = Provider.of<DataProvider>(context);
-    dbProvider.fetchAppointments();
+    //--Set provider
+    var dataServices = Provider.of<DataProvider>(context);
+    dataServices.fetchAppointments();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.appBarLightPink,
@@ -80,15 +81,15 @@ class Home extends StatelessWidget {
               ),
               Expanded(
                   child: ListView.builder(
-                      itemCount: dbProvider.appointments.length,
+                      itemCount: dataServices.appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
-                            title: dbProvider.appointments[index].title,
-                            due: dbProvider.appointments[index].date,
+                            title: dataServices.appointments[index].title,
+                            due: dataServices.appointments[index].date,
                             description:
-                                dbProvider.appointments[index].description,
-                          date: dbProvider.appointments[index].date,
-                          time: dbProvider.appointments[index].date,
+                                dataServices.appointments[index].description,
+                          date: dataServices.appointments[index].date,
+                          time: dataServices.appointments[index].date,
                         );
                       })
                   ),

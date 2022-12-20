@@ -57,7 +57,7 @@ class AppDB {
   }
 
   Future<Database> get getDB async {
-    if (_db == null) final createDB = await open();
+    if (_db == null) await open();
     Database db = _db!;
     return db;
   }

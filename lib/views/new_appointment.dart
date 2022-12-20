@@ -30,7 +30,7 @@ class _NewAppointmentState extends State<NewAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    var dbProvider = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DataProvider>(context);
     Future<void> _showDatePicker() async {
       DateTime? newDate = await showDatePicker(
           context: context,
@@ -145,13 +145,13 @@ class _NewAppointmentState extends State<NewAppointment> {
                       ),
                       const SizedBox(height: AppSize.s52),
                       ElevatedButton(
-                          onPressed: () async{
+                          onPressed: () async {
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
                               date: dateNow + timeNow,
                               description: _descrCtrl.text,
-                              author: dbProvider.currentUser!.email);
-                          if (await dbProvider.createAppointments(newApp)) {
+                              author: dataServices.getCurrentUser!.email);
+                          if (await dataServices.createAppointments(newApp)) {
                             Navigator.pushReplacementNamed(context, '/home');
                           }
                             DialogManager().sucessDialog(

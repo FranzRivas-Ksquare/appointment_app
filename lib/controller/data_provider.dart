@@ -21,7 +21,7 @@ class DataProvider extends ChangeNotifier {
   //--DB init service
   static void initDB() async {
     if (kDebugMode) print("Database init trigger");
-    appDB.open();
+    await appDB.open();
     Database db = await appDB.getDB;
     UserDB userDB = UserDB(db: db);
     AppointmentDB appointmentDB = AppointmentDB(db: db);

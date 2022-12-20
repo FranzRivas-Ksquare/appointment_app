@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:appointment/models/models.dart';
-import 'package:appointment/database/database.dart';
-import 'package:appointment/database/user_db.dart';
-import 'package:appointment/database/appointments_db.dart';
+import '../models/models.dart';
+import '../database/database.dart';
+import '../database/user_db.dart';
+import '../database/appointments_db.dart';
 
 class DataProvider extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'db.sqlite');
-  static String? email;
+  static AppDB appDB = AppDB(dbName: 'database.db');
+  String? email;
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
@@ -17,8 +18,9 @@ class DataProvider extends ChangeNotifier {
     DataProvider.initDB();
   }
 
+  //--DB init service
   static void initDB() async {
-    print("Provider initialized");
+    if (kDebugMode) print("Database init trigger");
     appDB.open();
     Database db = await appDB.getDB;
     UserDB userDB = UserDB(db: db);
@@ -27,6 +29,7 @@ class DataProvider extends ChangeNotifier {
     appointmentCtrl = appointmentDB;
   }
 
+  //--User services
   Future<bool> signUpUser(User user) async {
     bool validate = await userCtrl!.create(user);
     if (validate) {
@@ -49,6 +52,9 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
+  get getCurrentUser => currentUser;
+
+  //--Appointments services
   void fetchAppointments() async {
     appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
     notifyListeners();
@@ -81,7 +87,5 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  getAppointments() {
-    return appointments;
-  }
+  get getAppointments => appointments;
 }

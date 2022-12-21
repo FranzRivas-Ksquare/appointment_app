@@ -11,7 +11,9 @@ import '../controller/data_provider.dart';
 import '../services/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({super.key});
+  const UpdateProfile({
+    super.key,
+  });
   static const String routeName = AppRoutes.updateProfileScreen;
 
   @override
@@ -20,8 +22,8 @@ class UpdateProfile extends StatefulWidget {
 
 class _UpdateProfileState extends State<UpdateProfile> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameCtrl = TextEditingController();
-  final TextEditingController _passwordCtrl = TextEditingController();
+  TextEditingController _nameCtrl = TextEditingController();
+  TextEditingController _passwordCtrl = TextEditingController();
   bool passwordVisible = true; //obsecure
 
   String imagePickerPath = '';
@@ -41,8 +43,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
 
-    //_nameCtrl.text = dataServices.getCurrentUser.name;
-    //_passwordCtrl.text = dataServices.getCurrentUser.password;
+    _nameCtrl.text = dataServices.getCurrentUser.name;
+    _passwordCtrl.text = dataServices.getCurrentUser.password;
 
     return SafeArea(
       child: Scaffold(
@@ -98,6 +100,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               ],
             ),
             Form(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: Container(
                 padding: const EdgeInsets.fromLTRB(AppPadding.p16,

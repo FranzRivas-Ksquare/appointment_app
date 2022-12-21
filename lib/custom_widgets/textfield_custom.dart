@@ -51,6 +51,7 @@ class CustomNameField extends StatelessWidget {
     this.isMulti = false,
     this.enabled = true,
     this.keyboardType = TextInputType.name,
+    //required this.onChanged,
   });
 
   final bool validator;
@@ -61,6 +62,7 @@ class CustomNameField extends StatelessWidget {
   final bool isMulti;
   final bool enabled;
   final TextInputType keyboardType;
+  //final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +83,7 @@ class CustomNameField extends StatelessWidget {
       maxLines: isMulti ? null : 1,
       enabled: enabled,
       keyboardType: keyboardType,
+      //onChanged: onChanged,
     );
   }
 }
@@ -99,6 +102,7 @@ class CustomPasswordField extends StatelessWidget {
     this.isMulti = false,
     this.enabled = true,
     this.keyboardType = TextInputType.text,
+    //required this.onChanged,
   });
 
   final bool validator;
@@ -111,6 +115,7 @@ class CustomPasswordField extends StatelessWidget {
   final bool isMulti;
   final bool enabled;
   final TextInputType keyboardType;
+  //final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +138,7 @@ class CustomPasswordField extends StatelessWidget {
       ),
       keyboardType: TextInputType.visiblePassword,
       textInputAction: TextInputAction.done,
+      //onChanged: onChanged,
     );
   }
 }

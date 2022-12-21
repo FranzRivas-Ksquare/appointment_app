@@ -22,7 +22,7 @@ var routes = <String, WidgetBuilder>{
   SignUp.routeName: (ctx) => const SignUp(),
   Home.routeName: (ctx) => const Home(),
   Profile.routeName: (ctx) => const Profile(),
-  UpdateProfile.routeName: (ctx) => UpdateProfile(),
+  UpdateProfile.routeName: (ctx) => const UpdateProfile(),
   NewAppointment.routeName: (ctx) => const NewAppointment(),
   UpdateAppointment.routeName: (ctx) => const UpdateAppointment(),
 };

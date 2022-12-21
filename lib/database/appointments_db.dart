@@ -58,6 +58,7 @@ class AppointmentDB {
   }
 
   // U in CRUD
+  // TODO: Error appointment don't have id to update
   Future<bool> update(Appointment appointment) async {
     try {
       final updateCount = await db.update('APPOINTMENTS', {
@@ -82,6 +83,7 @@ class AppointmentDB {
   }
 
   // D in CRUD
+  // TODO: Error appointment don't have id to update
   Future<bool> delete(Appointment appointment) async {
     try {
       final deleteCount = await db.delete(

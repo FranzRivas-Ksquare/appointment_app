@@ -174,8 +174,6 @@ class _NewAppointmentState extends State<NewAppointment> {
                               author: dataServices.getCurrentUser!.email);
                           // TODO: Validate all appointments date in a loop to verify availability
                           if (await dataServices.createAppointments(newApp)) {
-                            Navigator.pushReplacementNamed(
-                                context, AppRoutes.homeScreen);
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,

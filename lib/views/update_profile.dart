@@ -8,7 +8,7 @@ import '../resources/values_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../models/models.dart';
 import '../controller/data_provider.dart';
-import '../services/imagePicker.dart';
+import '../controller/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({

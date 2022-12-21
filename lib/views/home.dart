@@ -8,14 +8,12 @@ import '../resources/values_manager.dart';
 import '../custom_widgets/appointment_card.dart';
 import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
-import '../models/dummy_data.dart';
 import '../controller/data_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
   static const String routeName = AppRoutes.homeScreen;
 
-  static final textLines = Appointments();
   // TODO: Filter appointments per date range
   static final List buttons = [
     "All",

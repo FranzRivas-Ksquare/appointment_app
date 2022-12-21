@@ -82,10 +82,15 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  void updateAppointments(Appointment appointment) {
-    appointmentCtrl!.update(appointment);
-    fetchAppointments();
-    notifyListeners();
+  Future<bool> updateAppointments(Appointment appointment) async {
+    bool validate = await appointmentCtrl!.update(appointment);
+    if (validate) {
+      fetchAppointments();
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void deleteAppointments(Appointment appointment) async {

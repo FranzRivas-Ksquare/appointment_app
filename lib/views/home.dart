@@ -78,6 +78,7 @@ class Home extends StatelessWidget {
                       );
                     })),
               ),
+              // TODO: Try to update the appointments listen to a consumer
               Expanded(
                   child: ListView.builder(
                       itemCount: dataServices.appointments.length,

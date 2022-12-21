@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
+import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/color_manager.dart';
@@ -8,6 +8,8 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
+import '../models/models.dart';
+import '../controller/data_provider.dart';
 
 class UpdateAppointment extends StatefulWidget {
   const UpdateAppointment({super.key});
@@ -18,14 +20,15 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  final TextEditingController _titleCtrl = TextEditingController();
-  final TextEditingController _descrCtrl = TextEditingController();
+  final TextEditingController _titleCtrl = TextEditingController(text: 'init text test');
+  final TextEditingController _descrCtrl = TextEditingController(text: 'init text test');
 
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
+    var dataServices = Provider.of<DataProvider>(context);
     Future<void> _showDatePicker() async {
       DateTime? newDate = await showDatePicker(
           context: context,
@@ -73,9 +76,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         timeNow = newTime.format(context).toString();
       });
     }
-
-    _titleCtrl.text = 'Flutter Exam';
-    _descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
     return SafeArea(
       child: Scaffold(
@@ -160,12 +160,22 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ),
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
-                        onPressed: () {
-                          DialogManager().sucessDialog(
-                              context,
-                              AppString.upSuccess,
-                              AppRoutes.homeScreen,
-                              AppString.home);
+                      // TODO: recived the appointment ID to update the appointment
+                        onPressed: () async {
+                          Appointment updateAppointment = Appointment(
+                            id: 1, // TODO: To update the appointment, need the ID here
+                            title: _titleCtrl.text,
+                            description: _descrCtrl.text,
+                            date: '$dateNow $timeNow',
+                            author: dataServices.getCurrentUser.email,
+                          );
+                          if (await dataServices.updateAppointments(updateAppointment)) {
+                            DialogManager().sucessDialog(
+                                context,
+                                AppString.upSuccess,
+                                AppRoutes.homeScreen,
+                                AppString.home);
+                          }
                           print(dateNow);
                           print(timeNow);
                         },

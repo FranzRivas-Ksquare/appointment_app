@@ -43,9 +43,7 @@ class DataProvider extends ChangeNotifier {
 
   // TODO: "Error no match user = Array range error" Fix this!!!
   Future<bool> signInUser(String email, String password) async {
-    User tempUser = await userCtrl!
-        .fetchUser(email)
-        .then((value) => value[0]);
+    User tempUser = await userCtrl!.fetchUser(email).then((value) => value[0]);
     if (tempUser.password == password) {
       currentUser = tempUser;
       notifyListeners();

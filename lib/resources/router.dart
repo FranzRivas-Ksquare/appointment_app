@@ -25,7 +25,4 @@ var routes = <String, WidgetBuilder>{
   UpdateProfile.routeName: (ctx) => const UpdateProfile(),
   NewAppointment.routeName: (ctx) => const NewAppointment(),
   UpdateAppointment.routeName: (ctx) => const UpdateAppointment(),
-
-  //
-  //
 };

@@ -13,7 +13,6 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var dataServices = Provider.of<DataProvider>(context);
 
     return SafeArea(
@@ -57,8 +56,7 @@ class Profile extends StatelessWidget {
               padding: const EdgeInsets.all(AppPadding.p14),
               child: Column(
                 children: <Widget>[
-                  Text(
-                      dataServices.getCurrentUser.name,
+                  Text(dataServices.getCurrentUser.name,
                       style: CustomTextStyle.profileName),
                   const SizedBox(
                     height: AppSize.s8,

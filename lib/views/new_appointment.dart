@@ -35,6 +35,18 @@ class _NewAppointmentState extends State<NewAppointment> {
     Future<void> _showDatePicker() async {
       DateTime? newDate = await showDatePicker(
           context: context,
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: ColorManager.darkGreen,
+                  onPrimary: ColorManager.colorWhite,
+                  onSurface: ColorManager.colorBlack,
+                ),
+              ),
+              child: child!,
+            );
+          },
           initialDate: DateTime.now(),
           firstDate: DateTime(2022),
           lastDate: DateTime(2027));
@@ -46,8 +58,21 @@ class _NewAppointmentState extends State<NewAppointment> {
     }
 
     Future<void> _showTimePicker() async {
-      TimeOfDay? newTime =
-          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+      TimeOfDay? newTime = await showTimePicker(
+          context: context,
+          builder: (context, child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(
+                  primary: ColorManager.lightGreen,
+                  onPrimary: ColorManager.colorWhite,
+                  onSurface: ColorManager.colorBlack,
+                ),
+              ),
+              child: child!,
+            );
+          },
+          initialTime: TimeOfDay.now());
 
       if (newTime == null) return;
       setState(() {

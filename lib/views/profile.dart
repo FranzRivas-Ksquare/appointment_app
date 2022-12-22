@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../custom_widgets/widgets_custom.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/color_manager.dart';
@@ -27,27 +28,9 @@ class Profile extends StatelessWidget {
           Stack(
             alignment: Alignment.bottomCenter,
             children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    color: ColorManager.lightPink,
-                    height: AppSize.s110,
-                    width: double.infinity,
-                  ),
-                  const SizedBox(
-                    height: AppSize.s60,
-                    width: double.infinity,
-                  ),
-                ],
-              ),
-              CircleAvatar(
-                radius: AppSize.s84,
-                backgroundColor: ColorManager.backgroundColor,
-                child: CircleAvatar(
-                  radius: AppSize.s80,
-                  backgroundImage: FileImage(dataServices.getAvatar),
-                ),
-              ),
+              CustomWidgets().columnColors(context, ColorManager.lightPink),
+              CustomWidgets()
+                  .circleAvatarProfile(context, dataServices.getAvatar)
             ],
           ),
           Container(

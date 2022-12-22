@@ -30,6 +30,9 @@ class CustomTextFormField extends StatelessWidget {
         obscureText: isPassword,
         validator: (value) {
           if (value!.isEmpty) return AppString.requiredAdd;
+          // if (value.length < 8) {
+          //   return AppString.requiredPass;
+          // }
           return null;
         },
         decoration: InputDecoration(
@@ -74,9 +77,9 @@ class CustomNameField extends StatelessWidget {
         }
         return null;
       },
-      decoration: const InputDecoration(
-        hintText: AppString.name,
-        labelText: AppString.name,
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
       ),
       minLines: isMulti ? 4 : 1,
       maxLines: isMulti ? null : 1,
@@ -129,8 +132,8 @@ class CustomPasswordField extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-        hintText: AppString.password,
-        labelText: AppString.password,
+        hintText: hintText,
+        labelText: labelText,
         suffixIcon: suffix,
       ),
       keyboardType: TextInputType.visiblePassword,
@@ -139,6 +142,7 @@ class CustomPasswordField extends StatelessWidget {
   }
 }
 
+//Title Field Appointment
 class CustomTitleField extends StatelessWidget {
   CustomTitleField({
     super.key,
@@ -151,7 +155,7 @@ class CustomTitleField extends StatelessWidget {
   final TextEditingController controller;
   final bool autofocus;
   final bool enabled;
-  String hintText;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -169,6 +173,7 @@ class CustomTitleField extends StatelessWidget {
   }
 }
 
+//Description Field Appointment
 class CustomAppointmentField extends StatelessWidget {
   CustomAppointmentField({
     super.key,
@@ -181,7 +186,7 @@ class CustomAppointmentField extends StatelessWidget {
   final TextEditingController controller;
   final bool autofocus;
   final bool enabled;
-  String hintText;
+  final String hintText;
 
   @override
   Widget build(BuildContext context) {

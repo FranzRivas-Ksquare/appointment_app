@@ -1,3 +1,4 @@
+import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -95,11 +96,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
           ),
           body: Column(
             children: <Widget>[
-              Container(
-                color: ColorManager.lightGreen,
-                height: AppSize.s110,
-                width: double.infinity,
-              ),
+              CustomWidgets().containerColors(context, ColorManager.lightGreen),
               Container(
                 padding: const EdgeInsets.fromLTRB(AppPadding.p14,
                     AppPadding.p28, AppPadding.p24, AppPadding.p14),

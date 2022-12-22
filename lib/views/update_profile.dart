@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/alert_manager.dart';
+import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -43,7 +44,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
 
-    return SafeArea(
+    return HideKeyboard(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(

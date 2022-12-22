@@ -20,8 +20,10 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  final TextEditingController _titleCtrl = TextEditingController(text: 'init text test');
-  final TextEditingController _descrCtrl = TextEditingController(text: 'init text test');
+  final TextEditingController _titleCtrl =
+      TextEditingController(text: 'init text test');
+  final TextEditingController _descrCtrl =
+      TextEditingController(text: 'init text test');
 
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
@@ -29,7 +31,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   @override
   Widget build(BuildContext context) {
     final args =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     var dataServices = Provider.of<DataProvider>(context);
 
@@ -81,114 +83,114 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
       });
     }
 
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            backgroundColor: ColorManager.lightGreen,
-            title: Text(AppString.updateAppoint,
-                style: Theme.of(context).textTheme.headline2),
-          ),
-          body: Column(
-            children: <Widget>[
-              Container(
-                color: ColorManager.lightGreen,
-                height: AppSize.s110,
-                width: double.infinity,
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(AppPadding.p14,
-                    AppPadding.p28, AppPadding.p24, AppPadding.p14),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      AppString.title,
-                      style: CustomTextStyle.appointmentTitles,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: ColorManager.lightGreen,
+          title: Text(AppString.updateAppoint,
+              style: Theme.of(context).textTheme.headline2),
+        ),
+        body: Column(
+          children: <Widget>[
+            Container(
+              color: ColorManager.lightGreen,
+              height: AppSize.s110,
+              width: double.infinity,
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(AppPadding.p14, AppPadding.p28,
+                  AppPadding.p24, AppPadding.p14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    AppString.title,
+                    style: CustomTextStyle.appointmentTitles,
+                  ),
+                  TextField(
+                    controller: _titleCtrl,
+                    keyboardType: TextInputType.text,
+                    style: (TextStyle(color: ColorManager.darkGreen)),
+                    decoration: InputDecoration(
+                      hintText: AppString.title,
+                      hintStyle: TextStyle(color: ColorManager.darkPink),
                     ),
-                    TextField(
-                      controller: _titleCtrl,
-                      keyboardType: TextInputType.text,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.title,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
+                  ),
+                  const SizedBox(
+                    height: AppSize.s24,
+                  ),
+                  Text(AppString.appointment,
+                      style: CustomTextStyle.appointmentTitles),
+                  TextField(
+                    controller: _descrCtrl,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 5,
+                    style: (TextStyle(color: ColorManager.darkGreen)),
+                    decoration: InputDecoration(
+                      hintText: AppString.descr,
+                      hintStyle: TextStyle(color: ColorManager.darkPink),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: AppSize.s40,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      OutlinedButton(
+                          onPressed: _showDatePicker,
+                          child: const Text(AppString.date)),
+                      const SizedBox(
+                        width: AppSize.s28,
                       ),
-                    ),
-                    const SizedBox(
-                      height: AppSize.s24,
-                    ),
-                    Text(AppString.appointment,
-                        style: CustomTextStyle.appointmentTitles),
-                    TextField(
-                      controller: _descrCtrl,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.descr,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
+                      Text(
+                        dateNow,
+                        style: CustomTextStyle.appointmentDate,
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppSize.s28,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      OutlinedButton(
+                          onPressed: _showTimePicker,
+                          child: const Text(AppString.time)),
+                      const SizedBox(
+                        width: AppSize.s28,
                       ),
-                    ),
-                    const SizedBox(
-                      height: AppSize.s40,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        OutlinedButton(
-                            onPressed: _showDatePicker,
-                            child: const Text(AppString.date)),
-                        const SizedBox(
-                          width: AppSize.s28,
-                        ),
-                        Text(
-                          dateNow,
-                          style: CustomTextStyle.appointmentDate,
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: AppSize.s28,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        OutlinedButton(
-                            onPressed: _showTimePicker,
-                            child: const Text(AppString.time)),
-                        const SizedBox(
-                          width: AppSize.s28,
-                        ),
-                        Text(timeNow,
-                            style: Theme.of(context).textTheme.bodyText2)
-                      ],
-                    ),
-                    const SizedBox(height: AppSize.s52),
-                    ElevatedButton(
+                      Text(timeNow,
+                          style: Theme.of(context).textTheme.bodyText2)
+                    ],
+                  ),
+                  const SizedBox(height: AppSize.s52),
+                  ElevatedButton(
                       // TODO: received the appointment ID to update the appointment
-                        onPressed: () async {
-                          Appointment updateAppointment = Appointment(
-                            id: args['id'], // TODO: To update the appointment, need the ID here
-                            title: _titleCtrl.text,
-                            description: _descrCtrl.text,
-                            date: '$dateNow $timeNow',
-                            author: dataServices.getCurrentUser.email,
-                          );
-                          if (await dataServices.updateAppointments(updateAppointment)) {
-                            DialogManager().sucessDialog(
-                                context,
-                                AppString.upSuccess,
-                                AppRoutes.homeScreen,
-                                AppString.home);
-                          }
-                          print(dateNow);
-                          print(timeNow);
-                        },
-                        child: const Text(AppString.updateAppoint)),
-                  ],
-                ),
-              )
-            ],
-          )),
-    );
+                      onPressed: () async {
+                        Appointment updateAppointment = Appointment(
+                          id: args[
+                              'id'], // TODO: To update the appointment, need the ID here
+                          title: _titleCtrl.text,
+                          description: _descrCtrl.text,
+                          date: '$dateNow $timeNow',
+                          author: dataServices.getCurrentUser.email,
+                        );
+                        if (await dataServices
+                            .updateAppointments(updateAppointment)) {
+                          DialogManager().sucessDialog(
+                              context,
+                              AppString.upSuccess,
+                              AppRoutes.homeScreen,
+                              AppString.home);
+                        }
+                        print(dateNow);
+                        print(timeNow);
+                      },
+                      child: const Text(AppString.updateAppoint)),
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }

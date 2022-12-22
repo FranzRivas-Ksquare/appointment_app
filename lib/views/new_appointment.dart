@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/data_provider.dart';
+import '../custom_widgets/textfield_custom.dart';
 import '../models/models.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
@@ -83,7 +84,7 @@ class _NewAppointmentState extends State<NewAppointment> {
     //_titleCtrl.text = 'Flutter Exam';
     //_descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
-    return SafeArea(
+    return HideKeyboard(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -108,29 +109,18 @@ class _NewAppointmentState extends State<NewAppointment> {
                       AppString.title,
                       style: CustomTextStyle.appointmentTitles,
                     ),
-                    TextField(
+                    CustomTitleField(
                       controller: _titleCtrl,
-                      keyboardType: TextInputType.text,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.title,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.title,
                     ),
                     const SizedBox(
                       height: AppSize.s24,
                     ),
                     Text(AppString.appointment,
                         style: CustomTextStyle.appointmentTitles),
-                    TextField(
+                    CustomAppointmentField(
                       controller: _descrCtrl,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.appointment,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.appointment,
                     ),
                     const SizedBox(
                       height: AppSize.s40,

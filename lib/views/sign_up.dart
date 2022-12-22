@@ -24,9 +24,7 @@ class SignUp extends StatelessWidget {
     TextEditingController _passwordCtrl = TextEditingController();
     TextEditingController _verifyPassCtrl = TextEditingController();
 
-    final bool emailValid =
-    RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(_emailCtrl.text);
+    bool emailValid;
     
     return HideKeyboard(
       child: Scaffold(
@@ -70,6 +68,8 @@ class SignUp extends StatelessWidget {
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
                       onPressed: () {
+                        emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(_emailCtrl.text);
                         if (!emailValid) {
                           AlertManager().errorMessage();
                           _emailCtrl.text = '';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
-import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -13,6 +12,7 @@ import '../controller/data_provider.dart';
 
 class UpdateAppointment extends StatefulWidget {
   const UpdateAppointment({super.key});
+
   static const String routeName = AppRoutes.updateAppScreen;
 
   @override
@@ -28,7 +28,11 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
     var dataServices = Provider.of<DataProvider>(context);
+
     Future<void> _showDatePicker() async {
       DateTime? newDate = await showDatePicker(
           context: context,
@@ -160,10 +164,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ),
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
-                      // TODO: recived the appointment ID to update the appointment
+                      // TODO: received the appointment ID to update the appointment
                         onPressed: () async {
                           Appointment updateAppointment = Appointment(
-                            id: 1, // TODO: To update the appointment, need the ID here
+                            id: args['id'], // TODO: To update the appointment, need the ID here
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
                             date: '$dateNow $timeNow',

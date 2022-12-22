@@ -7,7 +7,7 @@ import 'button_custom.dart';
 
 class DialogManager {
   appointmentDialog(
-      context, String title, String descr, String date, String time) {
+      context, int id, String title, String descr, String date, String time) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -61,7 +61,9 @@ class DialogManager {
               style:
                   TextButton.styleFrom(foregroundColor: ColorManager.darkGreen),
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.updateAppScreen);
+                Navigator.pushNamed(context, AppRoutes.updateAppScreen, arguments: {
+                  'id': id,
+                });
               },
               child: const Text(AppString.updateAppoint),
             ),

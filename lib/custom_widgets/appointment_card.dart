@@ -5,6 +5,7 @@ import 'package:appointment/resources/values_manager.dart';
 import 'dialog_manager.dart';
 
 class AppointmentCard extends StatelessWidget {
+  int id;
   String title;
   String due;
   String description;
@@ -13,6 +14,7 @@ class AppointmentCard extends StatelessWidget {
 
   AppointmentCard({
     super.key,
+    required this.id,
     required this.title,
     required this.due,
     required this.description,
@@ -25,7 +27,7 @@ class AppointmentCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         DialogManager()
-            .appointmentDialog(context, title, description, date, time);
+            .appointmentDialog(context, id, title, description, date, time);
       },
       onDoubleTap: () {
         Navigator.pushNamed(context, "/update_appointment");

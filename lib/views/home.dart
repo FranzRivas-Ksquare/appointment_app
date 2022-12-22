@@ -84,6 +84,7 @@ class Home extends StatelessWidget {
                       itemCount: dataServices.appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
+                          id: dataServices.appointments[index].id!,
                           title: dataServices.appointments[index].title,
                           due: dataServices.appointments[index].date.split(' ')[0],
                           description: dataServices.appointments[index].description,

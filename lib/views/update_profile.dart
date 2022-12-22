@@ -89,8 +89,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     backgroundColor: ColorManager.backgroundColor,
                     child: CircleAvatar(
                       radius: AppSize.s80,
-                      backgroundImage:
-                          NetworkImage('https://picsum.photos/200/300'),
+                      backgroundImage: FileImage(dataServices.getAvatar),
                     ),
                   ),
                 ),
@@ -143,7 +142,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               name: _nameCtrl.text,
                               email: dataServices.getCurrentUser.email,
                               password: _passwordCtrl.text,
-                              avatar: '',
+                              avatar: imagePickerPath,
                             );
 
                             dataServices.updateUser(updateUser);

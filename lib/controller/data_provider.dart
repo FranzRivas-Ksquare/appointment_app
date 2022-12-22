@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/models.dart';
@@ -61,6 +61,11 @@ class DataProvider extends ChangeNotifier {
     } else {
       return false;
     }
+  }
+
+  get getAvatar {
+    File avatarFile = File(currentUser!.avatar!);
+    return avatarFile;
   }
 
   get getCurrentUser => currentUser;

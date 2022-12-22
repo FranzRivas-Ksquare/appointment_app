@@ -46,8 +46,7 @@ class Profile extends StatelessWidget {
                   backgroundColor: ColorManager.backgroundColor,
                   child: CircleAvatar(
                     radius: AppSize.s80,
-                    backgroundImage:
-                        NetworkImage('https://picsum.photos/200/300'),
+                    backgroundImage: FileImage(dataServices.getAvatar),
                   ),
                 ),
               ],

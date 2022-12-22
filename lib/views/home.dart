@@ -50,11 +50,11 @@ class Home extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.profileScreen);
             },
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.only(right: AppPadding.p18),
               child: CircleAvatar(
                 radius: AppSize.s28,
-                backgroundImage: NetworkImage('https://picsum.photos/200/300'),
+                backgroundImage: FileImage(dataServices.getAvatar),
               ),
             ),
           )

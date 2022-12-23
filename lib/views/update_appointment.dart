@@ -154,11 +154,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ),
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
-                        // TODO: received the appointment ID to update the appointment
                         onPressed: () async {
                           Appointment updateAppointment = Appointment(
                             id: args[
-                                'id'], // TODO: To update the appointment, need the ID here
+                                'id'],
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
                             date: '$dateNow $timeNow',

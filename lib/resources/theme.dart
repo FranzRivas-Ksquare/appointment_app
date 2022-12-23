@@ -120,7 +120,7 @@ ThemeData getApplicationTheme() {
           headline4: getRegularStyle(
               color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14), // TODO: Headline4
+              fontSize: FontSize.s14), // TODO: Headline4 is Free
           headline5: getSemiBoldStyle(
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
@@ -129,13 +129,13 @@ ThemeData getApplicationTheme() {
               color: ColorManager.textWhite,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s16),
+          //--Card due
           subtitle1: getLightStyle(
-              // TODO: card due
               color: ColorManager.textFieldText,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
+          //--Profile email
           subtitle2: getSemiBoldStyle(
-              // TODO: profile email
               color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
@@ -143,13 +143,13 @@ ThemeData getApplicationTheme() {
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14),
+          //--Dialog text
           bodyText2: getMediumStyle(
-              // TODO: Dialog text
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s18),
+          //--Alert Text
           caption: getRegularStyle(
-              // TODO: Alert Text
               color: ColorManager.auxiliary,
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14)),

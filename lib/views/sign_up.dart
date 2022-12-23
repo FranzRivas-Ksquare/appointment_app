@@ -78,13 +78,17 @@ class SignUp extends StatelessWidget {
                               context, AppString.error, AppString.noMatch);
                         } else {
                           User tempUser = User(
-                              email: _emailCtrl.text,
-                              name: _nameCtrl.text,
-                              password: _passwordCtrl.text,
-                              avatar: "avatar.jpg");
-                          dataServices.signUpUser(tempUser);
-                          Navigator.pushReplacementNamed(
-                              context, AppRoutes.homeScreen);
+                                email: _emailCtrl.text,
+                                name: _nameCtrl.text,
+                                password: _passwordCtrl.text,
+                                avatar: "avatar.jpg");
+                            if (await dataServices.signUpUser(tempUser)) {
+                              Navigator.pushReplacementNamed(
+                                  context, AppRoutes.homeScreen);
+                            } else {
+                              AlertManager().displaySnackbarSignUp(
+                                  context, AppString.error, AppString.exists);
+                            }
                         }
                       }
                     },

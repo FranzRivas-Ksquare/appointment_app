@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
+import 'package:provider/provider.dart';
 
+import '../controller/data_provider.dart';
 import 'dialog_manager.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -24,10 +26,11 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dataServices = Provider.of<DataProvider>(context);
     return GestureDetector(
       onTap: () {
-        DialogManager()
-            .appointmentDialog(context, id, title, description, date, time);
+        DialogManager().appointmentDialog(
+            context, id, title, description, date, time, dataServices);
       },
       onDoubleTap: () {
         Navigator.pushNamed(context, "/update_appointment");

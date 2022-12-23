@@ -146,8 +146,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             );
 
                             dataServices.updateUser(updateUser);
-                            Navigator.pushNamed(
-                                context, AppRoutes.profileScreen);
+                            Navigator.pop(context);
                           }
                         },
                         child: const Text(AppString.updatePro)),

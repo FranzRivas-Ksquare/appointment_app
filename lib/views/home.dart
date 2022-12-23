@@ -10,10 +10,14 @@ import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
 import '../controller/data_provider.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
   static const String routeName = AppRoutes.homeScreen;
+  @override
+  State<Home> createState() => HomeScreen();
+}
 
+class HomeScreen extends State<Home> {
   // TODO: Filter appointments per date range
   static final List buttons = [
     "All",
@@ -83,16 +87,34 @@ class Home extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: dataServices.appointments.length,
                       itemBuilder: (context, index) {
-                        return AppointmentCard(
-                          id: dataServices.appointments[index].id!,
-                          title: dataServices.appointments[index].title,
-                          due: dataServices.appointments[index].date.split(' ')[0],
-                          description: dataServices.appointments[index].description,
-                          date: dataServices.appointments[index].date.split(' ')[0],
-                          time: dataServices.appointments[index].date.split(' ')[1],
-                        );
-                      })
-                  ),
+                        return Dismissible(
+                            direction: DismissDirection.horizontal,
+                            key: UniqueKey(),
+                            background: Container(
+                              color: Colors.red[400],
+                              child: Icon(Icons.delete_outline_rounded,
+                                  color: Colors.white),
+                              alignment: Alignment.centerLeft,
+                              padding: EdgeInsets.only(left: 10),
+                            ),
+                            onDismissed: (direction) {
+                              print("hola");
+                              dataServices.deleteAppointments(
+                                  dataServices.appointments[index].id!);
+                            },
+                            child: AppointmentCard(
+                              id: dataServices.appointments[index].id!,
+                              title: dataServices.appointments[index].title,
+                              due: dataServices.appointments[index].date
+                                  .split(' ')[0],
+                              description:
+                                  dataServices.appointments[index].description,
+                              date: dataServices.appointments[index].date
+                                  .split(' ')[0],
+                              time: dataServices.appointments[index].date
+                                  .split(' ')[1],
+                            ));
+                      })),
             ],
           ),
         ),

@@ -9,7 +9,6 @@ import '../custom_widgets/alert_manager.dart';
 import '../controller/data_provider.dart';
 import '../models/models.dart';
 
-
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
@@ -25,7 +24,7 @@ class SignUp extends StatelessWidget {
     TextEditingController _verifyPassCtrl = TextEditingController();
 
     bool emailValid;
-    
+
     return HideKeyboard(
       child: Scaffold(
         body: SafeArea(
@@ -67,8 +66,9 @@ class SignUp extends StatelessWidget {
                   ),
                   const Expanded(child: SizedBox()),
                   ElevatedButton(
-                      onPressed: () {
-                        emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      onPressed: () async {
+                        emailValid = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(_emailCtrl.text);
                         if (!emailValid) {
                           AlertManager().errorMessage();
@@ -84,8 +84,13 @@ class SignUp extends StatelessWidget {
                                 name: _nameCtrl.text,
                                 password: _passwordCtrl.text,
                                 avatar: "avatar.jpg");
-                            dataServices.signUpUser(tempUser);
-                            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                            if (await dataServices.signUpUser(tempUser)) {
+                              Navigator.pushReplacementNamed(
+                                  context, AppRoutes.homeScreen);
+                            } else {
+                              AlertManager().displaySnackbarSignUp(
+                                  context, AppString.error, AppString.exists);
+                            }
                           }
                         }
                       },

@@ -1,8 +1,10 @@
+import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../controller/data_provider.dart';
+import '../custom_widgets/textfield_custom.dart';
 import '../models/models.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
@@ -26,8 +28,11 @@ class _NewAppointmentState extends State<NewAppointment> {
   final TextEditingController _descrCtrl = TextEditingController();
 
   // TODO: Create a DateTime type variable with dateNow and timeNow values
-  String dateNow = DateFormat('yMd').format(DateTime.now());
+  String dateNow = DateFormat('y/M/d').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
+  String dateToFormat = '';
+  String timeToFormat = '';
+  String dtTogether = '';
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class _NewAppointmentState extends State<NewAppointment> {
 
       if (newDate == null) return;
       setState(() {
-        dateNow = DateFormat('yMd').format(newDate);
+        dateNow = DateFormat('y/M/d').format(newDate);
       });
     }
 
@@ -80,10 +85,44 @@ class _NewAppointmentState extends State<NewAppointment> {
       });
     }
 
+    void dateTimeParse() async {
+      if (dateNow.isNotEmpty && timeNow.isNotEmpty) {
+        dateToFormat = dateNow.replaceAll('/', '-');
+        if (timeNow.contains('AM')) {
+          double timeNumber = double.parse(timeNow
+              .replaceAll('AM', '')
+              .replaceAll('PM', '')
+              .replaceAll(':', '.')
+              .replaceAll(' ', ''));
+          if (timeNumber >= 12.00) {
+            timeNumber = timeNumber - 12.00;
+            timeToFormat =
+                '0${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
+          } else if (timeNumber >= 1.00 && timeNumber <= 9.59) {
+            timeToFormat =
+                '0${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
+          } else {
+            timeToFormat =
+                '${timeNow.replaceAll('AM', '').replaceAll('PM', '').replaceAll(' ', '')}:00.000000';
+          }
+        } else if (timeNow.contains('PM')) {
+          double timeNumber = double.parse(timeNow
+              .replaceAll('AM', '')
+              .replaceAll('PM', '')
+              .replaceAll(':', '.')
+              .replaceAll(' ', ''));
+          timeNumber = timeNumber + 12;
+          timeToFormat =
+              '${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
+        }
+        dtTogether = '$dateToFormat $timeToFormat';
+      }
+    }
+
     //_titleCtrl.text = 'Flutter Exam';
     //_descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
-    return SafeArea(
+    return HideKeyboard(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -93,11 +132,7 @@ class _NewAppointmentState extends State<NewAppointment> {
           ),
           body: Column(
             children: <Widget>[
-              Container(
-                color: ColorManager.darkPink,
-                height: AppSize.s110,
-                width: double.infinity,
-              ),
+              CustomWidgets().containerColors(context, ColorManager.darkPink),
               Container(
                 padding: const EdgeInsets.fromLTRB(AppPadding.p14,
                     AppPadding.p28, AppPadding.p24, AppPadding.p14),
@@ -108,29 +143,18 @@ class _NewAppointmentState extends State<NewAppointment> {
                       AppString.title,
                       style: CustomTextStyle.appointmentTitles,
                     ),
-                    TextField(
+                    CustomTitleField(
                       controller: _titleCtrl,
-                      keyboardType: TextInputType.text,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.title,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.title,
                     ),
                     const SizedBox(
                       height: AppSize.s24,
                     ),
                     Text(AppString.appointment,
                         style: CustomTextStyle.appointmentTitles),
-                    TextField(
+                    CustomAppointmentField(
                       controller: _descrCtrl,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.appointment,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.appointment,
                     ),
                     const SizedBox(
                       height: AppSize.s40,
@@ -167,6 +191,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
                         onPressed: () async {
+                          dateTimeParse();
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
                               date: '$dateNow $timeNow',
@@ -182,6 +207,7 @@ class _NewAppointmentState extends State<NewAppointment> {
                           }
                           print(dateNow);
                           print(timeNow);
+                          print(dtTogether);
                         },
                         child: const Text(AppString.newAppoint)),
                   ],

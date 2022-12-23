@@ -18,11 +18,12 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
 }
 
 var routes = <String, WidgetBuilder>{
-  SignIn.routeName: (ctx) => const SignIn(),
-  SignUp.routeName: (ctx) => const SignUp(),
-  Home.routeName: (ctx) => const Home(),
-  Profile.routeName: (ctx) => const Profile(),
-  UpdateProfile.routeName: (ctx) => const UpdateProfile(),
-  NewAppointment.routeName: (ctx) => const NewAppointment(),
-  UpdateAppointment.routeName: (ctx) => const UpdateAppointment(),
+  SignIn.routeName: (ctx) => const SafeArea(child: SignIn()),
+  SignUp.routeName: (ctx) => const SafeArea(child: SignUp()),
+  Home.routeName: (ctx) => const SafeArea(child: Home()),
+  Profile.routeName: (ctx) => const SafeArea(child: Profile()),
+  UpdateProfile.routeName: (ctx) => const SafeArea(child: UpdateProfile()),
+  NewAppointment.routeName: (ctx) => const SafeArea(child: NewAppointment()),
+  UpdateAppointment.routeName: (ctx) =>
+      const SafeArea(child: UpdateAppointment()),
 };

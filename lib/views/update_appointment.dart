@@ -1,7 +1,10 @@
+import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
+import '../custom_widgets/hideKeyboard_custom.dart';
+import '../custom_widgets/textfield_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -20,8 +23,10 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  final TextEditingController _titleCtrl = TextEditingController(text: 'init text test');
-  final TextEditingController _descrCtrl = TextEditingController(text: 'init text test');
+  final TextEditingController _titleCtrl =
+      TextEditingController(text: 'init text test');
+  final TextEditingController _descrCtrl =
+      TextEditingController(text: 'init text test');
 
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
@@ -29,7 +34,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   @override
   Widget build(BuildContext context) {
     final args =
-    ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     var dataServices = Provider.of<DataProvider>(context);
 
@@ -81,7 +86,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
       });
     }
 
-    return SafeArea(
+    return HideKeyboard(
       child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -91,11 +96,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
           ),
           body: Column(
             children: <Widget>[
-              Container(
-                color: ColorManager.lightGreen,
-                height: AppSize.s110,
-                width: double.infinity,
-              ),
+              CustomWidgets().containerColors(context, ColorManager.lightGreen),
               Container(
                 padding: const EdgeInsets.fromLTRB(AppPadding.p14,
                     AppPadding.p28, AppPadding.p24, AppPadding.p14),
@@ -106,29 +107,18 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                       AppString.title,
                       style: CustomTextStyle.appointmentTitles,
                     ),
-                    TextField(
+                    CustomTitleField(
                       controller: _titleCtrl,
-                      keyboardType: TextInputType.text,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.title,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.title,
                     ),
                     const SizedBox(
                       height: AppSize.s24,
                     ),
                     Text(AppString.appointment,
                         style: CustomTextStyle.appointmentTitles),
-                    TextField(
+                    CustomAppointmentField(
                       controller: _descrCtrl,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      style: (TextStyle(color: ColorManager.darkGreen)),
-                      decoration: InputDecoration(
-                        hintText: AppString.descr,
-                        hintStyle: TextStyle(color: ColorManager.darkPink),
-                      ),
+                      hintText: AppString.appointment,
                     ),
                     const SizedBox(
                       height: AppSize.s40,
@@ -164,16 +154,18 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ),
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
-                      // TODO: received the appointment ID to update the appointment
+                        // TODO: received the appointment ID to update the appointment
                         onPressed: () async {
                           Appointment updateAppointment = Appointment(
-                            id: args['id'], // TODO: To update the appointment, need the ID here
+                            id: args[
+                                'id'], // TODO: To update the appointment, need the ID here
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
                             date: '$dateNow $timeNow',
                             author: dataServices.getCurrentUser.email,
                           );
-                          if (await dataServices.updateAppointments(updateAppointment)) {
+                          if (await dataServices
+                              .updateAppointments(updateAppointment)) {
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.upSuccess,

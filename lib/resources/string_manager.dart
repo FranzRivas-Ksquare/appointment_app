@@ -48,4 +48,7 @@ class AppString {
   static const String upSuccess = "Update Success";
 
   static const String home = "Home";
+
+  static const String regexEmail =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 }

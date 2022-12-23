@@ -15,7 +15,6 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var dataServices = Provider.of<DataProvider>(context);
     var _formKey = GlobalKey<FormState>();
 
@@ -24,54 +23,53 @@ class SignIn extends StatelessWidget {
 
     return HideKeyboard(
       child: Scaffold(
-        body: SafeArea(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(AppPadding.p16),
-              child: Column(
-                children: [
-                  Text(AppString.signin,
-                      style: Theme.of(context).textTheme.headline1),
-                  CustomTextFormField(
-                    controller: _emailCtrl,
-                    validate: true,
-                    isPassword: false,
-                    labelText: AppString.email,
-                    hintText: AppString.email,
-                  ),
-                  CustomTextFormField(
-                    controller: _passwordCtrl,
-                    validate: true,
-                    isPassword: true,
-                    labelText: AppString.password,
-                    hintText: AppString.password,
-                  ),
-                  const Expanded(child: SizedBox()),
-                  ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          bool validate = await dataServices.signInUser(
-                              _emailCtrl.text, _passwordCtrl.text);
-                          if (validate) {
-                            Navigator.pushReplacementNamed(
-                                context, AppRoutes.homeScreen);
-                          } else {
-                            // TODO: Fix singInUser service before continue!!!
-                            AlertManager().displaySnackbarLogIn(
-                                context, AppString.message, AppString.noUser);
-                          }
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.p16),
+            child: Column(
+              children: [
+                Text(AppString.signin,
+                    style: Theme.of(context).textTheme.headline1),
+                CustomTextFormField(
+                  controller: _emailCtrl,
+                  validate: true,
+                  isPassword: false,
+                  labelText: AppString.email,
+                  hintText: AppString.email,
+                ),
+                CustomTextFormField(
+                  controller: _passwordCtrl,
+                  validate: true,
+                  isPassword: true,
+                  labelText: AppString.password,
+                  hintText: AppString.password,
+                ),
+                const Expanded(child: SizedBox()),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        bool validate = await dataServices.signInUser(
+                            _emailCtrl.text, _passwordCtrl.text);
+                        if (validate) {
+                          Navigator.pushReplacementNamed(
+                              context, AppRoutes.homeScreen);
+                          print(dataServices.getAvatar);
+                        } else {
+                          // TODO: Fix singInUser service before continue!!!
+                          AlertManager().displaySnackbarLogIn(
+                              context, AppString.message, AppString.noUser);
                         }
-                      },
-                      child: const Text(AppString.signin)),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, AppRoutes.signUpScreen);
-                      },
-                      child: const Text(AppString.dontAccount))
-                ],
-              ),
+                      }
+                    },
+                    child: const Text(AppString.signin)),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, AppRoutes.signUpScreen);
+                    },
+                    child: const Text(AppString.dontAccount))
+              ],
             ),
           ),
         ),

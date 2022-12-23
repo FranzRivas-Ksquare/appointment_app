@@ -1,6 +1,11 @@
+import 'dart:ui';
+import 'dart:io';
+
+import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/alert_manager.dart';
+import '../custom_widgets/hideKeyboard_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -26,15 +31,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController _passwordCtrl = TextEditingController();
   bool passwordVisible = true; //obsecure
 
-  String imagePickerPath = '';
+  String _imagePickerPath = '';
   _loadImageFromCamera(source) async {
-    imagePickerPath =
+    _imagePickerPath =
         await ImagePickerService().uploadImageCamera(source: source);
     setState(() {});
   }
 
   _loadImageFromGallery(source) async {
-    imagePickerPath =
+    _imagePickerPath =
         await ImagePickerService().uploadImageGallery(source: source);
     setState(() {});
   }
@@ -43,7 +48,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
 
-    return SafeArea(
+    return HideKeyboard(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -55,19 +60,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
             Stack(
               alignment: Alignment.bottomCenter,
               children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      color: ColorManager.auxiliary,
-                      height: AppSize.s110,
-                      width: double.infinity,
-                    ),
-                    const SizedBox(
-                      height: AppSize.s60,
-                      width: double.infinity,
-                    ),
-                  ],
-                ),
+                CustomWidgets().columnColors(context, ColorManager.auxiliary),
                 GestureDetector(
                   onTap: () async {
                     await AlertManager().displaySnackbarPicker(
@@ -85,13 +78,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     );
                   },
                   child: CircleAvatar(
-                    radius: AppSize.s84,
-                    backgroundColor: ColorManager.backgroundColor,
-                    child: CircleAvatar(
-                      radius: AppSize.s80,
-                      backgroundImage: FileImage(dataServices.getAvatar),
-                    ),
-                  ),
+                      radius: AppSize.s84,
+                      backgroundColor: ColorManager.backgroundColor,
+                      child: _imagePickerPath.isNotEmpty
+                          ? CustomWidgets()
+                              .containerAvatarProfile(context, _imagePickerPath)
+                          : CustomWidgets().circleAvatarProfile(
+                              context, dataServices.getAvatar)),
                 ),
               ],
             ),
@@ -142,7 +135,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               name: _nameCtrl.text,
                               email: dataServices.getCurrentUser.email,
                               password: _passwordCtrl.text,
-                              avatar: imagePickerPath,
+                              avatar: _imagePickerPath,
                             );
 
                             dataServices.updateUser(updateUser);

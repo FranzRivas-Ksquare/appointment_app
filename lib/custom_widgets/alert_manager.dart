@@ -150,8 +150,8 @@ class AlertManager {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                buttonGallery,
-                buttonCamera,
+                SizedBox(width: 150, child: buttonGallery),
+                Container(width: 150, child: buttonCamera),
               ],
             ),
           ],

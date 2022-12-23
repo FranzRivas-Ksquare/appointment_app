@@ -44,6 +44,7 @@ class AppString {
   static const String date = "Date";
   static const String time = "Time";
   static const String newAppoint = "New Appointment";
+  static const String delAppoint = "Delete Appointment";
   static const String upSuccess = "Update Success";
 
   static const String home = "Home";

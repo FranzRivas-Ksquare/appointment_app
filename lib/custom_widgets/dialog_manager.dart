@@ -1,13 +1,15 @@
+import 'package:appointment/controller/data_provider.dart';
 import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/routes_manager.dart';
 import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'button_custom.dart';
 
 class DialogManager {
-  appointmentDialog(
-      context, int id, String title, String descr, String date, String time) {
+  appointmentDialog(context, int id, String title, String descr, String date,
+      String time, dataServices) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -61,11 +63,20 @@ class DialogManager {
               style:
                   TextButton.styleFrom(foregroundColor: ColorManager.darkGreen),
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.updateAppScreen, arguments: {
-                  'id': id,
-                });
+                Navigator.pushNamed(context, AppRoutes.updateAppScreen,
+                    arguments: {
+                      'id': id,
+                    });
               },
               child: const Text(AppString.updateAppoint),
+            ),
+            TextButton(
+              style:
+                  TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
+              onPressed: () {
+                dataServices.deleteAppointments(id);
+              },
+              child: const Text(AppString.delAppoint),
             ),
           ],
         );

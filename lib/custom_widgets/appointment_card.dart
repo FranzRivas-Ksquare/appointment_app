@@ -29,8 +29,8 @@ class AppointmentCard extends StatelessWidget {
     var dataServices = Provider.of<DataProvider>(context);
     return GestureDetector(
       onTap: () {
-        DialogManager()
-            .appointmentDialog(context, id, title, description, date, time);
+        DialogManager().appointmentDialog(
+            context, id, title, description, date, time, dataServices);
       },
       onDoubleTap: () {
         Navigator.pushNamed(context, "/update_appointment");

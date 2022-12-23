@@ -87,33 +87,18 @@ class HomeScreen extends State<Home> {
                   child: ListView.builder(
                       itemCount: dataServices.appointments.length,
                       itemBuilder: (context, index) {
-                        return Dismissible(
-                            direction: DismissDirection.horizontal,
-                            key: UniqueKey(),
-                            background: Container(
-                              color: Colors.red[400],
-                              child: Icon(Icons.delete_outline_rounded,
-                                  color: Colors.white),
-                              alignment: Alignment.centerLeft,
-                              padding: EdgeInsets.only(left: 10),
-                            ),
-                            onDismissed: (direction) {
-                              print("hola");
-                              dataServices.deleteAppointments(
-                                  dataServices.appointments[index].id!);
-                            },
-                            child: AppointmentCard(
-                              id: dataServices.appointments[index].id!,
-                              title: dataServices.appointments[index].title,
-                              due: dataServices.appointments[index].date
-                                  .split(' ')[0],
-                              description:
-                                  dataServices.appointments[index].description,
-                              date: dataServices.appointments[index].date
-                                  .split(' ')[0],
-                              time: dataServices.appointments[index].date
-                                  .split(' ')[1],
-                            ));
+                        return AppointmentCard(
+                          id: dataServices.appointments[index].id!,
+                          title: dataServices.appointments[index].title,
+                          due: dataServices.appointments[index].date
+                              .split(' ')[0],
+                          description:
+                              dataServices.appointments[index].description,
+                          date: dataServices.appointments[index].date
+                              .split(' ')[0],
+                          time: dataServices.appointments[index].date
+                              .split(' ')[1],
+                        );
                       })),
             ],
           ),

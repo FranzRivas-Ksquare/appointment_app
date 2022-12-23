@@ -98,12 +98,10 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  void deleteAppointments(Appointment appointment) async {
-    bool validate = await appointmentCtrl!.delete(appointment);
+  void deleteAppointments(int id) async {
+    bool validate = await appointmentCtrl!.delete(id);
     if (validate) {
-      appointments = appointments
-          .where((element) => element.id != appointment.id)
-          .toList();
+      appointments = appointments.where((element) => element.id != id).toList();
     }
     notifyListeners();
   }

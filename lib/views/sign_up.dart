@@ -65,7 +65,7 @@ class SignUp extends StatelessWidget {
                 ),
                 const Expanded(child: SizedBox()),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       emailValid = RegExp(AppString.regexEmail)
                           .hasMatch(_emailCtrl.text);
                       if (!emailValid) {

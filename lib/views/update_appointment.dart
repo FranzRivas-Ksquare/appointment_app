@@ -6,6 +6,7 @@ import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../resources/color_manager.dart';
+import '../resources/dateTime_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
@@ -27,7 +28,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
       TextEditingController(text: 'init text test');
   final TextEditingController _descrCtrl =
       TextEditingController(text: 'init text test');
-
+  DatetimeManager dtmanager = DatetimeManager();
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
 
@@ -156,11 +157,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ElevatedButton(
                         onPressed: () async {
                           Appointment updateAppointment = Appointment(
-                            id: args[
-                                'id'],
+                            id: args['id'],
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
-                            date: '$dateNow $timeNow',
+                            date: dtmanager.dateTimeParse(dateNow, timeNow),
                             author: dataServices.getCurrentUser.email,
                           );
                           if (await dataServices
@@ -173,6 +173,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                           }
                           print(dateNow);
                           print(timeNow);
+                          //print()
                         },
                         child: const Text(AppString.updateAppoint)),
                   ],

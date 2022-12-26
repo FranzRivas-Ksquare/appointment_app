@@ -1,4 +1,5 @@
 import 'package:appointment/custom_widgets/widgets_custom.dart';
+import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -30,9 +31,7 @@ class _NewAppointmentState extends State<NewAppointment> {
   // TODO: Create a DateTime type variable with dateNow and timeNow values
   String dateNow = DateFormat('y/M/d').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
-  String dateToFormat = '';
-  String timeToFormat = '';
-  String dtTogether = '';
+  DatetimeManager dtmanager = DatetimeManager();
 
   @override
   Widget build(BuildContext context) {
@@ -83,40 +82,6 @@ class _NewAppointmentState extends State<NewAppointment> {
       setState(() {
         timeNow = newTime.format(context).toString();
       });
-    }
-
-    void dateTimeParse() async {
-      if (dateNow.isNotEmpty && timeNow.isNotEmpty) {
-        dateToFormat = dateNow.replaceAll('/', '-');
-        if (timeNow.contains('AM')) {
-          double timeNumber = double.parse(timeNow
-              .replaceAll('AM', '')
-              .replaceAll('PM', '')
-              .replaceAll(':', '.')
-              .replaceAll(' ', ''));
-          if (timeNumber >= 12.00) {
-            timeNumber = timeNumber - 12.00;
-            timeToFormat =
-                '0${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
-          } else if (timeNumber >= 1.00 && timeNumber <= 9.59) {
-            timeToFormat =
-                '0${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
-          } else {
-            timeToFormat =
-                '${timeNow.replaceAll('AM', '').replaceAll('PM', '').replaceAll(' ', '')}:00.000000';
-          }
-        } else if (timeNow.contains('PM')) {
-          double timeNumber = double.parse(timeNow
-              .replaceAll('AM', '')
-              .replaceAll('PM', '')
-              .replaceAll(':', '.')
-              .replaceAll(' ', ''));
-          timeNumber = timeNumber + 12;
-          timeToFormat =
-              '${timeNumber.toStringAsFixed(2).replaceAll('.', ':')}:00.000000';
-        }
-        dtTogether = '$dateToFormat $timeToFormat';
-      }
     }
 
     //_titleCtrl.text = 'Flutter Exam';
@@ -191,10 +156,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
                         onPressed: () async {
-                          dateTimeParse();
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
-                              date: '$dateNow $timeNow',
+                              date: dtmanager.dateTimeParse(dateNow, timeNow),
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
                           // TODO: Validate all appointments date in a loop to verify availability
@@ -207,7 +171,11 @@ class _NewAppointmentState extends State<NewAppointment> {
                           }
                           print(dateNow);
                           print(timeNow);
-                          print(dtTogether);
+                          String dtSTring =
+                              dtmanager.dateTimeParse(dateNow, timeNow);
+                          DateTime dt = DateTime.parse(dtSTring);
+                          print(dtSTring);
+                          print(dt);
                         },
                         child: const Text(AppString.newAppoint)),
                   ],

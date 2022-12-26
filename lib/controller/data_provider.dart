@@ -18,6 +18,12 @@ class DataProvider extends ChangeNotifier {
     DataProvider.initDB();
   }
 
+  @override
+  void dispose() {
+    DataProvider.closeDB();
+    super.dispose();
+  }
+
   //--DB services
   static void initDB() async {
     if (kDebugMode) print('Database init trigger');

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
+import '../custom_widgets/alert_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/dateTime_manager.dart';
 import '../resources/routes_manager.dart';
@@ -163,6 +164,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                             date: dtmanager.dateTimeParse(dateNow, timeNow),
                             author: dataServices.getCurrentUser.email,
                           );
+                          if(!dataServices.availability(updateAppointment)) {
+                            AlertManager().displaySnackbarDateTime(
+                                context, AppString.warning, AppString.alreadyDate);
+                          }
                           if (await dataServices
                               .updateAppointments(updateAppointment)) {
                             DialogManager().sucessDialog(

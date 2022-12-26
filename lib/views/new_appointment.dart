@@ -9,7 +9,7 @@ import '../custom_widgets/textfield_custom.dart';
 import '../models/models.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
-
+import '../custom_widgets/alert_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
@@ -161,7 +161,10 @@ class _NewAppointmentState extends State<NewAppointment> {
                               date: dtmanager.dateTimeParse(dateNow, timeNow),
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
-                          // TODO: Validate all appointments date in a loop to verify availability
+                          if(!dataServices.availability(newApp)) {
+                            AlertManager().displaySnackbarDateTime(
+                                context, AppString.warning, AppString.alreadyDate);
+                          }
                           if (await dataServices.createAppointments(newApp)) {
                             DialogManager().sucessDialog(
                                 context,

@@ -114,6 +114,16 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
+  bool availability(Appointment appointment) {
+    List<Appointment> isAvailable = appointments
+        .where((element) => element.date == appointment.date).toList();
+    if (isAvailable == []) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void deleteAppointments(int id) async {
     bool validate = await appointmentCtrl!.delete(id);
     if (validate) {

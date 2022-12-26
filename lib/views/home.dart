@@ -43,10 +43,8 @@ class HomeScreen extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    //DataProvider dataServices = Provider.of<DataProvider>(context);
     List<Appointment> appointments = context.watch<DataProvider>().appointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
-    File avatarFile = context.watch<DataProvider>().avatarFile!;
 
     return Scaffold(
       appBar: AppBar(
@@ -72,7 +70,7 @@ class HomeScreen extends State<Home> {
               padding: EdgeInsets.only(right: AppPadding.p18),
               child: CircleAvatar(
                 radius: AppSize.s28,
-                backgroundImage: FileImage(avatarFile),
+                backgroundImage: currentUser!.getAvatar(),
               ),
             ),
           )

@@ -54,7 +54,6 @@ class SignIn extends StatelessWidget {
                         if (validate) {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.homeScreen);
-                          print(dataServices.getAvatar);
                         } else {
                           // TODO: Fix singInUser service before continue!!!
                           AlertManager().displaySnackbarLogIn(

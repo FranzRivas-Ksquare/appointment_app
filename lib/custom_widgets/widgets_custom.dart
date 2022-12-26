@@ -30,13 +30,14 @@ class CustomWidgets {
     );
   }
 
-  circleAvatarProfile(BuildContext context, getAvatar) {
+  // TODO: check types
+  circleAvatarProfile(BuildContext context, ImageProvider getAvatar) {
     return CircleAvatar(
       radius: AppSize.s84,
       backgroundColor: ColorManager.backgroundColor,
       child: CircleAvatar(
         radius: AppSize.s80,
-        backgroundImage: FileImage(getAvatar),
+        backgroundImage: getAvatar,
       ),
     );
   }

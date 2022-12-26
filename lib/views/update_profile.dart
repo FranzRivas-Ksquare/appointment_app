@@ -84,7 +84,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ? CustomWidgets()
                               .containerAvatarProfile(context, _imagePickerPath)
                           : CustomWidgets().circleAvatarProfile(
-                              context, dataServices.getAvatar)),
+                              context, dataServices.getCurrentUser.getAvatar())),
                 ),
               ],
             ),

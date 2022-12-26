@@ -12,7 +12,6 @@ class DataProvider extends ChangeNotifier {
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
-  File? avatarFile;
   List<Appointment> appointments = [];
 
   DataProvider() {
@@ -49,7 +48,6 @@ class DataProvider extends ChangeNotifier {
     bool validate = await userCtrl!.create(user);
     if (validate) {
       currentUser = user;
-      avatarFile = File(currentUser!.avatar!);
       notifyListeners();
       return true;
     } else {
@@ -79,10 +77,7 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  get getAvatar {
-    File avatarFile = File(currentUser!.avatar!);
-    return avatarFile;
-  }
+
 
   get getCurrentUser => currentUser;
 

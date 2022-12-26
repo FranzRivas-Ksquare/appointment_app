@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+
 class User {
   String? name;
   String email;
@@ -25,6 +29,15 @@ class User {
       'avatar': avatar
     };
   }
+
+  ImageProvider<Object> getAvatar() {
+    if (avatar == null) {
+      return const NetworkImage('https://picsum.photos/200/300');
+    } else {
+      return FileImage(File(avatar!));
+    }
+  }
+
 }
 
 class Appointment {

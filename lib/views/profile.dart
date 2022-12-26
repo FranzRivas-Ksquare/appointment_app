@@ -7,6 +7,7 @@ import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/values_manager.dart';
 import '../controller/data_provider.dart';
+import '../models/models.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -14,7 +15,8 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+
+    User? currentUser = context.watch<DataProvider>().currentUser;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -30,19 +32,19 @@ class Profile extends StatelessWidget {
             children: <Widget>[
               CustomWidgets().columnColors(context, ColorManager.lightPink),
               CustomWidgets()
-                  .circleAvatarProfile(context, dataServices.getAvatar)
+                  .circleAvatarProfile(context, currentUser!.getAvatar())
             ],
           ),
           Container(
             padding: const EdgeInsets.all(AppPadding.p14),
             child: Column(
               children: <Widget>[
-                Text(dataServices.getCurrentUser.name,
+                Text(currentUser.name!,
                     style: CustomTextStyle.profileName),
                 const SizedBox(
                   height: AppSize.s8,
                 ),
-                Text(dataServices.getCurrentUser.email,
+                Text(currentUser.email,
                     style: Theme.of(context).textTheme.subtitle2),
                 const SizedBox(
                   height: AppSize.s110,

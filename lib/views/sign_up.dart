@@ -81,7 +81,7 @@ class SignUp extends StatelessWidget {
                                 email: _emailCtrl.text,
                                 name: _nameCtrl.text,
                                 password: _passwordCtrl.text,
-                                avatar: "avatar.jpg");
+                                avatar: null);
                             if (await dataServices.signUpUser(tempUser)) {
                               Navigator.pushReplacementNamed(
                                   context, AppRoutes.homeScreen);

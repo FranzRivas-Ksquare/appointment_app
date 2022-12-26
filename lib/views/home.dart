@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../resources/color_manager.dart';
 import '../resources/font_manager.dart';
@@ -9,6 +11,7 @@ import '../custom_widgets/appointment_card.dart';
 import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
 import '../controller/data_provider.dart';
+import '../models/models.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -29,10 +32,21 @@ class HomeScreen extends State<Home> {
   static final String selected = buttons[2];
 
   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      var dataServices = Provider.of<DataProvider>(context, listen: false);
+      dataServices.fetchAppointments();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //--Set provider
-    var dataServices = Provider.of<DataProvider>(context);
-    dataServices.fetchAppointments();
+
+    //DataProvider dataServices = Provider.of<DataProvider>(context);
+    List<Appointment> appointments = context.watch<DataProvider>().appointments;
+    User? currentUser = context.watch<DataProvider>().currentUser;
+    File avatarFile = context.watch<DataProvider>().avatarFile!;
 
     return Scaffold(
       appBar: AppBar(
@@ -44,7 +58,7 @@ class HomeScreen extends State<Home> {
             children: <Widget>[
               Text(AppString.welcome,
                   style: Theme.of(context).textTheme.headline3),
-              Text('${AppString.hello} ${dataServices.getCurrentUser.name}',
+              Text('${AppString.hello} ${currentUser?.name ?? 'no name'}',
                   style: TextStyle(
                       fontSize: FontSize.s16,
                       color: ColorManager.appBarDarkPink)),
@@ -58,7 +72,7 @@ class HomeScreen extends State<Home> {
               padding: EdgeInsets.only(right: AppPadding.p18),
               child: CircleAvatar(
                 radius: AppSize.s28,
-                backgroundImage: FileImage(dataServices.getAvatar),
+                backgroundImage: FileImage(avatarFile),
               ),
             ),
           )
@@ -84,18 +98,18 @@ class HomeScreen extends State<Home> {
               ),
               Expanded(
                   child: ListView.builder(
-                      itemCount: dataServices.appointments.length,
+                      itemCount: appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
-                          id: dataServices.appointments[index].id!,
-                          title: dataServices.appointments[index].title,
-                          due: dataServices.appointments[index].date
+                          id: appointments[index].id!,
+                          title: appointments[index].title,
+                          due: appointments[index].date
                               .split(' ')[0],
                           description:
-                              dataServices.appointments[index].description,
-                          date: dataServices.appointments[index].date
+                              appointments[index].description,
+                          date: appointments[index].date
                               .split(' ')[0],
-                          time: dataServices.appointments[index].date
+                          time: appointments[index].date
                               .split(' ')[1],
                         );
                       })),

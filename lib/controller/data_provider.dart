@@ -7,11 +7,12 @@ import '../database/user_db.dart';
 import '../database/appointments_db.dart';
 
 class DataProvider extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'database.db');
+  static AppDB appDB = AppDB(dbName: 'database1.db');
   String? email;
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
+  File? avatarFile;
   List<Appointment> appointments = [];
 
   DataProvider() {
@@ -29,10 +30,8 @@ class DataProvider extends ChangeNotifier {
     if (kDebugMode) print('Database init trigger');
     await appDB.open();
     Database db = await appDB.getDB;
-    UserDB userDB = UserDB(db: db);
-    AppointmentDB appointmentDB = AppointmentDB(db: db);
-    userCtrl = userDB;
-    appointmentCtrl = appointmentDB;
+    userCtrl = UserDB(db: db);
+    appointmentCtrl = AppointmentDB(db: db);
   }
 
   static void closeDB() async {
@@ -50,6 +49,7 @@ class DataProvider extends ChangeNotifier {
     bool validate = await userCtrl!.create(user);
     if (validate) {
       currentUser = user;
+      avatarFile = File(currentUser!.avatar!);
       notifyListeners();
       return true;
     } else {
@@ -107,7 +107,6 @@ class DataProvider extends ChangeNotifier {
     bool validate = await appointmentCtrl!.update(appointment);
     if (validate) {
       fetchAppointments();
-      notifyListeners();
       return true;
     } else {
       return false;
@@ -117,6 +116,8 @@ class DataProvider extends ChangeNotifier {
   bool availability(Appointment appointment) {
     List<Appointment> isAvailable = appointments
         .where((element) => element.date == appointment.date).toList();
+    if (kDebugMode) print(appointments);
+    if (kDebugMode) print(isAvailable);
     if (isAvailable == []) {
       return true;
     } else {
@@ -128,8 +129,8 @@ class DataProvider extends ChangeNotifier {
     bool validate = await appointmentCtrl!.delete(id);
     if (validate) {
       appointments = appointments.where((element) => element.id != id).toList();
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   get getAppointments => appointments;

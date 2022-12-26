@@ -18,15 +18,25 @@ class DataProvider extends ChangeNotifier {
     DataProvider.initDB();
   }
 
-  //--DB init service
+  //--DB services
   static void initDB() async {
-    if (kDebugMode) print("Database init trigger");
+    if (kDebugMode) print('Database init trigger');
     await appDB.open();
     Database db = await appDB.getDB;
     UserDB userDB = UserDB(db: db);
     AppointmentDB appointmentDB = AppointmentDB(db: db);
     userCtrl = userDB;
     appointmentCtrl = appointmentDB;
+  }
+
+  static void closeDB() async {
+    if (kDebugMode) print('Database close trigger');
+    bool isClose = await appDB.close();
+    if (isClose) {
+      if (kDebugMode) print('Database is close');
+    } else {
+      if (kDebugMode) print('Field closing database');
+    }
   }
 
   //--User services

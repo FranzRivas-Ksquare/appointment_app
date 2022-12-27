@@ -161,7 +161,8 @@ class _NewAppointmentState extends State<NewAppointment> {
                               date: dtmanager.dateTimeParse(dateNow, timeNow),
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
-                          if(!dataServices.availability(newApp)) {
+                          bool validate = dataServices.availability(newApp);
+                          if(!validate) {
                             AlertManager().displaySnackbarDateTime(
                                 context, AppString.warning, AppString.alreadyDate);
                           }

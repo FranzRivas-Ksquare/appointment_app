@@ -113,11 +113,7 @@ class DataProvider extends ChangeNotifier {
         .where((element) => element.date == appointment.date).toList();
     if (kDebugMode) print(appointments);
     if (kDebugMode) print(isAvailable);
-    if (isAvailable == []) {
-      return true;
-    } else {
-      return false;
-    }
+    return isAvailable.isEmpty;
   }
 
   void deleteAppointments(int id) async {

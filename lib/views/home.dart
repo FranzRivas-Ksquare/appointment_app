@@ -99,15 +99,15 @@ class HomeScreen extends State<Home> {
                       itemCount: appointments.length,
                       itemBuilder: (context, index) {
                         return AppointmentCard(
-                          id: appointments[index].id!,
+                          id: appointments[index].id,
                           title: appointments[index].title,
-                          due: appointments[index].date
+                          due: appointments[index].getDate
                               .split(' ')[0],
                           description:
                               appointments[index].description,
-                          date: appointments[index].date
+                          date: appointments[index].getDate
                               .split(' ')[0],
-                          time: appointments[index].date
+                          time: appointments[index].getDate
                               .split(' ')[1],
                         );
                       })),

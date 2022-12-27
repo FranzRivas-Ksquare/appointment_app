@@ -14,7 +14,7 @@ class AppointmentDB {
       final id = await db.insert('APPOINTMENTS', {
         'TITLE': appointment.title,
         'DESCRIPTION': appointment.description,
-        'DATE': appointment.date,
+        'DATE': appointment.date.toString(),
         'AUTHOR': appointment.author,
       });
 
@@ -53,7 +53,7 @@ class AppointmentDB {
           {
             'TITLE': appointment.title,
             'DESCRIPTION': appointment.description,
-            'DATE': appointment.date,
+            'DATE': appointment.date.toString(),
             'AUTHOR': appointment.author,
           },
           where: 'ID = ?',

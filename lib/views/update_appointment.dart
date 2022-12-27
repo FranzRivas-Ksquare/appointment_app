@@ -32,6 +32,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   DatetimeManager dtmanager = DatetimeManager();
   String dateNow = DateFormat('yMd').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
+  TimeOfDay newTime = TimeOfDay.now();
+  DateTime newDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
     var dataServices = Provider.of<DataProvider>(context);
 
     Future<void> _showDatePicker() async {
-      DateTime? newDate = await showDatePicker(
+      newDate = await showDatePicker(
           context: context,
           builder: (context, child) {
             return Theme(
@@ -57,16 +59,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
           },
           initialDate: DateTime.now(),
           firstDate: DateTime(2022),
-          lastDate: DateTime(2027));
+          lastDate: DateTime(2027)) ?? DateTime.now();
 
-      if (newDate == null) return;
       setState(() {
         dateNow = DateFormat('yMd').format(newDate);
       });
     }
 
     Future<void> _showTimePicker() async {
-      TimeOfDay? newTime = await showTimePicker(
+      newTime = await showTimePicker(
           context: context,
           builder: (context, child) {
             return Theme(
@@ -80,9 +81,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
               child: child!,
             );
           },
-          initialTime: TimeOfDay.now());
+          initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
 
-      if (newTime == null) return;
       setState(() {
         timeNow = newTime.format(context).toString();
       });
@@ -161,10 +161,17 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                             id: args['id'],
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
-                            date: dtmanager.dateTimeParse(dateNow, timeNow),
+                            date: DateTime(
+                                newDate.year,
+                                newDate.month,
+                                newDate.day,
+                                newTime.hour,
+                                newTime.minute,
+                                0),
                             author: dataServices.getCurrentUser.email,
                           );
-                          if(!dataServices.availability(updateAppointment)) {
+                          bool validate = dataServices.availability(updateAppointment);
+                          if(!validate) {
                             AlertManager().displaySnackbarDateTime(
                                 context, AppString.warning, AppString.alreadyDate);
                           }

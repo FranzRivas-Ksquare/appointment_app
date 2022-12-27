@@ -32,12 +32,14 @@ class _NewAppointmentState extends State<NewAppointment> {
   String dateNow = DateFormat('y/M/d').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
   DatetimeManager dtmanager = DatetimeManager();
+  TimeOfDay newTime = TimeOfDay.now();
+  DateTime newDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
     Future<void> _showDatePicker() async {
-      DateTime? newDate = await showDatePicker(
+      newDate = await showDatePicker(
           context: context,
           builder: (context, child) {
             return Theme(
@@ -53,16 +55,15 @@ class _NewAppointmentState extends State<NewAppointment> {
           },
           initialDate: DateTime.now(),
           firstDate: DateTime(2022),
-          lastDate: DateTime(2027));
+          lastDate: DateTime(2027)) ?? DateTime.now();
 
-      if (newDate == null) return;
       setState(() {
         dateNow = DateFormat('y/M/d').format(newDate);
       });
     }
 
     Future<void> _showTimePicker() async {
-      TimeOfDay? newTime = await showTimePicker(
+      newTime = await showTimePicker(
           context: context,
           builder: (context, child) {
             return Theme(
@@ -76,9 +77,8 @@ class _NewAppointmentState extends State<NewAppointment> {
               child: child!,
             );
           },
-          initialTime: TimeOfDay.now());
+          initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
 
-      if (newTime == null) return;
       setState(() {
         timeNow = newTime.format(context).toString();
       });
@@ -158,7 +158,13 @@ class _NewAppointmentState extends State<NewAppointment> {
                         onPressed: () async {
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
-                              date: dtmanager.dateTimeParse(dateNow, timeNow),
+                              date: DateTime(
+                                  newDate.year,
+                                  newDate.month,
+                                  newDate.day,
+                                  newTime.hour,
+                                  newTime.minute,
+                                  0),
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
                           bool validate = dataServices.availability(newApp);

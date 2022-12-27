@@ -41,14 +41,14 @@ class User {
 }
 
 class Appointment {
-  final int? id;
+  final int id;
   String title;
   String description;
-  String date;
+  DateTime date;
   String author;
 
   Appointment(
-      {this.id,
+      {this.id = 0,
       required this.title,
       required this.description,
       required this.date,
@@ -58,12 +58,12 @@ class Appointment {
       : id = row['ID'] as int,
         title = row['TITLE'] as String,
         description = row['DESCRIPTION'] as String,
-        date = row['DATE'] as String,
+        date = DateTime.parse(row['DATE'] as String),
         author = row['AUTHOR'] as String;
 
   @override
   String toString() {
-    return 'User {title: $title\ndescription: $description\ndate: $date\nauthor: $author}';
+    return 'Appointment {title: $title\ndescription: $description\ndate: $date\nauthor: $author}';
   }
 
   Map<String, dynamic> toMap() {
@@ -75,4 +75,10 @@ class Appointment {
       'author': author
     };
   }
+
+  // TODO cast data as needed
+  get getDate {
+    return date.toString();
+  }
+
 }

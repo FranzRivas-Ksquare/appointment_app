@@ -5,15 +5,14 @@ import '../resources/values_manager.dart';
 import '../resources/color_manager.dart';
 
 class TimeRatio extends StatelessWidget {
-  TimeRatio(
-      {super.key,
-      required this.text,
-      required this.isSelect,
-      required this.dataServices});
+  TimeRatio({
+    super.key,
+    required this.text,
+    required this.isSelect,
+  });
 
   String text;
   bool isSelect;
-  DataProvider dataServices;
   @override
   Widget build(BuildContext context) {
     return Container(

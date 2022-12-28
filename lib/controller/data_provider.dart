@@ -149,21 +149,21 @@ class DataProvider extends ChangeNotifier {
   void fillTimeRatioArray() {
     if (timeRatioButtons.isEmpty) {
       for (int i = 0; i < 4; i++) {
-        timeRatioButtons.add(TimeRatio(
-          text: buttons[i],
-          isSelect: false,
-          dataServices: this,
-        ));
+        timeRatioButtons.add(TimeRatio(text: buttons[i], isSelect: false));
       }
+      timeRatioButtons[0].isSelect = true;
     }
   }
 
   void changeTimeRatio(int index) {
     timeRatioButtons[index].isSelect = true;
+    print(index);
     for (int i = 0; i < timeRatioButtons.length; i++) {
       if (timeRatioButtons[i].isSelect && i != index) {
-      } else {}
+        timeRatioButtons[i].isSelect = false;
+      }
     }
+    notifyListeners();
   }
 
   get getTimeRatioButtons => timeRatioButtons;

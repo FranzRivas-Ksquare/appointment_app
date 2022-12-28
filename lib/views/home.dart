@@ -1,3 +1,4 @@
+import 'package:appointment/controller/timeratio_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -22,14 +23,15 @@ class Home extends StatefulWidget {
 class HomeScreen extends State<Home> {
   // TODO: Filter appointments per date range
   late DataProvider dataServices;
+  late TimeRatioProvider trService;
   //static final String selected = buttons[2];
 
   @override
   void initState() {
     super.initState();
+
     SchedulerBinding.instance.addPostFrameCallback((_) {
       dataServices = Provider.of<DataProvider>(context, listen: false);
-      dataServices.fillTimeRatioArray();
       dataServices.fetchAppointments();
     });
   }
@@ -38,8 +40,9 @@ class HomeScreen extends State<Home> {
   Widget build(BuildContext context) {
     List<Appointment> appointments = context.watch<DataProvider>().appointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
-    List<TimeRatio> _timeRatios =
-        context.watch<DataProvider>().getTimeRatioButtons;
+    trService = Provider.of<TimeRatioProvider>(context, listen: true);
+    trService.fillTimeRatioArray();
+    List<TimeRatio> _timeRatios = trService.timeRatioButtons;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.appBarLightPink,
@@ -72,43 +75,42 @@ class HomeScreen extends State<Home> {
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: AppSize.s60,
-                width: double.infinity,
+            child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: AppSize.s60,
+              width: double.infinity,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _timeRatios.length,
+                  itemBuilder: ((context, index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              trService.changeTimeRatio(index);
+                            },
+                            child: _timeRatios.elementAt(index))
+                      ],
+                    );
+                  })),
+            ),
+            // TODO: Parse data in model
+            Expanded(
                 child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _timeRatios.length,
-                    itemBuilder: ((context, index) {
-                      return Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                dataServices.notifyListeners();
-                              },
-                              child: _timeRatios.elementAt(index))
-                        ],
+                    itemCount: appointments.length,
+                    itemBuilder: (context, index) {
+                      return AppointmentCard(
+                        id: appointments[index].id,
+                        title: appointments[index].title,
+                        due: appointments[index].getDate.split(' ')[0],
+                        description: appointments[index].description,
+                        date: appointments[index].getDate.split(' ')[0],
+                        time: appointments[index].getDate.split(' ')[1],
                       );
                     })),
-              ),
-              // TODO: Parse data in model
-              Expanded(
-                  child: ListView.builder(
-                      itemCount: appointments.length,
-                      itemBuilder: (context, index) {
-                        return AppointmentCard(
-                          id: appointments[index].id,
-                          title: appointments[index].title,
-                          due: appointments[index].getDate.split(' ')[0],
-                          description: appointments[index].description,
-                          date: appointments[index].getDate.split(' ')[0],
-                          time: appointments[index].getDate.split(' ')[1],
-                        );
-                      })),
-            ],
-          ),
-        ),
+          ],
+        )),
       ),
       floatingActionButton:
           CustomButton().floatingButton(context, AppRoutes.newAppScreen),

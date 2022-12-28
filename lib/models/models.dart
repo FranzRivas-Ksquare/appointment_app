@@ -11,10 +11,10 @@ class User {
   User({this.name, required this.email, required this.password, this.avatar});
 
   User.fromRow(Map<String, Object?> row)
-      : name = row['NAME'] as String,
+      : name = row['NAME'] as String?,
         email = row['EMAIL'] as String,
         password = row['PASSWORD'] as String,
-        avatar = row['AVATAR'] as String;
+        avatar = row['AVATAR'] as String?;
 
   @override
   String toString() {

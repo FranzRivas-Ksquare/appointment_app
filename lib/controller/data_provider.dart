@@ -8,7 +8,7 @@ import '../database/user_db.dart';
 import '../database/appointments_db.dart';
 
 class DataProvider extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'database1.db');
+  static AppDB appDB = AppDB(dbName: 'database.db');
   String? email;
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;

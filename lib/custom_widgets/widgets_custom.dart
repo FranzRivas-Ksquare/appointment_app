@@ -48,6 +48,9 @@ class CustomWidgets {
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-                fit: BoxFit.cover, image: FileImage(File(imagePath)))));
+                fit: BoxFit.cover,
+                image: FileImage(File(
+                  imagePath,
+                )))));
   }
 }

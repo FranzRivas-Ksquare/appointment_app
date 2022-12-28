@@ -81,10 +81,19 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       radius: AppSize.s84,
                       backgroundColor: ColorManager.backgroundColor,
                       child: _imagePickerPath.isNotEmpty
-                          ? CustomWidgets()
-                              .containerAvatarProfile(context, _imagePickerPath)
-                          : CustomWidgets().circleAvatarProfile(
-                              context, dataServices.getCurrentUser.getAvatar())),
+                          ? FutureBuilder(
+                              future: Future.delayed(const Duration(
+                                  milliseconds: DurationConstant.d3000)),
+                              builder: (context, asyncSnapshot) =>
+                                  asyncSnapshot.connectionState ==
+                                          ConnectionState.done
+                                      ? CustomWidgets().containerAvatarProfile(
+                                          context, _imagePickerPath)
+                                      : const CircularProgressIndicator(
+                                          strokeWidth: AppSize.s8),
+                            )
+                          : CustomWidgets().circleAvatarProfile(context,
+                              dataServices.getCurrentUser.getAvatar())),
                 ),
               ],
             ),

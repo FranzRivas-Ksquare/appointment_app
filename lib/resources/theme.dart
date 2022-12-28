@@ -154,6 +154,15 @@ ThemeData getApplicationTheme() {
               fontFamily: FontConstants.fontPrimary,
               fontSize: FontSize.s14)),
 
+      //Progress Indicator
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: ColorManager.appBarDarkPink,
+        linearTrackColor: ColorManager.appBarLightPink,
+        circularTrackColor: ColorManager.lightGreen,
+        refreshBackgroundColor: ColorManager.auxiliary,
+        linearMinHeight: AppSize.s12,
+      ),
+
       //dialog
       dialogTheme: DialogTheme(
         elevation: ElementElevation.e2,

@@ -84,8 +84,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           ? FutureBuilder(
                               future: Future.delayed(const Duration(
                                   milliseconds: DurationConstant.d3000)),
-                              builder: (c, s) =>
-                                  s.connectionState == ConnectionState.done
+                              builder: (context, asyncSnapshot) =>
+                                  asyncSnapshot.connectionState ==
+                                          ConnectionState.done
                                       ? CustomWidgets().containerAvatarProfile(
                                           context, _imagePickerPath)
                                       : const CircularProgressIndicator(

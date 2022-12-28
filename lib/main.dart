@@ -1,3 +1,4 @@
+import 'package:appointment/controller/timeratio_provider.dart';
 import 'package:appointment/resources/routes_manager.dart';
 import 'package:appointment/resources/string_manager.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DataProvider()),
+        ChangeNotifierProvider(create: (context) => TimeRatioProvider()),
       ],
       child: MaterialApp(
         title: AppString.appTitle,

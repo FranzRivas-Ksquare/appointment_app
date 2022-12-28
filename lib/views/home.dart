@@ -21,30 +21,25 @@ class Home extends StatefulWidget {
 
 class HomeScreen extends State<Home> {
   // TODO: Filter appointments per date range
-  static final List buttons = [
-    "All",
-    "Today",
-    "Tomorrow",
-    "Past",
-  ];
-
-  static final String selected = buttons[2];
+  late DataProvider dataServices;
+  //static final String selected = buttons[2];
 
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      var dataServices = Provider.of<DataProvider>(context, listen: false);
+      dataServices = Provider.of<DataProvider>(context, listen: false);
+      dataServices.fillTimeRatioArray();
       dataServices.fetchAppointments();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     List<Appointment> appointments = context.watch<DataProvider>().appointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
-
+    List<TimeRatio> _timeRatios =
+        context.watch<DataProvider>().getTimeRatioButtons;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.appBarLightPink,
@@ -84,11 +79,15 @@ class HomeScreen extends State<Home> {
                 width: double.infinity,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: buttons.length,
+                    itemCount: _timeRatios.length,
                     itemBuilder: ((context, index) {
                       return Row(
                         children: [
-                          TimeRatio(text: buttons[index], isSelect: false)
+                          GestureDetector(
+                              onTap: () {
+                                dataServices.notifyListeners();
+                              },
+                              child: _timeRatios.elementAt(index))
                         ],
                       );
                     })),
@@ -101,14 +100,10 @@ class HomeScreen extends State<Home> {
                         return AppointmentCard(
                           id: appointments[index].id,
                           title: appointments[index].title,
-                          due: appointments[index].getDate
-                              .split(' ')[0],
-                          description:
-                              appointments[index].description,
-                          date: appointments[index].getDate
-                              .split(' ')[0],
-                          time: appointments[index].getDate
-                              .split(' ')[1],
+                          due: appointments[index].getDate.split(' ')[0],
+                          description: appointments[index].description,
+                          date: appointments[index].getDate.split(' ')[0],
+                          time: appointments[index].getDate.split(' ')[1],
                         );
                       })),
             ],

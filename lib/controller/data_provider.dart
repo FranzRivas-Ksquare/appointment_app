@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'package:appointment/custom_widgets/time_ratio.dart';
+import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/models.dart';
@@ -13,6 +14,13 @@ class DataProvider extends ChangeNotifier {
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
   List<Appointment> appointments = [];
+  static final List buttons = [
+    "All",
+    "Today",
+    "Tomorrow",
+    "Past",
+  ];
+  List<TimeRatio> timeRatioButtons = [];
 
   DataProvider() {
     DataProvider.initDB();
@@ -55,9 +63,11 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  // TODO: "Error no match user = Array range error" Fix this!!!
   Future<bool> signInUser(String email, String password) async {
-    User tempUser = await userCtrl!.fetchUser(email).then((value) => value[0]);
+    User? tempUser = await userCtrl!.fetchUser(email);
+    if (tempUser == null) {
+      return false;
+    }
     if (tempUser.password == password) {
       currentUser = tempUser;
       notifyListeners();
@@ -76,8 +86,6 @@ class DataProvider extends ChangeNotifier {
       return false;
     }
   }
-
-
 
   get getCurrentUser => currentUser;
 
@@ -110,7 +118,8 @@ class DataProvider extends ChangeNotifier {
 
   bool availability(Appointment appointment) {
     List<Appointment> isAvailable = appointments
-        .where((element) => element.date == appointment.date).toList();
+        .where((element) => element.date == appointment.date)
+        .toList();
     if (kDebugMode) print(appointments);
     if (kDebugMode) print(isAvailable);
     return isAvailable.isEmpty;
@@ -124,5 +133,39 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
+  List<Appointment> timeRatio(DateTime dayRatio) {
+    List<Appointment> filter =
+        appointments.where((element) => element.date.day == dayRatio).toList();
+    return filter;
+  }
+
+  List<Appointment> getTodayAppointments() {
+    List<Appointment> filter = appointments
+        .where((element) => DatetimeManager().compareTodayDates(element.date))
+        .toList();
+    return filter;
+  }
+
+  void fillTimeRatioArray() {
+    if (timeRatioButtons.isEmpty) {
+      for (int i = 0; i < 4; i++) {
+        timeRatioButtons.add(TimeRatio(
+          text: buttons[i],
+          isSelect: false,
+          dataServices: this,
+        ));
+      }
+    }
+  }
+
+  void changeTimeRatio(int index) {
+    timeRatioButtons[index].isSelect = true;
+    for (int i = 0; i < timeRatioButtons.length; i++) {
+      if (timeRatioButtons[i].isSelect && i != index) {
+      } else {}
+    }
+  }
+
+  get getTimeRatioButtons => timeRatioButtons;
   get getAppointments => appointments;
 }

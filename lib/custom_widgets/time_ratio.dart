@@ -1,14 +1,19 @@
+import 'package:appointment/controller/data_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/values_manager.dart';
 import '../resources/color_manager.dart';
 
 class TimeRatio extends StatelessWidget {
-  TimeRatio({super.key, required this.text, required this.isSelect});
+  TimeRatio(
+      {super.key,
+      required this.text,
+      required this.isSelect,
+      required this.dataServices});
 
   String text;
   bool isSelect;
-
+  DataProvider dataServices;
   @override
   Widget build(BuildContext context) {
     return Container(

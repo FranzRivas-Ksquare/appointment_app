@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -94,6 +93,7 @@ class HomeScreen extends State<Home> {
                       );
                     })),
               ),
+              // TODO: Parse data in model
               Expanded(
                   child: ListView.builder(
                       itemCount: appointments.length,

@@ -1,5 +1,6 @@
 import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
@@ -25,20 +26,35 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  final TextEditingController _titleCtrl =
-      TextEditingController(text: 'init text test');
-  final TextEditingController _descrCtrl =
-      TextEditingController(text: 'init text test');
+  TextEditingController _titleCtrl =
+      TextEditingController();
+  TextEditingController _descrCtrl =
+      TextEditingController();
   DatetimeManager dtmanager = DatetimeManager();
-  String dateNow = DateFormat('yMd').format(DateTime.now());
-  String timeNow = DateFormat('jm').format(DateTime.now());
+
+  String dateNow = '';
+  String timeNow = '';
+  int _id = 0;
+
   TimeOfDay newTime = TimeOfDay.now();
   DateTime newDate = DateTime.now();
 
   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final args =
+      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      _titleCtrl = TextEditingController(text: args['title']);
+      _descrCtrl = TextEditingController(text: args['description']);
+      dateNow = args['date'];
+      timeNow = args['time'];
+      _id = args['id'];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     var dataServices = Provider.of<DataProvider>(context);
 
@@ -158,7 +174,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     ElevatedButton(
                         onPressed: () async {
                           Appointment updateAppointment = Appointment(
-                            id: args['id'],
+                            id: _id,
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
                             date: DateTime(
@@ -183,9 +199,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                                 AppRoutes.homeScreen,
                                 AppString.home);
                           }
-                          print(dateNow);
-                          print(timeNow);
-                          //print()
                         },
                         child: const Text(AppString.updateAppoint)),
                   ],

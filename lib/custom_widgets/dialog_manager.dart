@@ -66,6 +66,10 @@ class DialogManager {
                 Navigator.pushNamed(context, AppRoutes.updateAppScreen,
                     arguments: {
                       'id': id,
+                      'title': title,
+                      'description': descr,
+                      'date': date,
+                      'time': time,
                     });
               },
               child: const Text(AppString.updateAppoint),

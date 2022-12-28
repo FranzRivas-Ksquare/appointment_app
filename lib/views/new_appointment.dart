@@ -179,13 +179,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 AppRoutes.homeScreen,
                                 AppString.home);
                           }
-                          print(dateNow);
-                          print(timeNow);
                           String dtSTring =
                               dtmanager.dateTimeParse(dateNow, timeNow);
                           DateTime dt = DateTime.parse(dtSTring);
-                          print(dtSTring);
-                          print(dt);
                         },
                         child: const Text(AppString.newAppoint)),
                   ],

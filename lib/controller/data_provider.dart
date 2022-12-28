@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:appointment/custom_widgets/time_ratio.dart';
 import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -64,9 +63,11 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  // TODO: "Error no match user = Array range error" Fix this!!!
   Future<bool> signInUser(String email, String password) async {
-    User tempUser = await userCtrl!.fetchUser(email).then((value) => value[0]);
+    User? tempUser = await userCtrl!.fetchUser(email);
+    if (tempUser == null) {
+      return false;
+    }
     if (tempUser.password == password) {
       currentUser = tempUser;
       notifyListeners();

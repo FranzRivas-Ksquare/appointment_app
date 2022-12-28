@@ -31,7 +31,7 @@ class UserDB {
   }
 
   // R in CRUD
-  Future<List<User>> fetchUser(String email) async {
+  Future<User?> fetchUser(String email) async {
     try {
       final read = await db.query(
         'USERS',
@@ -47,11 +47,15 @@ class UserDB {
       );
 
       final useResult = read.map((row) => User.fromRow(row)).toList();
-      return useResult;
+      if (useResult != []) {
+        return useResult[0];
+      } else {
+        return null;
+      }
 
     } catch(e) {
       if (kDebugMode) print('Error fetching users: $e');
-      return [];
+      return null;
     }
   }
 

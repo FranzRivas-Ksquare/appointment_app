@@ -43,4 +43,15 @@ class DatetimeManager {
       return "";
     }
   }
+
+  bool compareTodayDates(DateTime dt) {
+    DateTime today = DateTime.now();
+    if (today.year == dt.year &&
+        today.month == dt.month &&
+        today.day == dt.day) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

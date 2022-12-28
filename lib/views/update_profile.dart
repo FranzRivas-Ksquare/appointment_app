@@ -26,6 +26,7 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  int delayTime = 0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nameCtrl = TextEditingController();
   TextEditingController _passwordCtrl = TextEditingController();
@@ -68,11 +69,13 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       OutlinedButton(
                           onPressed: () {
                             _loadImageFromGallery(AppString.gallery);
+                            delayTime = DurationConstant.d300;
                           },
                           child: const Text(AppString.gallery)),
                       OutlinedButton(
                           onPressed: () {
                             _loadImageFromCamera(AppString.camera);
+                            delayTime = DurationConstant.d1500;
                           },
                           child: const Text(AppString.camera)),
                     );
@@ -82,8 +85,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       backgroundColor: ColorManager.backgroundColor,
                       child: _imagePickerPath.isNotEmpty
                           ? FutureBuilder(
-                              future: Future.delayed(const Duration(
-                                  milliseconds: DurationConstant.d3000)),
+                              future: Future.delayed(Duration(
+                                  milliseconds: delayTime)),
                               builder: (context, asyncSnapshot) =>
                                   asyncSnapshot.connectionState ==
                                           ConnectionState.done
@@ -148,7 +151,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             );
 
                             dataServices.updateUser(updateUser);
-                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
                           }
                         },
                         child: const Text(AppString.updatePro)),

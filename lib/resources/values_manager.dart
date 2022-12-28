@@ -70,4 +70,5 @@ class DurationConstant {
   static const int d2000 = 2000;
   static const int d3000 = 3000;
   static const int d4000 = 4000;
+  static const int d5000 = 5000;
 }

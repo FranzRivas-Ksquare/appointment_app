@@ -1,4 +1,3 @@
-import 'package:appointment/controller/timeratio_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +10,7 @@ import '../custom_widgets/appointment_card.dart';
 import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
 import '../controller/data_provider.dart';
+import '../controller/timeratio_provider.dart';
 import '../models/models.dart';
 
 class Home extends StatefulWidget {
@@ -24,7 +24,6 @@ class HomeScreen extends State<Home> {
   // TODO: Filter appointments per date range
   late DataProvider dataServices;
   late TimeRatioProvider trService;
-  //static final String selected = buttons[2];
 
   @override
   void initState() {
@@ -33,16 +32,18 @@ class HomeScreen extends State<Home> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       dataServices = Provider.of<DataProvider>(context, listen: false);
       dataServices.fetchAppointments();
+      trService = Provider.of<TimeRatioProvider>(context, listen: false);
+      trService.fillTimeRatioArray();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     List<Appointment> appointments = context.watch<DataProvider>().appointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
-    trService = Provider.of<TimeRatioProvider>(context, listen: true);
-    trService.fillTimeRatioArray();
-    List<TimeRatio> _timeRatios = trService.timeRatioButtons;
+    //List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorManager.appBarLightPink,
@@ -64,7 +65,7 @@ class HomeScreen extends State<Home> {
               Navigator.pushNamed(context, AppRoutes.profileScreen);
             },
             child: Padding(
-              padding: EdgeInsets.only(right: AppPadding.p18),
+              padding: const EdgeInsets.only(right: AppPadding.p18),
               child: CircleAvatar(
                 radius: AppSize.s28,
                 backgroundImage: currentUser!.getAvatar(),
@@ -80,20 +81,27 @@ class HomeScreen extends State<Home> {
             SizedBox(
               height: AppSize.s60,
               width: double.infinity,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _timeRatios.length,
-                  itemBuilder: ((context, index) {
-                    return Row(
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              trService.changeTimeRatio(index);
-                            },
-                            child: _timeRatios.elementAt(index))
-                      ],
-                    );
-                  })),
+              child: Consumer<TimeRatioProvider>(
+                builder: ((context, obj, child) {
+                List<TimeRatio> timeRatios = obj.timeRatioButtons;
+                return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: timeRatios.length,
+                    itemBuilder: ((context, index) {
+                      return Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Provider.of<TimeRatioProvider>(
+                                  context,
+                                  listen: false,
+                                ).changeTimeRatio(index);
+                              },
+                              child: timeRatios.elementAt(index))
+                        ],
+                      );
+                    }));
+              })),
             ),
             // TODO: Parse data in model
             Expanded(

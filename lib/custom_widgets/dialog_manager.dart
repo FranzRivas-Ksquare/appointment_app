@@ -43,7 +43,7 @@ class DialogManager {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const Text('${AppString.date}: '),
-                    Text('${appointment.date}')
+                    Text(appointment.getDate)
                   ],
                 ),
                 Row(
@@ -51,7 +51,7 @@ class DialogManager {
                   children: <Widget>[
                     Text('${AppString.time}: ',
                         style: Theme.of(context).textTheme.bodyText2),
-                    Text('${appointment.date}', style: Theme.of(context).textTheme.bodyText2)
+                    Text(appointment.getTime, style: Theme.of(context).textTheme.bodyText2)
                   ],
                 ),
               ],

@@ -8,6 +8,7 @@ import 'resources/theme.dart';
 import 'resources/router.dart';
 import 'controller/data_provider.dart';
 
+// TODO: Comment all the code
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();

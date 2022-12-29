@@ -14,13 +14,6 @@ class DataProvider extends ChangeNotifier {
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
   List<Appointment> appointments = [];
-  static final List buttons = [
-    "All",
-    "Today",
-    "Tomorrow",
-    "Past",
-  ];
-  List<TimeRatio> timeRatioButtons = [];
 
   DataProvider() {
     DataProvider.initDB();
@@ -146,26 +139,5 @@ class DataProvider extends ChangeNotifier {
     return filter;
   }
 
-  void fillTimeRatioArray() {
-    if (timeRatioButtons.isEmpty) {
-      for (int i = 0; i < 4; i++) {
-        timeRatioButtons.add(TimeRatio(text: buttons[i], isSelect: false));
-      }
-      timeRatioButtons[0].isSelect = true;
-    }
-  }
-
-  void changeTimeRatio(int index) {
-    timeRatioButtons[index].isSelect = true;
-    print(index);
-    for (int i = 0; i < timeRatioButtons.length; i++) {
-      if (timeRatioButtons[i].isSelect && i != index) {
-        timeRatioButtons[i].isSelect = false;
-      }
-    }
-    notifyListeners();
-  }
-
-  get getTimeRatioButtons => timeRatioButtons;
   get getAppointments => appointments;
 }

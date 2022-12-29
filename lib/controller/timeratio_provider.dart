@@ -3,37 +3,30 @@ import 'package:flutter/foundation.dart';
 import '../custom_widgets/time_ratio.dart';
 
 class TimeRatioProvider extends ChangeNotifier {
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
-  static final List buttons = [
-    "All",
-    "Today",
-    "Tomorrow",
-    "Past",
-  ];
+  static final List timesText = ["All", "Today", "Tomorrow", "Past"];
+
   List<TimeRatio> timeRatioButtons = [];
 
   void fillTimeRatioArray() {
     if (timeRatioButtons.isEmpty) {
-      for (int i = 0; i < 4; i++) {
-        timeRatioButtons.add(TimeRatio(text: buttons[i], isSelect: false));
-      }
-      timeRatioButtons[0].isSelect = true;
+      timeRatioButtons =
+          timesText
+              .map((e) => TimeRatio(text: e, isSelect: false))
+              .toList();
     }
+    timeRatioButtons.elementAt(0).isSelect = true;
+    notifyListeners();
   }
 
   void changeTimeRatio(int index) {
     timeRatioButtons[index].isSelect = true;
-    print(index);
-    for (int i = 0; i < timeRatioButtons.length; i++) {
-      if (timeRatioButtons[i].isSelect && i != index) {
-        timeRatioButtons[i].isSelect = false;
+    for (var element in timeRatioButtons) {
+      if (element.isSelect && element != timeRatioButtons[index]) {
+        element.isSelect = false;
       }
     }
-
+    if (kDebugMode) print(timeRatioButtons[index].text);
     notifyListeners();
   }
 }

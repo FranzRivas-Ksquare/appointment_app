@@ -107,12 +107,7 @@ class HomeScreen extends State<Home> {
                     itemBuilder: (context, index) {
                       // TODO: Refactor arguments "Just the appointment object"
                       return AppointmentCard(
-                        id: appointments[index].id,
-                        title: appointments[index].title,
-                        due: appointments[index].getDate.split(' ')[0],
-                        description: appointments[index].description,
-                        date: appointments[index].getDate.split(' ')[0],
-                        time: appointments[index].getDate.split(' ')[1],
+                        appointment: appointments[index],
                       );
                     })),
           ],

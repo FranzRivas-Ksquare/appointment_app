@@ -42,7 +42,7 @@ class HomeScreen extends State<Home> {
 
     List<Appointment> appointments = context.watch<DataProvider>().appointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
-    //List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
+    List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
 
     return Scaffold(
       appBar: AppBar(
@@ -81,27 +81,24 @@ class HomeScreen extends State<Home> {
             SizedBox(
               height: AppSize.s60,
               width: double.infinity,
-              child: Consumer<TimeRatioProvider>(
-                builder: ((context, obj, child) {
-                List<TimeRatio> timeRatios = obj.timeRatioButtons;
-                return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: timeRatios.length,
-                    itemBuilder: ((context, index) {
-                      return Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Provider.of<TimeRatioProvider>(
-                                  context,
-                                  listen: false,
-                                ).changeTimeRatio(index);
-                              },
-                              child: timeRatios.elementAt(index))
-                        ],
-                      );
-                    }));
-              })),
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: timeRatios.length,
+                  itemBuilder: ((context, index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              context.read<TimeRatioProvider>().changeTimeRatio(index);
+                              /*Provider.of<TimeRatioProvider>(
+                                      context,
+                                      listen: false,
+                                    ).changeTimeRatio(index);*/
+                            },
+                            child: timeRatios.elementAt(index)),
+                      ],
+                    );
+                  })),
             ),
             // TODO: Parse data in model
             Expanded(

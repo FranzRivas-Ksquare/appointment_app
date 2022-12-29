@@ -5,28 +5,26 @@ import '../custom_widgets/time_ratio.dart';
 class TimeRatioProvider extends ChangeNotifier {
 
   static final List timesText = ["All", "Today", "Tomorrow", "Past"];
+  int _index = 0;
+  int get index => _index;
 
-  List<TimeRatio> timeRatioButtons = [];
+  List<TimeRatio> _timeRatioButtons = [];
+
+  List<TimeRatio> get timeRatioButtons => _timeRatioButtons;
 
   void fillTimeRatioArray() {
-    if (timeRatioButtons.isEmpty) {
-      timeRatioButtons =
+    if (_timeRatioButtons.isEmpty) {
+      _timeRatioButtons =
           timesText
-              .map((e) => TimeRatio(text: e, isSelect: false))
+              .map((e) => TimeRatio(myIndex: timesText.indexOf(e), text: e))
               .toList();
     }
-    timeRatioButtons.elementAt(0).isSelect = true;
     notifyListeners();
   }
 
   void changeTimeRatio(int index) {
-    timeRatioButtons[index].isSelect = true;
-    for (var element in timeRatioButtons) {
-      if (element.isSelect && element != timeRatioButtons[index]) {
-        element.isSelect = false;
-      }
-    }
-    if (kDebugMode) print(timeRatioButtons[index].text);
+    _index = index;
     notifyListeners();
   }
+
 }

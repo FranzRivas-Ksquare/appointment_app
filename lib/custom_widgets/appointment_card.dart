@@ -32,9 +32,6 @@ class AppointmentCard extends StatelessWidget {
         DialogManager().appointmentDialog(
             context, id, title, description, date, time, dataServices);
       },
-      onDoubleTap: () {
-        Navigator.pushNamed(context, "/update_appointment");
-      },
       child: Container(
           height: AppSize.s100,
           margin: const EdgeInsets.all(AppMargin.m8),

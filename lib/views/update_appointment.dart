@@ -17,7 +17,7 @@ import '../models/models.dart';
 import '../controller/data_provider.dart';
 
 class UpdateAppointment extends StatefulWidget {
-  const UpdateAppointment({super.key});
+  const UpdateAppointment({super.key, required Appointment appointment});
 
   static const String routeName = AppRoutes.updateAppScreen;
 
@@ -39,70 +39,80 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   TimeOfDay newTime = TimeOfDay.now();
   DateTime newDate = DateTime.now();
 
+  Future<void> _showDatePicker() async {
+    newDate = await showDatePicker(
+        context: context,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: ColorManager.darkGreen,
+                onPrimary: ColorManager.colorWhite,
+                onSurface: ColorManager.colorBlack,
+              ),
+            ),
+            child: child!,
+          );
+        },
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2022),
+        lastDate: DateTime(2027)) ?? DateTime.now();
+
+    setState(() {
+      dateNow = DateFormat('yMd').format(newDate);
+    });
+  }
+
+  Future<void> _showTimePicker() async {
+    newTime = await showTimePicker(
+        context: context,
+        builder: (context, child) {
+          return Theme(
+            data: Theme.of(context).copyWith(
+              colorScheme: ColorScheme.light(
+                primary: ColorManager.lightGreen,
+                onPrimary: ColorManager.colorWhite,
+                onSurface: ColorManager.colorBlack,
+              ),
+            ),
+            child: child!,
+          );
+        },
+        initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
+
+    setState(() {
+      timeNow = newTime.format(context).toString();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       final args =
       ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      _titleCtrl = TextEditingController(text: args['title']);
-      _descrCtrl = TextEditingController(text: args['description']);
+      _titleCtrl.text = args['title'];
+      _descrCtrl.text = args['description'];
       dateNow = args['date'];
       timeNow = args['time'];
       _id = args['id'];
+      setState(() {
+
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _titleCtrl.dispose();
+    _descrCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
 
     var dataServices = Provider.of<DataProvider>(context);
-
-    Future<void> _showDatePicker() async {
-      newDate = await showDatePicker(
-          context: context,
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: ColorManager.darkGreen,
-                  onPrimary: ColorManager.colorWhite,
-                  onSurface: ColorManager.colorBlack,
-                ),
-              ),
-              child: child!,
-            );
-          },
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2022),
-          lastDate: DateTime(2027)) ?? DateTime.now();
-
-      setState(() {
-        dateNow = DateFormat('yMd').format(newDate);
-      });
-    }
-
-    Future<void> _showTimePicker() async {
-      newTime = await showTimePicker(
-          context: context,
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: ColorManager.lightGreen,
-                  onPrimary: ColorManager.colorWhite,
-                  onSurface: ColorManager.colorBlack,
-                ),
-              ),
-              child: child!,
-            );
-          },
-          initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
-
-      setState(() {
-        timeNow = newTime.format(context).toString();
-      });
-    }
 
     return HideKeyboard(
       child: Scaffold(

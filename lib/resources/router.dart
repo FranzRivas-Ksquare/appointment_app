@@ -1,3 +1,4 @@
+import 'package:appointment/models/models.dart';
 import 'package:flutter/material.dart';
 
 import '../views/sign_in.dart';
@@ -24,6 +25,8 @@ var routes = <String, WidgetBuilder>{
   Profile.routeName: (ctx) => const SafeArea(child: Profile()),
   UpdateProfile.routeName: (ctx) => const SafeArea(child: UpdateProfile()),
   NewAppointment.routeName: (ctx) => const SafeArea(child: NewAppointment()),
-  UpdateAppointment.routeName: (ctx) =>
-      const SafeArea(child: UpdateAppointment()),
+  UpdateAppointment.routeName: (ctx) {
+    final args = ModalRoute.of(ctx)!.settings.arguments as Map<String, dynamic>;
+    return SafeArea(child: UpdateAppointment(appointment: args['appointment']! as Appointment));
+  },
 };

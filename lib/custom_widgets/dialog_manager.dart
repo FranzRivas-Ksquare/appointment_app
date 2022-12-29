@@ -1,4 +1,5 @@
 import 'package:appointment/controller/data_provider.dart';
+import 'package:appointment/models/models.dart';
 import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/routes_manager.dart';
 import 'package:appointment/resources/string_manager.dart';
@@ -8,8 +9,7 @@ import 'package:provider/provider.dart';
 import 'button_custom.dart';
 
 class DialogManager {
-  appointmentDialog(context, int id, String title, String descr, String date,
-      String time, dataServices) {
+  appointmentDialog(context, Appointment appointment, dataServices) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -23,12 +23,12 @@ class DialogManager {
                   alignment: Alignment.bottomRight,
                   child: CustomButton().closeIconButton(context),
                 ),
-                Flexible(child: Text(title)),
+                Flexible(child: Text(appointment.title)),
                 const SizedBox(
                   height: AppSize.s8,
                 ),
                 Flexible(
-                    child: Text(descr,
+                    child: Text(appointment.description,
                         style: Theme.of(context).textTheme.bodyText2,
                         textAlign: TextAlign.center)),
               ],
@@ -43,7 +43,7 @@ class DialogManager {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const Text('${AppString.date}: '),
-                    Text(date)
+                    Text('${appointment.date}')
                   ],
                 ),
                 Row(
@@ -51,7 +51,7 @@ class DialogManager {
                   children: <Widget>[
                     Text('${AppString.time}: ',
                         style: Theme.of(context).textTheme.bodyText2),
-                    Text(time, style: Theme.of(context).textTheme.bodyText2)
+                    Text('${appointment.date}', style: Theme.of(context).textTheme.bodyText2)
                   ],
                 ),
               ],
@@ -65,11 +65,7 @@ class DialogManager {
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.updateAppScreen,
                     arguments: {
-                      'id': id,
-                      'title': title,
-                      'description': descr,
-                      'date': date,
-                      'time': time,
+                      'appointment': appointment,
                     });
               },
               child: const Text(AppString.updateAppoint),
@@ -78,7 +74,7 @@ class DialogManager {
               style:
                   TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
               onPressed: () {
-                dataServices.deleteAppointments(id);
+                dataServices.deleteAppointments(appointment.id);
               },
               child: const Text(AppString.delAppoint),
             ),

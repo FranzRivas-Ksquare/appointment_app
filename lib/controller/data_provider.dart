@@ -13,7 +13,8 @@ class DataProvider extends ChangeNotifier {
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;
   User? currentUser;
-  List<Appointment> appointments = [];
+  List<Appointment> _appointments = [];
+  List<Appointment> _filter = [];
 
   DataProvider() {
     DataProvider.initDB();
@@ -84,14 +85,17 @@ class DataProvider extends ChangeNotifier {
 
   //--Appointments services
   void fetchAppointments() async {
-    appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
+    _appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
+    _filter = [];
+    _filter.addAll(_appointments);
     notifyListeners();
   }
 
+  // TODO update filter with the provider
   Future<bool> createAppointments(Appointment appointment) async {
     bool validate = await appointmentCtrl!.create(appointment);
     if (validate) {
-      appointments.add(appointment);
+      _appointments.add(appointment);
       notifyListeners();
       return true;
     } else {
@@ -110,10 +114,10 @@ class DataProvider extends ChangeNotifier {
   }
 
   bool availability(Appointment appointment) {
-    List<Appointment> isAvailable = appointments
+    List<Appointment> isAvailable = _appointments
         .where((element) => element.date == appointment.date)
         .toList();
-    if (kDebugMode) print(appointments);
+    if (kDebugMode) print(_appointments);
     if (kDebugMode) print(isAvailable);
     return isAvailable.isEmpty;
   }
@@ -121,23 +125,23 @@ class DataProvider extends ChangeNotifier {
   void deleteAppointments(int id) async {
     bool validate = await appointmentCtrl!.delete(id);
     if (validate) {
-      appointments = appointments.where((element) => element.id != id).toList();
+      _appointments = _appointments.where((element) => element.id != id).toList();
       notifyListeners();
     }
   }
 
   List<Appointment> timeRatio(DateTime dayRatio) {
     List<Appointment> filter =
-        appointments.where((element) => element.date.day == dayRatio).toList();
+        _appointments.where((element) => element.date.day == dayRatio).toList();
     return filter;
   }
 
   List<Appointment> getTodayAppointments() {
-    List<Appointment> filter = appointments
+    List<Appointment> filter = _appointments
         .where((element) => DatetimeManager().compareTodayDates(element.date))
         .toList();
     return filter;
   }
 
-  get getAppointments => appointments;
+  get getAppointments => _filter;
 }

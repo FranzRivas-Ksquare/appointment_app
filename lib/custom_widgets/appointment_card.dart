@@ -2,26 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:provider/provider.dart';
-
+import '../custom_widgets/dialog_manager.dart';
 import '../controller/data_provider.dart';
-import 'dialog_manager.dart';
+import '../models/models.dart';
 
 class AppointmentCard extends StatelessWidget {
-  int id;
-  String title;
-  String due;
-  String description;
-  String time;
-  String date;
+  Appointment appointment;
 
   AppointmentCard({
     super.key,
-    required this.id,
-    required this.title,
-    required this.due,
-    required this.description,
-    required this.time,
-    required this.date,
+    required this.appointment,
   });
 
   @override
@@ -30,7 +20,7 @@ class AppointmentCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         DialogManager().appointmentDialog(
-            context, id, title, description, date, time, dataServices);
+            context, appointment, dataServices);
       },
       child: Container(
           height: AppSize.s100,
@@ -48,17 +38,17 @@ class AppointmentCard extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: Theme.of(context).textTheme.headline5),
+                      Text(appointment.title, style: Theme.of(context).textTheme.headline5),
                       const SizedBox(height: AppSize.s4),
                       Flexible(
-                          child: Text(description,
+                          child: Text(appointment.description,
                               style: Theme.of(context).textTheme.bodyText1))
                     ])),
             const Expanded(child: SizedBox()),
             // TODO from DateTime data mutate to weekday 'DateTime.parse('1969-07-20 20:18:04Z').weekday'
             Align(
               alignment: Alignment.topRight,
-              child: Text(due, style: Theme.of(context).textTheme.subtitle1),
+              child: Text('${appointment.date}', style: Theme.of(context).textTheme.subtitle1),
             )
           ])),
     );

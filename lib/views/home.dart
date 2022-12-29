@@ -40,7 +40,7 @@ class HomeScreen extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    List<Appointment> appointments = context.watch<DataProvider>().appointments;
+    List<Appointment> appointments = context.watch<DataProvider>().getAppointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
     List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
 
@@ -105,6 +105,7 @@ class HomeScreen extends State<Home> {
                 child: ListView.builder(
                     itemCount: appointments.length,
                     itemBuilder: (context, index) {
+                      // TODO: Refactor arguments "Just the appointment object"
                       return AppointmentCard(
                         id: appointments[index].id,
                         title: appointments[index].title,

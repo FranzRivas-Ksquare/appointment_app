@@ -91,11 +91,11 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       final args =
       ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      _titleCtrl.text = args['title'];
-      _descrCtrl.text = args['description'];
-      dateNow = args['date'];
-      timeNow = args['time'];
-      _id = args['id'];
+      _titleCtrl.text = args['appointment'].title;
+      _descrCtrl.text = args['appointment'].description;
+      dateNow = args['appointment'].getDate;
+      timeNow = args['appointment'].getTime;
+      _id = args['appointment'].id;
       setState(() {
 
       });

@@ -48,7 +48,7 @@ class AppointmentCard extends StatelessWidget {
             // TODO from DateTime data mutate to weekday 'DateTime.parse('1969-07-20 20:18:04Z').weekday'
             Align(
               alignment: Alignment.topRight,
-              child: Text('${appointment.date}', style: Theme.of(context).textTheme.subtitle1),
+              child: Text(appointment.getDate, style: Theme.of(context).textTheme.subtitle1),
             )
           ])),
     );

@@ -126,6 +126,7 @@ class DataProvider extends ChangeNotifier {
     bool validate = await appointmentCtrl!.delete(id);
     if (validate) {
       _appointments = _appointments.where((element) => element.id != id).toList();
+      _filter = _appointments;
       notifyListeners();
     }
   }

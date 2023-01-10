@@ -42,7 +42,7 @@ class AppDB {
         CONSTRAINT USERS_PK PRIMARY KEY (EMAIL)
       )''';
 
-      //await db.execute("DELETE FROM APPOINTMENTS");
+      await db.execute("DELETE FROM APPOINTMENTS");
 
       await db.execute(tableAppoint);
       if (kDebugMode) print("APPOINTMENTS TABLE CREATED");

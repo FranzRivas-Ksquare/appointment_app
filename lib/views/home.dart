@@ -90,10 +90,6 @@ class HomeScreen extends State<Home> {
                         GestureDetector(
                             onTap: () {
                               context.read<TimeRatioProvider>().changeTimeRatio(index);
-                              /*Provider.of<TimeRatioProvider>(
-                                      context,
-                                      listen: false,
-                                    ).changeTimeRatio(index);*/
                             },
                             child: timeRatios.elementAt(index)),
                       ],

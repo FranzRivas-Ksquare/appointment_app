@@ -91,7 +91,6 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO update filter with the provider
   Future<bool> createAppointments(Appointment appointment) async {
     bool validate = await appointmentCtrl!.create(appointment);
     if (validate) {
@@ -125,15 +124,14 @@ class DataProvider extends ChangeNotifier {
   void deleteAppointments(int id) async {
     bool validate = await appointmentCtrl!.delete(id);
     if (validate) {
-      _appointments = _appointments.where((element) => element.id != id).toList();
-      _filter = _appointments;
+      fetchAppointments();
       notifyListeners();
     }
   }
 
   List<Appointment> timeRatio(DateTime dayRatio) {
     List<Appointment> filter =
-        _appointments.where((element) => element.date.day == dayRatio).toList();
+        _appointments.where((element) => element.date.day == dayRatio.day).toList();
     return filter;
   }
 

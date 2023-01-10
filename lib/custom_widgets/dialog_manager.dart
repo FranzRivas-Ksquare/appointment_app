@@ -75,6 +75,7 @@ class DialogManager {
                   TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
               onPressed: () {
                 dataServices.deleteAppointments(appointment.id);
+                Navigator.pop(context);
               },
               child: const Text(AppString.delAppoint),
             ),

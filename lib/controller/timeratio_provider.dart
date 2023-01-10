@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import '../custom_widgets/time_ratio.dart';
 
 class TimeRatioProvider extends ChangeNotifier {

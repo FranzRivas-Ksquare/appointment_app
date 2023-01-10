@@ -44,14 +44,23 @@ class DatetimeManager {
     }
   }
 
-  bool compareTodayDates(DateTime dt) {
+  bool comparePastDates(DateTime dt) {
     DateTime today = DateTime.now();
-    if (today.year == dt.year &&
-        today.month == dt.month &&
-        today.day == dt.day) {
+    if (today.year > dt.year) return true;
+    if (today.year >= dt.year && today.month > dt.month) return true;
+    if (today.year >= dt.year && today.month >= dt.month && today.day > dt.day) {
       return true;
-    } else {
-      return false;
     }
+    return false;
+  }
+
+  bool compareNotPastDates(DateTime dt) {
+    DateTime today = DateTime.now();
+    if (today.year < dt.year) return true;
+    if (today.year <= dt.year && today.month < dt.month) return true;
+    if (today.year <= dt.year && today.month <= dt.month && today.day < dt.day) {
+     return true;
+    }
+    return false;
   }
 }

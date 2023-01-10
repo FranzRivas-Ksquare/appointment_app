@@ -1,4 +1,3 @@
-import 'package:appointment/custom_widgets/time_ratio.dart';
 import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
@@ -129,18 +128,49 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  List<Appointment> timeRatio(DateTime dayRatio) {
-    List<Appointment> filter =
-        _appointments.where((element) => element.date.day == dayRatio.day).toList();
-    return filter;
-  }
-
-  List<Appointment> getTodayAppointments() {
-    List<Appointment> filter = _appointments
-        .where((element) => DatetimeManager().compareTodayDates(element.date))
-        .toList();
-    return filter;
-  }
-
   get getAppointments => _filter;
+
+  //--Filter
+  void timeRatioAll() {
+    _filter = _appointments
+        .where((element) => DatetimeManager()
+        .compareNotPastDates(element.date)).toList();
+    notifyListeners();
+  }
+
+  void timeRatioToday() {
+    _filter = _appointments
+        .where((element) => element.date.day == DateTime.now().day).toList();
+    notifyListeners();
+  }
+
+  void timeRatioTomorrow() {
+    _filter = _appointments
+        .where((element) => element.date.day == DateTime.now().day + 1).toList();
+    notifyListeners();
+  }
+
+  void timeRatioPast() {
+    _filter = _appointments
+        .where((element) => DatetimeManager()
+        .comparePastDates(element.date)).toList();
+    notifyListeners();
+  }
+
+  void selectRatio(int index) {
+    switch (index) {
+      case 1:
+        timeRatioToday();
+        break;
+      case 2:
+        timeRatioTomorrow();
+        break;
+      case 3:
+        timeRatioPast();
+        break;
+      default:
+        timeRatioAll();
+        break;
+    }
+  }
 }

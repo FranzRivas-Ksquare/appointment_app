@@ -39,7 +39,6 @@ class HomeScreen extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Appointment> appointments = context.watch<DataProvider>().getAppointments;
     User? currentUser = context.watch<DataProvider>().currentUser;
     List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;

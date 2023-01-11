@@ -6,6 +6,7 @@ import 'package:appointment/resources/string_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../controller/dateTimeFormat.dart';
 import 'button_custom.dart';
 
 class DialogManager {
@@ -43,7 +44,7 @@ class DialogManager {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     const Text('${AppString.date}: '),
-                    Text(appointment.getDate)
+                    Text(DateTimeFormat().getDate(appointment.getDate))
                   ],
                 ),
                 Row(
@@ -51,7 +52,8 @@ class DialogManager {
                   children: <Widget>[
                     Text('${AppString.time}: ',
                         style: Theme.of(context).textTheme.bodyText2),
-                    Text(appointment.getTime, style: Theme.of(context).textTheme.bodyText2)
+                    Text(DateTimeFormat().getTime(appointment.getTime),
+                        style: Theme.of(context).textTheme.bodyText2)
                   ],
                 ),
               ],
@@ -59,6 +61,12 @@ class DialogManager {
           ),
           actionsPadding: const EdgeInsets.all(AppPadding.p14),
           actions: [
+            IconButton(
+                onPressed: () {
+                  dataServices.deleteAppointments(appointment.id);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete)),
             TextButton(
               style:
                   TextButton.styleFrom(foregroundColor: ColorManager.darkGreen),
@@ -70,15 +78,16 @@ class DialogManager {
               },
               child: const Text(AppString.updateAppoint),
             ),
-            TextButton(
-              style:
-                  TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
-              onPressed: () {
-                dataServices.deleteAppointments(appointment.id);
-                Navigator.pop(context);
-              },
-              child: const Text(AppString.delAppoint),
-            ),
+
+            // TextButton(
+            //   style:
+            //       TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
+            //   onPressed: () {
+            //     dataServices.deleteAppointments(appointment.id);
+            //     Navigator.pop(context);
+            //   },
+            //   child: const Text(AppString.delAppoint),
+            // ),
           ],
         );
       },

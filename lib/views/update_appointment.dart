@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../controller/dateTimeFormat.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
@@ -26,10 +27,8 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  TextEditingController _titleCtrl =
-      TextEditingController();
-  TextEditingController _descrCtrl =
-      TextEditingController();
+  TextEditingController _titleCtrl = TextEditingController();
+  TextEditingController _descrCtrl = TextEditingController();
   DatetimeManager dtmanager = DatetimeManager();
 
   String dateNow = '';
@@ -41,22 +40,23 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   Future<void> _showDatePicker() async {
     newDate = await showDatePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: ColorManager.darkGreen,
-                onPrimary: ColorManager.colorWhite,
-                onSurface: ColorManager.colorBlack,
-              ),
-            ),
-            child: child!,
-          );
-        },
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2027)) ?? DateTime.now();
+            context: context,
+            builder: (context, child) {
+              return Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme: ColorScheme.light(
+                    primary: ColorManager.darkGreen,
+                    onPrimary: ColorManager.colorWhite,
+                    onSurface: ColorManager.colorBlack,
+                  ),
+                ),
+                child: child!,
+              );
+            },
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2022),
+            lastDate: DateTime(2027)) ??
+        DateTime.now();
 
     setState(() {
       dateNow = DateFormat('yMd').format(newDate);
@@ -65,20 +65,21 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   Future<void> _showTimePicker() async {
     newTime = await showTimePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.light(
-                primary: ColorManager.lightGreen,
-                onPrimary: ColorManager.colorWhite,
-                onSurface: ColorManager.colorBlack,
-              ),
-            ),
-            child: child!,
-          );
-        },
-        initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
+            context: context,
+            builder: (context, child) {
+              return Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme: ColorScheme.light(
+                    primary: ColorManager.lightGreen,
+                    onPrimary: ColorManager.colorWhite,
+                    onSurface: ColorManager.colorBlack,
+                  ),
+                ),
+                child: child!,
+              );
+            },
+            initialTime: TimeOfDay.now()) ??
+        TimeOfDay.now();
 
     setState(() {
       timeNow = newTime.format(context).toString();
@@ -90,15 +91,14 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       final args =
-      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
       _titleCtrl.text = args['appointment'].title;
       _descrCtrl.text = args['appointment'].description;
-      dateNow = args['appointment'].getDate;
-      timeNow = args['appointment'].getTime;
+      dateNow = DateTimeFormat().getDate(args['appointment'].getDate);
+      timeNow = DateTimeFormat().getTime(args['appointment'].getTime);
       _id = args['appointment'].id;
-      setState(() {
-
-      });
+      setState(() {});
     });
   }
 
@@ -111,7 +111,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   @override
   Widget build(BuildContext context) {
-
     var dataServices = Provider.of<DataProvider>(context);
 
     return HideKeyboard(
@@ -187,19 +186,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                             id: _id,
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
-                            date: DateTime(
-                                newDate.year,
-                                newDate.month,
-                                newDate.day,
-                                newTime.hour,
-                                newTime.minute,
-                                0),
+                            date: DateTime(newDate.year, newDate.month,
+                                newDate.day, newTime.hour, newTime.minute, 0),
                             author: dataServices.getCurrentUser.email,
                           );
-                          bool validate = dataServices.availability(updateAppointment);
-                          if(!validate) {
-                            AlertManager().displaySnackbarDateTime(
-                                context, AppString.warning, AppString.alreadyDate);
+                          bool validate =
+                              dataServices.availability(updateAppointment);
+                          if (!validate) {
+                            AlertManager().displaySnackbarDateTime(context,
+                                AppString.warning, AppString.alreadyDate);
                           }
                           if (await dataServices
                               .updateAppointments(updateAppointment)) {

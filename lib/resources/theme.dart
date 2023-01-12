@@ -103,6 +103,13 @@ ThemeData getApplicationTheme() {
         fixedSize: const Size(AppSize.s160, AppSize.s52),
       )),
 
+      //iconTheme
+      iconTheme: IconThemeData(
+        color: ColorManager.darkPink,
+        opacity: 1.0,
+        size: AppSize.s28,
+      ),
+
       // Text theme
       textTheme: TextTheme(
           headline1: getBoldStyle(

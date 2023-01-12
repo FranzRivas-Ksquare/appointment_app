@@ -27,9 +27,9 @@ class UpdateAppointment extends StatefulWidget {
 }
 
 class _UpdateAppointmentState extends State<UpdateAppointment> {
-  TextEditingController _titleCtrl = TextEditingController();
-  TextEditingController _descrCtrl = TextEditingController();
-  DatetimeManager dtmanager = DatetimeManager();
+  final TextEditingController _titleCtrl = TextEditingController();
+  final TextEditingController _descrCtrl = TextEditingController();
+  final DatetimeManager dtmanager = DatetimeManager();
 
   String dateNow = '';
   String timeNow = '';

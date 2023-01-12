@@ -23,7 +23,10 @@ var routes = <String, WidgetBuilder>{
   SignUp.routeName: (ctx) => const SafeArea(child: SignUp()),
   Home.routeName: (ctx) => const SafeArea(child: Home()),
   Profile.routeName: (ctx) => const SafeArea(child: Profile()),
-  UpdateProfile.routeName: (ctx) => const SafeArea(child: UpdateProfile()),
+  UpdateProfile.routeName: (ctx) {
+      final args = ModalRoute.of(ctx)!.settings.arguments as Map<String, dynamic>;
+      return SafeArea(child: UpdateProfile(user: args['user']! as User));
+    },
   NewAppointment.routeName: (ctx) => const SafeArea(child: NewAppointment()),
   UpdateAppointment.routeName: (ctx) {
     final args = ModalRoute.of(ctx)!.settings.arguments as Map<String, dynamic>;

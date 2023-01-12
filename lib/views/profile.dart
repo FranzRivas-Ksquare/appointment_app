@@ -52,7 +52,9 @@ class Profile extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(
-                          context, AppRoutes.updateProfileScreen);
+                          context, AppRoutes.updateProfileScreen, arguments: {
+                            'user': currentUser,
+                      });
                     },
                     child: const Text(AppString.updatePro)),
                 const SizedBox(

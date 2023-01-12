@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/alert_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
@@ -16,8 +17,10 @@ import '../controller/data_provider.dart';
 import '../controller/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
-  const UpdateProfile({
+  User user;
+  UpdateProfile({
     super.key,
+    required this.user
   });
   static const String routeName = AppRoutes.updateProfileScreen;
 
@@ -28,8 +31,8 @@ class UpdateProfile extends StatefulWidget {
 class _UpdateProfileState extends State<UpdateProfile> {
   int delayTime = 0;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameCtrl = TextEditingController();
-  TextEditingController _passwordCtrl = TextEditingController();
+  final TextEditingController _nameCtrl = TextEditingController();
+  final TextEditingController _passwordCtrl = TextEditingController();
   bool passwordVisible = true; //obsecure
 
   String _imagePickerPath = '';
@@ -46,8 +49,27 @@ class _UpdateProfileState extends State<UpdateProfile> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      _nameCtrl.text = args['user'].name ?? '';
+      _passwordCtrl.text = args['user'].password;
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _nameCtrl.dispose();
+    _passwordCtrl.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
+    User user = dataServices.getCurrentUser;
 
     return HideKeyboard(
       child: Scaffold(
@@ -147,7 +169,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               name: _nameCtrl.text,
                               email: dataServices.getCurrentUser.email,
                               password: _passwordCtrl.text,
-                              avatar: _imagePickerPath,
+                              avatar: _imagePickerPath != ''
+                                  ? _imagePickerPath
+                                  : user.avatar,
                             );
 
                             dataServices.updateUser(updateUser);

@@ -45,22 +45,31 @@ class DatetimeManager {
   }
 
   bool comparePastDates(DateTime dt) {
-    DateTime today = DateTime.now();
-    if (today.year > dt.year) return true;
-    if (today.year >= dt.year && today.month > dt.month) return true;
-    if (today.year >= dt.year && today.month >= dt.month && today.day > dt.day) {
-      return true;
-    }
-    return false;
+    return !compareNotPastDates(dt);
   }
 
   bool compareNotPastDates(DateTime dt) {
     DateTime today = DateTime.now();
+    // Year validation
     if (today.year < dt.year) return true;
-    if (today.year <= dt.year && today.month < dt.month) return true;
-    if (today.year <= dt.year && today.month <= dt.month && today.day < dt.day) {
-     return true;
-    }
+    // Month validation
+    if (today.year <= dt.year
+        && today.month < dt.month) return true;
+    // Day validation
+    if (today.year <= dt.year
+        && today.month <= dt.month
+        && today.day < dt.day) return true;
+    // Hour validation
+    if (today.year <= dt.year
+        && today.month <= dt.month
+        && today.day <= dt.day
+        && today.hour < dt.hour) return true;
+    // Minute validation
+    if (today.year <= dt.year
+        && today.month <= dt.month
+        && today.day <= dt.day
+        && today.hour <= dt.hour
+        && today.minute <= dt.minute) return true;
     return false;
   }
 }

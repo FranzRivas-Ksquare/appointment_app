@@ -140,7 +140,8 @@ class DataProvider extends ChangeNotifier {
 
   void timeRatioToday() {
     _filter = _appointments
-        .where((element) => element.date.day == DateTime.now().day).toList();
+        .where((element) => DatetimeManager()
+        .compareTodayDates(element.date)).toList();
     notifyListeners();
   }
 

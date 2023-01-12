@@ -44,6 +44,17 @@ class DatetimeManager {
     }
   }
 
+  bool compareTodayDates(DateTime dt) {
+    DateTime today = DateTime.now();
+    // Minute validation
+    if (today.year == dt.year
+        && today.month == dt.month
+        && today.day == dt.day
+        && today.hour <= dt.hour
+        && today.minute <= dt.minute) return true;
+    return false;
+  }
+
   bool comparePastDates(DateTime dt) {
     return !compareNotPastDates(dt);
   }

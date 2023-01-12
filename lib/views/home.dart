@@ -31,9 +31,11 @@ class HomeScreen extends State<Home> {
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       dataServices = Provider.of<DataProvider>(context, listen: false);
+      context.read<DataProvider>().selectRatio(0);
       dataServices.fetchAppointments();
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
+      setState(() {});
     });
   }
 
@@ -86,11 +88,7 @@ class HomeScreen extends State<Home> {
                   itemBuilder: ((context, index) {
                     return Row(
                       children: [
-                        GestureDetector(
-                            onTap: () {
-                              context.read<TimeRatioProvider>().changeTimeRatio(index);
-                            },
-                            child: timeRatios.elementAt(index)),
+                        timeRatios.elementAt(index),
                       ],
                     );
                   })),

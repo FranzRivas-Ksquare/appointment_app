@@ -18,7 +18,8 @@ import '../models/models.dart';
 import '../controller/data_provider.dart';
 
 class UpdateAppointment extends StatefulWidget {
-  const UpdateAppointment({super.key, required Appointment appointment});
+  Appointment appointment;
+  UpdateAppointment({super.key, required Appointment this.appointment});
 
   static const String routeName = AppRoutes.updateAppScreen;
 

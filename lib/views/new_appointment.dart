@@ -179,7 +179,6 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 AppString.home);
                             String dtSTring =
                             dtmanager.dateTimeParse(dateNow, timeNow);
-                            DateTime dt = DateTime.parse(dtSTring);
                           }
                         },
                         child: const Text(AppString.newAppoint)),

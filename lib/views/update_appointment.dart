@@ -195,8 +195,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
-                          }
-                          if (await dataServices
+                          } else if (await dataServices
                               .updateAppointments(updateAppointment)) {
                             DialogManager().sucessDialog(
                                 context,

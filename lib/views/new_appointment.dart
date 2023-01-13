@@ -171,17 +171,16 @@ class _NewAppointmentState extends State<NewAppointment> {
                           if(!validate) {
                             AlertManager().displaySnackbarDateTime(
                                 context, AppString.warning, AppString.alreadyDate);
-                          }
-                          if (await dataServices.createAppointments(newApp)) {
+                          } else if (await dataServices.createAppointments(newApp)) {
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,
                                 AppRoutes.homeScreen,
                                 AppString.home);
+                            String dtSTring =
+                            dtmanager.dateTimeParse(dateNow, timeNow);
+                            DateTime dt = DateTime.parse(dtSTring);
                           }
-                          String dtSTring =
-                              dtmanager.dateTimeParse(dateNow, timeNow);
-                          DateTime dt = DateTime.parse(dtSTring);
                         },
                         child: const Text(AppString.newAppoint)),
                   ],

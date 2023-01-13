@@ -114,6 +114,7 @@ class DataProvider extends ChangeNotifier {
   bool availability(Appointment appointment) {
     List<Appointment> isAvailable = _appointments
         .where((element) => element.date == appointment.date)
+        .where((element) => element.id != appointment.id)
         .toList();
     if (kDebugMode) print(_appointments);
     if (kDebugMode) print(isAvailable);

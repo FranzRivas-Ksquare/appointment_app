@@ -49,13 +49,18 @@ class SignIn extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        bool validate = await dataServices.signInUser(
+                        int validate = await dataServices.signInUser(
                             _emailCtrl.text, _passwordCtrl.text);
-                        if (validate) {
+                        if (validate == 0) {
+                          // ignore: use_build_context_synchronously
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.homeScreen);
-                        } else {
-                          // TODO: Fix singInUser service before continue!!!
+                        } else if (validate == 1) {
+                          // ignore: use_build_context_synchronously
+                          AlertManager().displaySnackbarLogIn(
+                              context, AppString.message, AppString.wrong);
+                        } else if (validate == 2) {
+                          // ignore: use_build_context_synchronously
                           AlertManager().displaySnackbarLogIn(
                               context, AppString.message, AppString.noUser);
                         }

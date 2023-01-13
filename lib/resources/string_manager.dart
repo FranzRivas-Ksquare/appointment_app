@@ -29,7 +29,7 @@ class AppString {
   static const String exists = "User already exists";
   static const String message = "Message";
   static const String noUser = "User no exist in database";
-  static const String wrong = "Wrong email or password";
+  static const String wrong = "Wrong Password";
   static const String warning = "Warning";
   static const String alreadyDate = "Date or time already taken";
 

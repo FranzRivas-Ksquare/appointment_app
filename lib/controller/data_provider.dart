@@ -56,17 +56,17 @@ class DataProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> signInUser(String email, String password) async {
+  Future<int> signInUser(String email, String password) async {
     User? tempUser = await userCtrl!.fetchUser(email);
     if (tempUser == null) {
-      return false;
+      return 2;
     }
     if (tempUser.password == password) {
       currentUser = tempUser;
       notifyListeners();
-      return true;
+      return 0;
     } else {
-      return false;
+      return 1;
     }
   }
 

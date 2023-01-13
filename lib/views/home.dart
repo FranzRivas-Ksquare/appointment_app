@@ -34,7 +34,7 @@ class HomeScreen extends State<Home> {
       dataServices.fetchAppointments();
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
-      context.read<DataProvider>().timeRatioAll();
+      context.read<TimeRatioProvider>().changeTimeRatio(0);
       setState(() {});
     });
   }

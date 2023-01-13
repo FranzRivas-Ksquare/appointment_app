@@ -86,7 +86,8 @@ class DataProvider extends ChangeNotifier {
   void fetchAppointments() async {
     _appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
     _filter = [];
-    _filter.addAll(_appointments);
+    //_filter.addAll(_appointments);
+    timeRatioAll();
     notifyListeners();
   }
 

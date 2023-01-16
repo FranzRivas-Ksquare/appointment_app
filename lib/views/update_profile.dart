@@ -1,6 +1,3 @@
-import 'dart:ui';
-import 'dart:io';
-
 import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,7 +14,7 @@ import '../controller/data_provider.dart';
 import '../controller/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
-  User user; // <=== Router
+  User user;
   UpdateProfile({super.key, required this.user});
   static const String routeName = AppRoutes.updateProfileScreen;
 
@@ -30,7 +27,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
-  bool passwordVisible = true; //obsecure
+  bool passwordVisible = true;
 
   String _imagePickerPath = '';
   _loadImageFromCamera(source) async {
@@ -49,10 +46,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      final args =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-      _nameCtrl.text = args['user'].name ?? '';
-      _passwordCtrl.text = args['user'].password;
+      // final args =
+      //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+      _nameCtrl.text = widget.user.name ?? '';
+      _passwordCtrl.text = widget.user.password;
       setState(() {});
     });
   }

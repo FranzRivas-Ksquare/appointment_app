@@ -17,11 +17,8 @@ import '../controller/data_provider.dart';
 import '../controller/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
-  User user;
-  UpdateProfile({
-    super.key,
-    required this.user
-  });
+  User user; // <=== Router
+  UpdateProfile({super.key, required this.user});
   static const String routeName = AppRoutes.updateProfileScreen;
 
   @override
@@ -52,7 +49,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      final args =
+          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       _nameCtrl.text = args['user'].name ?? '';
       _passwordCtrl.text = args['user'].password;
       setState(() {});
@@ -107,8 +105,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       backgroundColor: ColorManager.backgroundColor,
                       child: _imagePickerPath.isNotEmpty
                           ? FutureBuilder(
-                              future: Future.delayed(Duration(
-                                  milliseconds: delayTime)),
+                              future: Future.delayed(
+                                  Duration(milliseconds: delayTime)),
                               builder: (context, asyncSnapshot) =>
                                   asyncSnapshot.connectionState ==
                                           ConnectionState.done
@@ -175,7 +173,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                             );
 
                             dataServices.updateUser(updateUser);
-                            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                            Navigator.pushReplacementNamed(
+                                context, AppRoutes.homeScreen);
                           }
                         },
                         child: const Text(AppString.updatePro)),

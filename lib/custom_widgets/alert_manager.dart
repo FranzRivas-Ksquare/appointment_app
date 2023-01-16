@@ -60,7 +60,7 @@ class AlertManager {
                 width: AppSize.s28,
                 child: Divider(
                   height: AppSize.s8,
-                  color: ColorManager.darkGreen,
+                  color: ColorManager.lightPink,
                 ),
               ),
               const SizedBox(
@@ -81,7 +81,7 @@ class AlertManager {
             ],
           ),
         ),
-        backgroundColor: ColorManager.lightGreen));
+        backgroundColor: ColorManager.darkPink));
   }
 
   //Appointment messages
@@ -151,7 +151,7 @@ class AlertManager {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 SizedBox(width: 150, child: buttonGallery),
-                Container(width: 150, child: buttonCamera),
+                SizedBox(width: 150, child: buttonCamera),
               ],
             ),
           ],

@@ -86,9 +86,6 @@ class _NewAppointmentState extends State<NewAppointment> {
       });
     }
 
-    //_titleCtrl.text = 'Flutter Exam';
-    //_descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
-
     return HideKeyboard(
       child: Scaffold(
           resizeToAvoidBottomInset: false,

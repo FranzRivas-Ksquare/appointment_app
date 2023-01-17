@@ -90,9 +90,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      //final args =
-      //ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
       _titleCtrl.text = widget.appointment.title;
       _descrCtrl.text = widget.appointment.description;
       dateNow = DateFormat('y/MM/d').format(widget.appointment.date);

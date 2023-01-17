@@ -46,9 +46,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      // final args =
-      //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
       _nameCtrl.text = widget.user.name ?? '';
       _passwordCtrl.text = widget.user.password;
       setState(() {});

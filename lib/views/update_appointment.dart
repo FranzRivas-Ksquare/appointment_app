@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../controller/dateTimeFormat.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
@@ -39,7 +38,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   TimeOfDay newTime = TimeOfDay.now();
   DateTime newDate = DateTime.now();
 
-  Future<void> _showDatePicker() async {
+  Future<void> _showDatePicker(dateTimeNow) async {
     newDate = await showDatePicker(
             context: context,
             builder: (context, child) {
@@ -54,17 +53,17 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                 child: child!,
               );
             },
-            initialDate: DateTime.now(),
+            initialDate: dateTimeNow,
             firstDate: DateTime(2022),
             lastDate: DateTime(2027)) ??
-        DateTime.now();
+        dateTimeNow;
 
     setState(() {
-      dateNow = DateFormat('yMd').format(newDate);
+      dateNow = DateFormat('y/MM/d').format(newDate);
     });
   }
 
-  Future<void> _showTimePicker() async {
+  Future<void> _showTimePicker(dateTimeNow) async {
     newTime = await showTimePicker(
             context: context,
             builder: (context, child) {
@@ -79,8 +78,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                 child: child!,
               );
             },
-            initialTime: TimeOfDay.now()) ??
-        TimeOfDay.now();
+            initialTime: TimeOfDay.fromDateTime(dateTimeNow)) ??
+        TimeOfDay.fromDateTime(dateTimeNow);
 
     setState(() {
       timeNow = newTime.format(context).toString();
@@ -91,14 +90,11 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      final args =
-          ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-
-      _titleCtrl.text = args['appointment'].title;
-      _descrCtrl.text = args['appointment'].description;
-      dateNow = DateTimeFormat().getDate(args['appointment'].getDate);
-      timeNow = DateTimeFormat().getTime(args['appointment'].getTime);
-      _id = args['appointment'].id;
+      _titleCtrl.text = widget.appointment.title;
+      _descrCtrl.text = widget.appointment.description;
+      dateNow = DateFormat('y/MM/d').format(widget.appointment.date);
+      timeNow = TimeOfDay.fromDateTime(widget.appointment.date).format(context);
+      _id = widget.appointment.id;
       setState(() {});
     });
   }
@@ -113,6 +109,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   @override
   Widget build(BuildContext context) {
     var dataServices = Provider.of<DataProvider>(context);
+    DateTime appointmentDT = widget.appointment.date;
 
     return HideKeyboard(
       child: Scaffold(
@@ -154,7 +151,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     Row(
                       children: <Widget>[
                         OutlinedButton(
-                            onPressed: _showDatePicker,
+                            onPressed: () => _showDatePicker(appointmentDT),
                             child: const Text(AppString.date)),
                         const SizedBox(
                           width: AppSize.s28,
@@ -171,7 +168,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     Row(
                       children: <Widget>[
                         OutlinedButton(
-                            onPressed: _showTimePicker,
+                            onPressed: () => _showTimePicker(appointmentDT),
                             child: const Text(AppString.time)),
                         const SizedBox(
                           width: AppSize.s28,

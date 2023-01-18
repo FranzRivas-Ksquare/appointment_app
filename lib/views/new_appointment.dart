@@ -40,22 +40,23 @@ class _NewAppointmentState extends State<NewAppointment> {
     var dataServices = Provider.of<DataProvider>(context);
     Future<void> _showDatePicker() async {
       newDate = await showDatePicker(
-          context: context,
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: ColorManager.darkGreen,
-                  onPrimary: ColorManager.colorWhite,
-                  onSurface: ColorManager.colorBlack,
-                ),
-              ),
-              child: child!,
-            );
-          },
-          initialDate: DateTime.now(),
-          firstDate: DateTime(2022),
-          lastDate: DateTime(2027)) ?? DateTime.now();
+              context: context,
+              builder: (context, child) {
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: ColorManager.darkGreen,
+                      onPrimary: ColorManager.colorWhite,
+                      onSurface: ColorManager.colorBlack,
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2022),
+              lastDate: DateTime(2027)) ??
+          DateTime.now();
 
       setState(() {
         dateNow = DateFormat('y/M/d').format(newDate);
@@ -64,20 +65,21 @@ class _NewAppointmentState extends State<NewAppointment> {
 
     Future<void> _showTimePicker() async {
       newTime = await showTimePicker(
-          context: context,
-          builder: (context, child) {
-            return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: ColorScheme.light(
-                  primary: ColorManager.lightGreen,
-                  onPrimary: ColorManager.colorWhite,
-                  onSurface: ColorManager.colorBlack,
-                ),
-              ),
-              child: child!,
-            );
-          },
-          initialTime: TimeOfDay.now()) ?? TimeOfDay.now();
+              context: context,
+              builder: (context, child) {
+                return Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: ColorScheme.light(
+                      primary: ColorManager.lightGreen,
+                      onPrimary: ColorManager.colorWhite,
+                      onSurface: ColorManager.colorBlack,
+                    ),
+                  ),
+                  child: child!,
+                );
+              },
+              initialTime: TimeOfDay.now()) ??
+          TimeOfDay.now();
 
       setState(() {
         timeNow = newTime.format(context).toString();
@@ -158,27 +160,24 @@ class _NewAppointmentState extends State<NewAppointment> {
                         onPressed: () async {
                           Appointment newApp = Appointment(
                               title: _titleCtrl.text,
-                              date: DateTime(
-                                  newDate.year,
-                                  newDate.month,
-                                  newDate.day,
-                                  newTime.hour,
-                                  newTime.minute,
-                                  0),
+                              date: DateTime(newDate.year, newDate.month,
+                                  newDate.day, newTime.hour, newTime.minute, 0),
                               description: _descrCtrl.text,
                               author: dataServices.getCurrentUser!.email);
                           bool validate = dataServices.availability(newApp);
-                          if(!validate) {
-                            AlertManager().displaySnackbarDateTime(
-                                context, AppString.warning, AppString.alreadyDate);
-                          } else if (await dataServices.createAppointments(newApp)) {
+                          if (!validate) {
+                            AlertManager().displaySnackbarDateTime(context,
+                                AppString.warning, AppString.alreadyDate);
+                          } else if (await dataServices
+                              .createAppointments(newApp)) {
+                            dataServices.sendNotification(newApp);
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,
                                 AppRoutes.homeScreen,
                                 AppString.home);
                             String dtSTring =
-                            dtmanager.dateTimeParse(dateNow, timeNow);
+                                dtmanager.dateTimeParse(dateNow, timeNow);
                           }
                         },
                         child: const Text(AppString.newAppoint)),

@@ -6,7 +6,7 @@ import '../resources/theme.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/values_manager.dart';
-import '../controller/data_provider.dart';
+import '../controller/user_controller.dart';
 import '../models/models.dart';
 
 class Profile extends StatelessWidget {
@@ -16,7 +16,7 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    User? currentUser = context.watch<DataProvider>().currentUser;
+    User? currentUser = context.watch<UserCtrl>().getCurrentUser;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

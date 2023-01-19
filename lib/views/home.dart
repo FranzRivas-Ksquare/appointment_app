@@ -9,7 +9,8 @@ import '../resources/values_manager.dart';
 import '../custom_widgets/appointment_card.dart';
 import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
-import '../controller/data_provider.dart';
+import '../controller/user_controller.dart';
+import '../controller/appointment_controller.dart';
 import '../controller/timeratio_provider.dart';
 import '../models/models.dart';
 
@@ -21,8 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeScreen extends State<Home> {
-  // TODO: Filter appointments per date range
-  late DataProvider dataServices;
+  late AppointmentCtrl dataServices;
   late TimeRatioProvider trService;
 
   @override
@@ -30,8 +30,8 @@ class HomeScreen extends State<Home> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      dataServices = Provider.of<DataProvider>(context, listen: false);
-      dataServices.fetchAppointments();
+      dataServices = Provider.of<AppointmentCtrl>(context, listen: false);
+      dataServices.fetchAppointments(context);
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
       context.read<TimeRatioProvider>().changeTimeRatio(0);
@@ -41,8 +41,8 @@ class HomeScreen extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    List<Appointment> appointments = context.watch<DataProvider>().getAppointments;
-    User? currentUser = context.watch<DataProvider>().currentUser;
+    List<Appointment> appointments = context.watch<AppointmentCtrl>().getAppointments;
+    User? currentUser = context.watch<UserCtrl>().getCurrentUser;
     List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
 
     return Scaffold(
@@ -93,12 +93,10 @@ class HomeScreen extends State<Home> {
                     );
                   })),
             ),
-            // TODO: Parse data in model
             Expanded(
                 child: ListView.builder(
                     itemCount: appointments.length,
                     itemBuilder: (context, index) {
-                      // TODO: Refactor arguments "Just the appointment object"
                       return AppointmentCard(
                         appointment: appointments[index],
                       );

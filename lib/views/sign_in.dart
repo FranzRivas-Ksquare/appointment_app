@@ -6,7 +6,7 @@ import '../resources/routes_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
-import '../controller/data_provider.dart';
+import '../controller/user_controller.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -15,7 +15,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+    var userCtrl = Provider.of<UserCtrl>(context);
     var _formKey = GlobalKey<FormState>();
 
     TextEditingController _emailCtrl = TextEditingController();
@@ -49,7 +49,7 @@ class SignIn extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        int validate = await dataServices.signInUser(
+                        int validate = await userCtrl.signInUser(context,
                             _emailCtrl.text, _passwordCtrl.text);
                         if (validate == 0) {
                           // ignore: use_build_context_synchronously

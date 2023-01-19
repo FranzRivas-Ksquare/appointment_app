@@ -1,3 +1,4 @@
+import 'package:appointment/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../resources/string_manager.dart';
@@ -6,7 +7,6 @@ import '../resources/routes_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
-import '../controller/data_provider.dart';
 import '../models/models.dart';
 
 class SignUp extends StatelessWidget {
@@ -17,7 +17,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _formKey = GlobalKey<FormState>();
-    var dataServices = Provider.of<DataProvider>(context);
+    var userCtrl = Provider.of<UserCtrl>(context);
     TextEditingController _nameCtrl = TextEditingController();
     TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();
@@ -82,7 +82,7 @@ class SignUp extends StatelessWidget {
                                 name: _nameCtrl.text,
                                 password: _passwordCtrl.text,
                                 avatar: null);
-                            if (await dataServices.signUpUser(tempUser)) {
+                            if (await userCtrl.signUpUser(context, tempUser)) {
                               Navigator.pushReplacementNamed(
                                   context, AppRoutes.homeScreen);
                             } else {

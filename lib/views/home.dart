@@ -36,6 +36,7 @@ class HomeScreen extends State<Home> {
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
       context.read<TimeRatioProvider>().changeTimeRatio(0);
+      context.read<AppointmentCtrl>().timeRatioAll();
       setState(() {});
     });
   }

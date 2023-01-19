@@ -14,7 +14,8 @@ import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
 import '../models/models.dart';
-import '../controller/database_controller.dart';
+import '../controller/user_controller.dart';
+import '../controller/appointment_controller.dart';
 
 class UpdateAppointment extends StatefulWidget {
   Appointment appointment;
@@ -108,7 +109,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DatabaseCtrl>(context);
+    var userCtrl = Provider.of<UserCtrl>(context);
+    var appointmentCtrl = Provider.of<AppointmentCtrl>(context);
     DateTime appointmentDT = widget.appointment.date;
 
     return HideKeyboard(
@@ -186,15 +188,15 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                             description: _descrCtrl.text,
                             date: DateTime(newDate.year, newDate.month,
                                 newDate.day, newTime.hour, newTime.minute, 0),
-                            author: dataServices.getCurrentUser.email,
+                            author: userCtrl.getCurrentUser.email,
                           );
                           bool validate =
-                              dataServices.availability(updateAppointment);
+                              appointmentCtrl.availability(updateAppointment);
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
-                          } else if (await dataServices
-                              .updateAppointments(updateAppointment)) {
+                          } else if (await appointmentCtrl
+                              .updateAppointments(context, updateAppointment)) {
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.upSuccess,

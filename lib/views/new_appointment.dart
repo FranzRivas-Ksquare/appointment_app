@@ -13,7 +13,8 @@ import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
 import '../models/models.dart';
-import '../controller/database_controller.dart';
+import '../controller/user_controller.dart';
+import '../controller/appointment_controller.dart';
 
 class NewAppointment extends StatefulWidget {
   const NewAppointment({super.key});
@@ -27,7 +28,6 @@ class _NewAppointmentState extends State<NewAppointment> {
   final TextEditingController _titleCtrl = TextEditingController();
   final TextEditingController _descrCtrl = TextEditingController();
 
-  // TODO: Create a DateTime type variable with dateNow and timeNow values
   String dateNow = DateFormat('y/MM/d').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
   DatetimeManager dtmanager = DatetimeManager();
@@ -36,7 +36,8 @@ class _NewAppointmentState extends State<NewAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DatabaseCtrl>(context);
+    final AppointmentCtrl appontmentCtrl = Provider.of<AppointmentCtrl>(context);
+    final UserCtrl userCtrl = Provider.of<UserCtrl>(context);
     Future<void> _showDatePicker() async {
       newDate = await showDatePicker(
               context: context,
@@ -159,15 +160,15 @@ class _NewAppointmentState extends State<NewAppointment> {
                               date: DateTime(newDate.year, newDate.month,
                                   newDate.day, newTime.hour, newTime.minute, 0),
                               description: _descrCtrl.text,
-                              author: dataServices.getCurrentUser!.email);
-                          bool validate = dataServices.availability(newApp);
+                              author: userCtrl.getCurrentUser.email);
+                          bool validate = appontmentCtrl.availability(newApp);
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
-                          } else if (await dataServices
-                              .createAppointments(newApp)) {
+                          } else if (await appontmentCtrl
+                              .createAppointments(context, newApp)) {
 
-                            dataServices.sendNotification(newApp);
+                            appontmentCtrl.sendNotification(newApp);
 
                             DialogManager().sucessDialog(
                                 context,

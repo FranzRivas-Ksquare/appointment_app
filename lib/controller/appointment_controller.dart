@@ -8,7 +8,7 @@ import '../controller/user_controller.dart';
 import '../controller/notification_service.dart';
 import '../models/models.dart';
 
-class AppontmentCtrl extends ChangeNotifier {
+class AppointmentCtrl extends ChangeNotifier {
 
   List<Appointment> _appointments = [];
   List<Appointment> _filter = [];

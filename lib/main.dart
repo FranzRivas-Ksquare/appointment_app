@@ -7,6 +7,8 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../controller/timeratio_provider.dart';
 import '../controller/database_controller.dart';
+import '../controller/user_controller.dart';
+import '../controller/appointment_controller.dart';
 
 // TODO: Comment all the code
 void main() {
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DatabaseCtrl()),
+        ChangeNotifierProvider(create: (context) => UserCtrl()),
+        ChangeNotifierProvider(create: (context) => AppointmentCtrl()),
         ChangeNotifierProvider(create: (context) => TimeRatioProvider()),
       ],
       child: MaterialApp(

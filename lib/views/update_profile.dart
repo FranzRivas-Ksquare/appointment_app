@@ -10,8 +10,8 @@ import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/alert_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../models/models.dart';
-import '../controller/database_controller.dart';
 import '../controller/imagePicker.dart';
+import '../controller/user_controller.dart';
 
 class UpdateProfile extends StatefulWidget {
   User user;
@@ -61,7 +61,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DatabaseCtrl>(context);
+    var dataServices = Provider.of<UserCtrl>(context);
     User user = dataServices.getCurrentUser;
 
     return HideKeyboard(
@@ -167,7 +167,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   : user.avatar,
                             );
 
-                            dataServices.updateUser(updateUser);
+                            dataServices.updateUser(context, updateUser);
                             Navigator.pushReplacementNamed(
                                 context, AppRoutes.homeScreen);
                           }

@@ -56,19 +56,21 @@ class NotificationService {
     Duration diff = appointment.date.difference(todayDate);
     tz.TZDateTime finalDate = todayDate.add(diff);
     AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      "channelId",
-      "channelName",
-      importance: Importance.max,
-      priority: Priority.max,
-      playSound: true,
-    );
+        AndroidNotificationDetails("id", "channel_Name",
+            importance: Importance.max,
+            priority: Priority.max,
+            playSound: true,
+            sound: const RawResourceAndroidNotificationSound('listen'));
     DarwinNotificationDetails iosNotificationDetails =
         DarwinNotificationDetails(threadIdentifier: "thread2");
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
-    await FlutterLocalNotificationsPlugin().zonedSchedule(0, appointment.title,
-        appointment.description, finalDate, notificationDetails,
+    await FlutterLocalNotificationsPlugin().zonedSchedule(
+        appointment.id,
+        appointment.title,
+        appointment.description,
+        finalDate,
+        notificationDetails,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);

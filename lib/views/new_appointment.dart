@@ -1,20 +1,19 @@
-import 'package:appointment/custom_widgets/widgets_custom.dart';
-import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../controller/data_provider.dart';
+import '../custom_widgets/widgets_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
-import '../models/models.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
+import '../resources/dateTime_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
+import '../models/models.dart';
+import '../controller/data_provider.dart';
 
 class NewAppointment extends StatefulWidget {
   const NewAppointment({super.key});

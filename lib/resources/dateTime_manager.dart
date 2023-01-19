@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class DatetimeManager {
   String dateToFormat = '';
   String timeToFormat = '';

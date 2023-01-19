@@ -1,8 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:appointment/models/models.dart';
+import '../models/models.dart';
 
 class UserDB {
   Database db;

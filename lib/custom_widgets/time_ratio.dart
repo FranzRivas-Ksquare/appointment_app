@@ -1,9 +1,9 @@
-import 'package:appointment/controller/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../resources/values_manager.dart';
 import '../resources/color_manager.dart';
-import 'package:appointment/controller/timeratio_provider.dart';
+import '../controller/data_provider.dart';
+import '../controller/timeratio_provider.dart';
 
 class TimeRatio extends StatelessWidget {
   TimeRatio({

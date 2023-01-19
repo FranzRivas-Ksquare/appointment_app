@@ -1,11 +1,11 @@
-import 'package:appointment/resources/dateTime_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
-import '../models/models.dart';
+import '../resources/dateTime_manager.dart';
 import '../database/database.dart';
 import '../database/user_db.dart';
 import '../database/appointments_db.dart';
-import 'notification_service.dart';
+import '../models/models.dart';
+import '../controller/notification_service.dart';
 
 class DataProvider extends ChangeNotifier {
   static AppDB appDB = AppDB(dbName: 'database5.db');

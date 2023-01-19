@@ -1,4 +1,3 @@
-import 'package:appointment/custom_widgets/widgets_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +6,7 @@ import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/alert_manager.dart';
+import '../custom_widgets/widgets_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/dateTime_manager.dart';
 import '../resources/routes_manager.dart';

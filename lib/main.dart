@@ -1,12 +1,12 @@
-import 'package:appointment/controller/timeratio_provider.dart';
-import 'package:appointment/resources/routes_manager.dart';
-import 'package:appointment/resources/string_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'resources/theme.dart';
-import 'resources/router.dart';
-import 'controller/data_provider.dart';
+import '../resources/theme.dart';
+import '../resources/router.dart';
+import '../resources/routes_manager.dart';
+import '../resources/string_manager.dart';
+import '../controller/timeratio_provider.dart';
+import '../controller/data_provider.dart';
 
 // TODO: Comment all the code
 void main() {

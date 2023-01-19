@@ -1,6 +1,5 @@
 import 'package:appointment/models/models.dart';
 import 'package:flutter/material.dart';
-
 import '../views/sign_in.dart';
 import '../views/sign_up.dart';
 import '../views/home.dart';

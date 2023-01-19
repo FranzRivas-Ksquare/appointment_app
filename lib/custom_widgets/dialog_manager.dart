@@ -1,13 +1,11 @@
-import 'package:appointment/controller/data_provider.dart';
-import 'package:appointment/models/models.dart';
-import 'package:appointment/resources/color_manager.dart';
-import 'package:appointment/resources/routes_manager.dart';
-import 'package:appointment/resources/string_manager.dart';
-import 'package:appointment/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../controller/dateTimeFormat.dart';
 import 'button_custom.dart';
+import '../resources/color_manager.dart';
+import '../resources/routes_manager.dart';
+import '../resources/string_manager.dart';
+import '../resources/values_manager.dart';
+import '../models/models.dart';
+import '../controller/dateTimeFormat.dart';
 
 class DialogManager {
   appointmentDialog(context, Appointment appointment, dataServices) {

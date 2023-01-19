@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
-import '../models/models.dart';
+import '../models/appointment_model.dart';
+import '../models/user_model.dart';
 
 class AppointmentDB {
   Database db;

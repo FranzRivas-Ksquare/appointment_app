@@ -7,7 +7,7 @@ import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/values_manager.dart';
 import '../controller/user_controller.dart';
-import '../models/models.dart';
+import '../models/user_model.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

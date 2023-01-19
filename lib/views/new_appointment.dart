@@ -12,7 +12,7 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
-import '../models/models.dart';
+import '../models/appointment_model.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
 

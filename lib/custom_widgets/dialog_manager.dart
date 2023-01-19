@@ -6,9 +6,10 @@ import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 import '../models/appointment_model.dart';
 import '../controller/dateTimeFormat.dart';
+import '../controller/appointment_controller.dart';
 
 class DialogManager {
-  appointmentDialog(context, Appointment appointment, dataServices) {
+  appointmentDialog(context, Appointment appointment, AppointmentCtrl appointmentCtrl) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -61,7 +62,7 @@ class DialogManager {
           actions: [
             IconButton(
                 onPressed: () {
-                  dataServices.deleteAppointments(appointment.id);
+                  appointmentCtrl.deleteAppointments(context, appointment.id);
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.delete)),
@@ -76,16 +77,6 @@ class DialogManager {
               },
               child: const Text(AppString.updateAppoint),
             ),
-
-            // TextButton(
-            //   style:
-            //       TextButton.styleFrom(foregroundColor: ColorManager.darkPink),
-            //   onPressed: () {
-            //     dataServices.deleteAppointments(appointment.id);
-            //     Navigator.pop(context);
-            //   },
-            //   child: const Text(AppString.delAppoint),
-            // ),
           ],
         );
       },

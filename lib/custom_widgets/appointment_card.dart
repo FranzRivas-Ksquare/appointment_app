@@ -3,7 +3,7 @@ import 'package:appointment/resources/color_manager.dart';
 import 'package:appointment/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
-import '../controller/database_controller.dart';
+import '../controller/appointment_controller.dart';
 import '../models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {
@@ -16,11 +16,11 @@ class AppointmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DatabaseCtrl>(context);
+    var appointmentCtrl = Provider.of<AppointmentCtrl>(context);
     return GestureDetector(
       onTap: () {
         DialogManager().appointmentDialog(
-            context, appointment, dataServices);
+            context, appointment, appointmentCtrl);
       },
       child: Container(
           height: AppSize.s100,

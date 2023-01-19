@@ -14,6 +14,11 @@ class DateTimeFormat {
           (timeNumber - 12.00).toStringAsFixed(2).replaceAll('.', ':');
       String timeNow = '$timeString PM';
       return timeNow;
+    } else if (timeNumber >= 00.00 && timeNumber <= 00.59) {
+      String timeString =
+          (timeNumber + 12.00).toStringAsFixed(2).replaceAll('.', ':');
+      String timeNow = '$timeString AM';
+      return timeNow;
     } else {
       String timeNow = '$timeString AM';
       return timeNow;

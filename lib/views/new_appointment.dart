@@ -29,7 +29,7 @@ class _NewAppointmentState extends State<NewAppointment> {
   final TextEditingController _descrCtrl = TextEditingController();
 
   // TODO: Create a DateTime type variable with dateNow and timeNow values
-  String dateNow = DateFormat('y/M/d').format(DateTime.now());
+  String dateNow = DateFormat('y/MM/d').format(DateTime.now());
   String timeNow = DateFormat('jm').format(DateTime.now());
   DatetimeManager dtmanager = DatetimeManager();
   TimeOfDay newTime = TimeOfDay.now();
@@ -59,7 +59,7 @@ class _NewAppointmentState extends State<NewAppointment> {
           DateTime.now();
 
       setState(() {
-        dateNow = DateFormat('y/M/d').format(newDate);
+        dateNow = DateFormat('y/MM/d').format(newDate);
       });
     }
 
@@ -85,9 +85,6 @@ class _NewAppointmentState extends State<NewAppointment> {
         timeNow = newTime.format(context).toString();
       });
     }
-
-    //_titleCtrl.text = 'Flutter Exam';
-    //_descrCtrl.text = 'Flutter class in ITK. Exam this Monday! Wake upr early!';
 
     return HideKeyboard(
       child: Scaffold(
@@ -170,7 +167,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 AppString.warning, AppString.alreadyDate);
                           } else if (await dataServices
                               .createAppointments(newApp)) {
+
                             dataServices.sendNotification(newApp);
+
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,

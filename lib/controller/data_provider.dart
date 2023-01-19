@@ -5,9 +5,10 @@ import '../models/models.dart';
 import '../database/database.dart';
 import '../database/user_db.dart';
 import '../database/appointments_db.dart';
+import 'notification_service.dart';
 
 class DataProvider extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'database.db');
+  static AppDB appDB = AppDB(dbName: 'database5.db');
   String? email;
   static UserDB? userCtrl;
   static AppointmentDB? appointmentCtrl;
@@ -17,6 +18,7 @@ class DataProvider extends ChangeNotifier {
 
   DataProvider() {
     DataProvider.initDB();
+    NotificationService.initNotifications();
   }
 
   @override
@@ -135,28 +137,29 @@ class DataProvider extends ChangeNotifier {
   //--Filter
   void timeRatioAll() {
     _filter = _appointments
-        .where((element) => DatetimeManager()
-        .compareNotPastDates(element.date)).toList();
+        .where((element) => DatetimeManager().compareNotPastDates(element.date))
+        .toList();
     notifyListeners();
   }
 
   void timeRatioToday() {
     _filter = _appointments
-        .where((element) => DatetimeManager()
-        .compareTodayDates(element.date)).toList();
+        .where((element) => DatetimeManager().compareTodayDates(element.date))
+        .toList();
     notifyListeners();
   }
 
   void timeRatioTomorrow() {
     _filter = _appointments
-        .where((element) => element.date.day == DateTime.now().day + 1).toList();
+        .where((element) => element.date.day == DateTime.now().day + 1)
+        .toList();
     notifyListeners();
   }
 
   void timeRatioPast() {
     _filter = _appointments
-        .where((element) => DatetimeManager()
-        .comparePastDates(element.date)).toList();
+        .where((element) => DatetimeManager().comparePastDates(element.date))
+        .toList();
     notifyListeners();
   }
 
@@ -175,5 +178,9 @@ class DataProvider extends ChangeNotifier {
         timeRatioAll();
         break;
     }
+  }
+
+  void sendNotification(Appointment appointment) {
+    NotificationService.pushSchedule(appointment);
   }
 }

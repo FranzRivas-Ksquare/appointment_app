@@ -167,6 +167,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                                 AppString.warning, AppString.alreadyDate);
                           } else if (await dataServices
                               .createAppointments(newApp)) {
+
+                            dataServices.sendNotification(newApp);
+
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.newAppoint,

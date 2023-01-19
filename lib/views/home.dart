@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 }
 
 class HomeScreen extends State<Home> {
-  late AppointmentCtrl dataServices;
+  late AppointmentCtrl appointmentCtrl;
   late TimeRatioProvider trService;
 
   @override
@@ -30,8 +30,8 @@ class HomeScreen extends State<Home> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      dataServices = Provider.of<AppointmentCtrl>(context, listen: false);
-      dataServices.fetchAppointments(context);
+      appointmentCtrl = Provider.of<AppointmentCtrl>(context, listen: false);
+      appointmentCtrl.fetchAppointments(context);
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
       context.read<TimeRatioProvider>().changeTimeRatio(0);

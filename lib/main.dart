@@ -14,6 +14,7 @@ import '../controller/appointment_controller.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();
+  DatabaseCtrl().startDB();
   runApp(const MyApp());
 }
 

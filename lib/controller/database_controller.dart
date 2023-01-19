@@ -40,6 +40,10 @@ class DatabaseCtrl extends ChangeNotifier {
     }
   }
 
+  void startDB() {
+    initDB();
+  }
+
   get getAppointmentDB => appointmentDatabase;
   get getUserDB => userDatabase;
 

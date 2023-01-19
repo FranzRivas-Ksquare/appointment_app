@@ -1,6 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 import '../resources/dateTime_manager.dart';
+import '../database/appointments_db.dart';
+import '../controller/database_controller.dart';
+import '../controller/user_controller.dart';
+import '../controller/notification_service.dart';
 import '../models/models.dart';
 
 class AppontmentCtrl extends ChangeNotifier {
@@ -10,15 +15,17 @@ class AppontmentCtrl extends ChangeNotifier {
 
   //--Appointments services
   void fetchAppointments(BuildContext context) async {
-    _appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
+    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    final currentUser = context.read<UserCtrl>().getCurrentUser;
+    _appointments = await refAppointmentDB.fetchAppointments(currentUser);
     _filter = [];
-    //_filter.addAll(_appointments);
     timeRatioAll();
     notifyListeners();
   }
 
-  Future<bool> createAppointments(Appointment appointment) async {
-    bool validate = await appointmentCtrl!.create(appointment);
+  Future<bool> createAppointments(BuildContext context, Appointment appointment) async {
+    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    bool validate = await refAppointmentDB.create(appointment);
     if (validate) {
       _appointments.add(appointment);
       notifyListeners();
@@ -28,10 +35,11 @@ class AppontmentCtrl extends ChangeNotifier {
     }
   }
 
-  Future<bool> updateAppointments(Appointment appointment) async {
-    bool validate = await appointmentCtrl!.update(appointment);
+  Future<bool> updateAppointments(BuildContext context, Appointment appointment) async {
+    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    bool validate = await refAppointmentDB.update(appointment);
     if (validate) {
-      fetchAppointments();
+      fetchAppointments(context);
       return true;
     } else {
       return false;
@@ -48,10 +56,11 @@ class AppontmentCtrl extends ChangeNotifier {
     return isAvailable.isEmpty;
   }
 
-  void deleteAppointments(int id) async {
-    bool validate = await appointmentCtrl!.delete(id);
+  void deleteAppointments(BuildContext context, int id) async {
+    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    bool validate = await refAppointmentDB.delete(id);
     if (validate) {
-      fetchAppointments();
+      fetchAppointments(context);
       notifyListeners();
     }
   }
@@ -103,4 +112,9 @@ class AppontmentCtrl extends ChangeNotifier {
         break;
     }
   }
+
+  void sendNotification(Appointment appointment) {
+    NotificationService.pushSchedule(appointment);
+  }
+
 }

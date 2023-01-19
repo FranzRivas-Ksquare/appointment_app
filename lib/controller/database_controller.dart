@@ -10,11 +10,11 @@ import '../controller/notification_service.dart';
 class DatabaseCtrl extends ChangeNotifier {
   static AppDB appDB = AppDB(dbName: 'database.db');
   //String? email;
-  static UserDB? userCtrl;
-  static AppointmentDB? appointmentCtrl;
-  User? currentUser;
-  List<Appointment> _appointments = [];
-  List<Appointment> _filter = [];
+  static UserDB? userDatabase;
+  static AppointmentDB? appointmentDatabase;
+  //User? currentUser;
+  //List<Appointment> _appointments = [];
+  //List<Appointment> _filter = [];
 
   DatabaseCtrl() {
     DatabaseCtrl.initDB();
@@ -32,8 +32,8 @@ class DatabaseCtrl extends ChangeNotifier {
     if (kDebugMode) print('Database init trigger');
     await appDB.open();
     Database db = await appDB.getDB;
-    userCtrl = UserDB(db: db);
-    appointmentCtrl = AppointmentDB(db: db);
+    userDatabase = UserDB(db: db);
+    appointmentDatabase = AppointmentDB(db: db);
   }
 
   static void closeDB() async {
@@ -46,9 +46,13 @@ class DatabaseCtrl extends ChangeNotifier {
     }
   }
 
+  get getAppointmentDB => appointmentDatabase;
+  get getUserDB => userDatabase;
+
+  /*
   //--User services
   Future<bool> signUpUser(User user) async {
-    bool validate = await userCtrl!.create(user);
+    bool validate = await userDatabase!.create(user);
     if (validate) {
       currentUser = user;
       notifyListeners();
@@ -59,7 +63,7 @@ class DatabaseCtrl extends ChangeNotifier {
   }
 
   Future<int> signInUser(String email, String password) async {
-    User? tempUser = await userCtrl!.fetchUser(email);
+    User? tempUser = await userDatabase!.fetchUser(email);
     if (tempUser == null) {
       return 2;
     }
@@ -73,7 +77,7 @@ class DatabaseCtrl extends ChangeNotifier {
   }
 
   Future<bool> updateUser(User user) async {
-    bool validate = await userCtrl!.update(user);
+    bool validate = await userDatabase!.update(user);
     if (validate) {
       currentUser = user;
       return true;
@@ -86,7 +90,7 @@ class DatabaseCtrl extends ChangeNotifier {
 
   //--Appointments services
   void fetchAppointments() async {
-    _appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
+    _appointments = await appointmentDatabase!.fetchAppointments(currentUser!);
     _filter = [];
     //_filter.addAll(_appointments);
     timeRatioAll();
@@ -94,7 +98,7 @@ class DatabaseCtrl extends ChangeNotifier {
   }
 
   Future<bool> createAppointments(Appointment appointment) async {
-    bool validate = await appointmentCtrl!.create(appointment);
+    bool validate = await appointmentDatabase!.create(appointment);
     if (validate) {
       _appointments.add(appointment);
       notifyListeners();
@@ -105,7 +109,7 @@ class DatabaseCtrl extends ChangeNotifier {
   }
 
   Future<bool> updateAppointments(Appointment appointment) async {
-    bool validate = await appointmentCtrl!.update(appointment);
+    bool validate = await appointmentDatabase!.update(appointment);
     if (validate) {
       fetchAppointments();
       return true;
@@ -125,7 +129,7 @@ class DatabaseCtrl extends ChangeNotifier {
   }
 
   void deleteAppointments(int id) async {
-    bool validate = await appointmentCtrl!.delete(id);
+    bool validate = await appointmentDatabase!.delete(id);
     if (validate) {
       fetchAppointments();
       notifyListeners();
@@ -183,4 +187,5 @@ class DatabaseCtrl extends ChangeNotifier {
   void sendNotification(Appointment appointment) {
     NotificationService.pushSchedule(appointment);
   }
+   */
 }

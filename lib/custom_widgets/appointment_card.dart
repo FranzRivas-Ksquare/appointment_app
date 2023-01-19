@@ -4,7 +4,7 @@ import 'package:appointment/resources/values_manager.dart';
 import 'package:provider/provider.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../controller/database_controller.dart';
-import '../models/models.dart';
+import '../models/appointment_model.dart';
 
 class AppointmentCard extends StatelessWidget {
   Appointment appointment;

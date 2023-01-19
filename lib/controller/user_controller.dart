@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../database/user_db.dart';
-import '../models/models.dart';
+import '../models/user_model.dart';
 import '../controller/database_controller.dart';
 
 class UserCtrl extends ChangeNotifier {

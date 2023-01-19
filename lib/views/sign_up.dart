@@ -7,7 +7,7 @@ import '../resources/routes_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
-import '../models/models.dart';
+import '../models/user_model.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});

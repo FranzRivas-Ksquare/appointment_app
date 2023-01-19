@@ -1,4 +1,3 @@
-import 'package:appointment/models/models.dart';
 import 'package:flutter/material.dart';
 import '../views/sign_in.dart';
 import '../views/sign_up.dart';
@@ -7,6 +6,8 @@ import '../views/profile.dart';
 import '../views/update_profile.dart';
 import '../views/new_appointment.dart';
 import '../views/update_appointment.dart';
+import '../models/user_model.dart';
+import '../models/appointment_model.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   final name = settings.name;

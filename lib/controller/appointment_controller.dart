@@ -6,7 +6,7 @@ import '../database/appointments_db.dart';
 import '../controller/database_controller.dart';
 import '../controller/user_controller.dart';
 import '../controller/notification_service.dart';
-import '../models/models.dart';
+import '../models/appointment_model.dart';
 
 class AppointmentCtrl extends ChangeNotifier {
 

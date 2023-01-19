@@ -12,7 +12,8 @@ import '../custom_widgets/time_ratio.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
 import '../controller/timeratio_provider.dart';
-import '../models/models.dart';
+import '../models/user_model.dart';
+import '../models/appointment_model.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

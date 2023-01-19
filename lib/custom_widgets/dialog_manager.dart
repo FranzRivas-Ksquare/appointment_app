@@ -4,7 +4,7 @@ import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
-import '../models/models.dart';
+import '../models/appointment_model.dart';
 import '../controller/dateTimeFormat.dart';
 
 class DialogManager {

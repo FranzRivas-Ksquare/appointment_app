@@ -10,7 +10,7 @@ import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/alert_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../models/models.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 import '../controller/imagePicker.dart';
 
 class UpdateProfile extends StatefulWidget {
@@ -61,7 +61,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DatabaseCtrl>(context);
     User user = dataServices.getCurrentUser;
 
     return HideKeyboard(

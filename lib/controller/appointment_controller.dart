@@ -1,91 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sqflite/sqflite.dart';
 import '../resources/dateTime_manager.dart';
-import '../database/database.dart';
-import '../database/user_db.dart';
-import '../database/appointments_db.dart';
 import '../models/models.dart';
-import '../controller/notification_service.dart';
 
-class DataProvider extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'database5.db');
-  String? email;
-  static UserDB? userCtrl;
-  static AppointmentDB? appointmentCtrl;
-  User? currentUser;
+class AppontmentCtrl extends ChangeNotifier {
+
   List<Appointment> _appointments = [];
   List<Appointment> _filter = [];
 
-  DataProvider() {
-    DataProvider.initDB();
-    NotificationService.initNotifications();
-  }
-
-  @override
-  void dispose() {
-    DataProvider.closeDB();
-    super.dispose();
-  }
-
-  //--DB services
-  static void initDB() async {
-    if (kDebugMode) print('Database init trigger');
-    await appDB.open();
-    Database db = await appDB.getDB;
-    userCtrl = UserDB(db: db);
-    appointmentCtrl = AppointmentDB(db: db);
-  }
-
-  static void closeDB() async {
-    if (kDebugMode) print('Database close trigger');
-    bool isClose = await appDB.close();
-    if (isClose) {
-      if (kDebugMode) print('Database is close');
-    } else {
-      if (kDebugMode) print('Field closing database');
-    }
-  }
-
-  //--User services
-  Future<bool> signUpUser(User user) async {
-    bool validate = await userCtrl!.create(user);
-    if (validate) {
-      currentUser = user;
-      notifyListeners();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  Future<int> signInUser(String email, String password) async {
-    User? tempUser = await userCtrl!.fetchUser(email);
-    if (tempUser == null) {
-      return 2;
-    }
-    if (tempUser.password == password) {
-      currentUser = tempUser;
-      notifyListeners();
-      return 0;
-    } else {
-      return 1;
-    }
-  }
-
-  Future<bool> updateUser(User user) async {
-    bool validate = await userCtrl!.update(user);
-    if (validate) {
-      currentUser = user;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  get getCurrentUser => currentUser;
-
   //--Appointments services
-  void fetchAppointments() async {
+  void fetchAppointments(BuildContext context) async {
     _appointments = await appointmentCtrl!.fetchAppointments(currentUser!);
     _filter = [];
     //_filter.addAll(_appointments);
@@ -178,9 +102,5 @@ class DataProvider extends ChangeNotifier {
         timeRatioAll();
         break;
     }
-  }
-
-  void sendNotification(Appointment appointment) {
-    NotificationService.pushSchedule(appointment);
   }
 }

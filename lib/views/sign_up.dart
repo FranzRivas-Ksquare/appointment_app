@@ -6,7 +6,7 @@ import '../resources/routes_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 import '../models/models.dart';
 
 class SignUp extends StatelessWidget {
@@ -17,7 +17,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _formKey = GlobalKey<FormState>();
-    var dataServices = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DatabaseCtrl>(context);
     TextEditingController _nameCtrl = TextEditingController();
     TextEditingController _emailCtrl = TextEditingController();
     TextEditingController _passwordCtrl = TextEditingController();

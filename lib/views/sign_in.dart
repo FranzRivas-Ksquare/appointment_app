@@ -6,7 +6,7 @@ import '../resources/routes_manager.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/alert_manager.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key});
@@ -15,7 +15,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DatabaseCtrl>(context);
     var _formKey = GlobalKey<FormState>();
 
     TextEditingController _emailCtrl = TextEditingController();

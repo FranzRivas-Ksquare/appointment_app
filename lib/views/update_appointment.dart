@@ -14,7 +14,7 @@ import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
 import '../models/models.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 
 class UpdateAppointment extends StatefulWidget {
   Appointment appointment;
@@ -108,7 +108,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DatabaseCtrl>(context);
     DateTime appointmentDT = widget.appointment.date;
 
     return HideKeyboard(

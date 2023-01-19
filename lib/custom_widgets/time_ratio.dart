@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../resources/values_manager.dart';
 import '../resources/color_manager.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 import '../controller/timeratio_provider.dart';
 
 class TimeRatio extends StatelessWidget {
@@ -23,7 +23,7 @@ class TimeRatio extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<TimeRatioProvider>().changeTimeRatio(myIndex);
-        context.read<DataProvider>().selectRatio(myIndex);
+        context.read<DatabaseCtrl>().selectRatio(myIndex);
       },
       child: Container(
         height: AppSize.s24,

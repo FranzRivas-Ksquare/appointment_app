@@ -9,7 +9,7 @@ import '../resources/values_manager.dart';
 import '../custom_widgets/appointment_card.dart';
 import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 import '../controller/timeratio_provider.dart';
 import '../models/models.dart';
 
@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 
 class HomeScreen extends State<Home> {
   // TODO: Filter appointments per date range
-  late DataProvider dataServices;
+  late DatabaseCtrl dataServices;
   late TimeRatioProvider trService;
 
   @override
@@ -30,7 +30,7 @@ class HomeScreen extends State<Home> {
     super.initState();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      dataServices = Provider.of<DataProvider>(context, listen: false);
+      dataServices = Provider.of<DatabaseCtrl>(context, listen: false);
       dataServices.fetchAppointments();
       trService = Provider.of<TimeRatioProvider>(context, listen: false);
       trService.fillTimeRatioArray();
@@ -41,8 +41,8 @@ class HomeScreen extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    List<Appointment> appointments = context.watch<DataProvider>().getAppointments;
-    User? currentUser = context.watch<DataProvider>().currentUser;
+    List<Appointment> appointments = context.watch<DatabaseCtrl>().getAppointments;
+    User? currentUser = context.watch<DatabaseCtrl>().currentUser;
     List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
 
     return Scaffold(

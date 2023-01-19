@@ -13,7 +13,7 @@ import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
 import '../models/models.dart';
-import '../controller/data_provider.dart';
+import '../controller/database_controller.dart';
 
 class NewAppointment extends StatefulWidget {
   const NewAppointment({super.key});
@@ -36,7 +36,7 @@ class _NewAppointmentState extends State<NewAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    var dataServices = Provider.of<DataProvider>(context);
+    var dataServices = Provider.of<DatabaseCtrl>(context);
     Future<void> _showDatePicker() async {
       newDate = await showDatePicker(
               context: context,

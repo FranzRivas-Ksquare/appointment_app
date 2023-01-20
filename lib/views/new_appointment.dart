@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../controller/notification_service.dart';
 import '../custom_widgets/widgets_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/dialog_manager.dart';
@@ -36,7 +37,8 @@ class _NewAppointmentState extends State<NewAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    final AppointmentCtrl appontmentCtrl = Provider.of<AppointmentCtrl>(context);
+    final AppointmentCtrl appontmentCtrl =
+        Provider.of<AppointmentCtrl>(context);
     final UserCtrl userCtrl = Provider.of<UserCtrl>(context);
     Future<void> _showDatePicker() async {
       newDate = await showDatePicker(
@@ -165,10 +167,9 @@ class _NewAppointmentState extends State<NewAppointment> {
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
-                          } else if (await appontmentCtrl
-                              .createAppointments(context, newApp)) {
-
-                            appontmentCtrl.sendNotification(newApp);
+                          } else if (await appontmentCtrl.createAppointments(
+                              context, newApp)) {
+                            NotificationService.pushSchedule(newApp);
 
                             DialogManager().sucessDialog(
                                 context,

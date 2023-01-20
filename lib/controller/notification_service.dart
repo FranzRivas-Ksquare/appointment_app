@@ -5,9 +5,16 @@ import 'package:timezone/timezone.dart' as tz;
 import '../models/appointment_model.dart';
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
+  static final FlutterLocalNotificationsPlugin
+      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails("id", "channel_Name",
+          importance: Importance.max,
+          priority: Priority.max,
+          playSound: true,
+          sound: const RawResourceAndroidNotificationSound('listen'));
+  static final DarwinNotificationDetails iosNotificationDetails =
+      DarwinNotificationDetails(threadIdentifier: "thread2");
   static Future<void> initNotifications() async {
     final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
@@ -33,18 +40,6 @@ class NotificationService {
   }
 
   static Future<void> sendNotification(String title, String body) async {
-    final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-    AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails(
-      "channelId",
-      "channelName",
-      importance: Importance.max,
-      priority: Priority.max,
-      playSound: true,
-    );
-    DarwinNotificationDetails iosNotificationDetails =
-        DarwinNotificationDetails(threadIdentifier: "thread2");
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
     _flutterLocalNotificationsPlugin.show(0, title, body, notificationDetails);
@@ -52,19 +47,14 @@ class NotificationService {
 
   static Future<void> pushSchedule(Appointment appointment) async {
     tz.TZDateTime todayDate = tz.TZDateTime.now(tz.local);
+    print("todayDate: $todayDate");
     Duration diff = appointment.date.difference(todayDate);
+    print("diff: $diff");
     tz.TZDateTime finalDate = todayDate.add(diff);
-    AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails("id", "channel_Name",
-            importance: Importance.max,
-            priority: Priority.max,
-            playSound: true,
-            sound: const RawResourceAndroidNotificationSound('listen'));
-    DarwinNotificationDetails iosNotificationDetails =
-        DarwinNotificationDetails(threadIdentifier: "thread2");
+    print("finalDate: $finalDate");
     NotificationDetails notificationDetails = NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
-    await FlutterLocalNotificationsPlugin().zonedSchedule(
+    await _flutterLocalNotificationsPlugin.zonedSchedule(
         appointment.id,
         appointment.title,
         appointment.description,
@@ -73,6 +63,11 @@ class NotificationService {
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
+  }
+
+  static Future<void> deleteNotification(Appointment appointment) async {
+    await _flutterLocalNotificationsPlugin.cancel(appointment.id);
+    print("Notification ${appointment.id} deleted.");
   }
 
   static tz.TZDateTime calculateTimeDifference(Appointment appointment) {

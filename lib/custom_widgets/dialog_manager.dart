@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../controller/notification_service.dart';
 import 'button_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
@@ -9,7 +10,8 @@ import '../controller/dateTimeFormat.dart';
 import '../controller/appointment_controller.dart';
 
 class DialogManager {
-  appointmentDialog(context, Appointment appointment, AppointmentCtrl appointmentCtrl) {
+  appointmentDialog(
+      context, Appointment appointment, AppointmentCtrl appointmentCtrl) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -63,6 +65,7 @@ class DialogManager {
             IconButton(
                 onPressed: () {
                   appointmentCtrl.deleteAppointments(context, appointment.id);
+                  NotificationService.deleteNotification(appointment);
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.delete)),

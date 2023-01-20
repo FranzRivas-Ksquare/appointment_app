@@ -9,13 +9,13 @@ import '../controller/notification_service.dart';
 import '../models/appointment_model.dart';
 
 class AppointmentCtrl extends ChangeNotifier {
-
   List<Appointment> _appointments = [];
   List<Appointment> _filter = [];
 
   //--Appointments services
   void fetchAppointments(BuildContext context) async {
-    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    final AppointmentDB refAppointmentDB =
+        context.read<DatabaseCtrl>().getAppointmentDB;
     final currentUser = context.read<UserCtrl>().getCurrentUser;
     _appointments = await refAppointmentDB.fetchAppointments(currentUser);
     _filter = [];
@@ -23,20 +23,29 @@ class AppointmentCtrl extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> createAppointments(BuildContext context, Appointment appointment) async {
-    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
-    bool validate = await refAppointmentDB.create(appointment);
-    if (validate) {
-      _appointments.add(appointment);
-      notifyListeners();
-      return true;
+  Future<bool> createAppointments(
+      BuildContext context, Appointment appointment) async {
+    final AppointmentDB refAppointmentDB =
+        context.read<DatabaseCtrl>().getAppointmentDB;
+    if (appointment.date != DateTime.now() ||
+        appointment.date.isAfter(DateTime.now().add(Duration(seconds: 30)))) {
+      bool validate = await refAppointmentDB.create(appointment);
+      if (validate) {
+        _appointments.add(appointment);
+        notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
   }
 
-  Future<bool> updateAppointments(BuildContext context, Appointment appointment) async {
-    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+  Future<bool> updateAppointments(
+      BuildContext context, Appointment appointment) async {
+    final AppointmentDB refAppointmentDB =
+        context.read<DatabaseCtrl>().getAppointmentDB;
     bool validate = await refAppointmentDB.update(appointment);
     if (validate) {
       fetchAppointments(context);
@@ -57,7 +66,8 @@ class AppointmentCtrl extends ChangeNotifier {
   }
 
   void deleteAppointments(BuildContext context, int id) async {
-    final AppointmentDB refAppointmentDB = context.read<DatabaseCtrl>().getAppointmentDB;
+    final AppointmentDB refAppointmentDB =
+        context.read<DatabaseCtrl>().getAppointmentDB;
     bool validate = await refAppointmentDB.delete(id);
     if (validate) {
       fetchAppointments(context);
@@ -117,4 +127,7 @@ class AppointmentCtrl extends ChangeNotifier {
     NotificationService.pushSchedule(appointment);
   }
 
+  void deleteNotification(Appointment appointment) {
+    NotificationService.deleteNotification(appointment);
+  }
 }

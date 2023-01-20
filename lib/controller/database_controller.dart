@@ -6,7 +6,7 @@ import '../database/appointments_db.dart';
 import '../controller/notification_service.dart';
 
 class DatabaseCtrl extends ChangeNotifier {
-  static AppDB appDB = AppDB(dbName: 'database.db');
+  static AppDB appDB = AppDB(dbName: 'database5.db');
   static UserDB? userDatabase;
   static AppointmentDB? appointmentDatabase;
 

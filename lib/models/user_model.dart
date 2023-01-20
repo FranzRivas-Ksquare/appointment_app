@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class User {
   String? name;
   String email;
   String password;
-  String? avatar;
+  Uint8List? avatar;
 
   User({this.name, required this.email, required this.password, this.avatar});
 
@@ -13,7 +14,7 @@ class User {
       : name = row['NAME'] as String?,
         email = row['EMAIL'] as String,
         password = row['PASSWORD'] as String,
-        avatar = row['AVATAR'] as String?;
+        avatar = row['AVATAR'] as Uint8List?;
 
   @override
   String toString() {
@@ -31,10 +32,9 @@ class User {
 
   ImageProvider<Object> getAvatar() {
     if (avatar == null) {
-      return const NetworkImage('https://picsum.photos/200/300');
+      return const AssetImage('assets/images/avatar.jpeg');
     } else {
-      return FileImage(File(avatar!));
+      return MemoryImage(avatar!);
     }
   }
-
 }

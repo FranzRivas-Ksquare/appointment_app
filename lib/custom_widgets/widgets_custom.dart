@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../resources/color_manager.dart';
 import '../resources/values_manager.dart';
@@ -40,15 +41,12 @@ class CustomWidgets {
     );
   }
 
-  containerAvatarProfile(context, imagePath) {
+  containerAvatarProfile(context, Uint8List imagePath) {
     return Container(
         height: AppSize.s160,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-                fit: BoxFit.cover,
-                image: FileImage(File(
-                  imagePath,
-                )))));
+                fit: BoxFit.cover, image: MemoryImage(imagePath))));
   }
 }

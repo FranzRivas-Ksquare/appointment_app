@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final TextEditingController _passwordCtrl = TextEditingController();
   bool passwordVisible = true;
 
-  String _imagePickerPath = '';
+  Uint8List _imagePickerPath = Uint8List(0);
   _loadImageFromCamera(source) async {
     _imagePickerPath =
         await ImagePickerService().uploadImageCamera(source: source);
@@ -162,9 +163,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               name: _nameCtrl.text,
                               email: dataServices.getCurrentUser.email,
                               password: _passwordCtrl.text,
-                              avatar: _imagePickerPath != ''
-                                  ? _imagePickerPath
-                                  : user.avatar,
+                              avatar: _imagePickerPath.isEmpty
+                                  ? user.avatar
+                                  : _imagePickerPath,
                             );
 
                             dataServices.updateUser(context, updateUser);

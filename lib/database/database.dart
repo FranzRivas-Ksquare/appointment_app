@@ -38,7 +38,7 @@ class AppDB {
         EMAIL	TEXT NOT NULL UNIQUE,
         PASSWORD TEXT NOT NULL,
         NAME TEXT NOT NULL,
-        AVATAR TEXT,
+        AVATAR UINT8LIST,
         CONSTRAINT USERS_PK PRIMARY KEY (EMAIL)
       )''';
 

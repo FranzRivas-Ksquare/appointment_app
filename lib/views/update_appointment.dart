@@ -14,7 +14,6 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
-import '../resources/dateTimeFormat_manager.dart';
 import '../models/appointment_model.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
@@ -98,6 +97,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
       dateNow = DateFormat('y/MM/d').format(widget.appointment.date);
       timeNow = TimeOfDay.fromDateTime(widget.appointment.date).format(context);
       _id = widget.appointment.id;
+      newDate = widget.appointment.date;
+      newTime = TimeOfDay.fromDateTime(widget.appointment.date);
       setState(() {});
     });
   }
@@ -184,8 +185,6 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
                         onPressed: () async {
-                          newDate = widget.appointment.date;
-                          newTime = TimeOfDay.fromDateTime(widget.appointment.date);
                           Appointment updateAppointment = Appointment(
                             id: _id,
                             title: _titleCtrl.text,

@@ -14,6 +14,7 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/theme.dart';
 import '../resources/values_manager.dart';
+import '../resources/dateTimeFormat_manager.dart';
 import '../models/appointment_model.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
@@ -37,8 +38,8 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
   String timeNow = '';
   int _id = 0;
 
-  TimeOfDay newTime = TimeOfDay.now();
-  DateTime newDate = DateTime.now();
+  TimeOfDay? newTime;
+  DateTime? newDate;
 
   Future<void> _showDatePicker(dateTimeNow) async {
     newDate = await showDatePicker(
@@ -61,7 +62,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         dateTimeNow;
 
     setState(() {
-      dateNow = DateFormat('y/MM/d').format(newDate);
+      dateNow = DateFormat('y/MM/d').format(newDate!);
     });
   }
 
@@ -84,7 +85,7 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
         TimeOfDay.fromDateTime(dateTimeNow);
 
     setState(() {
-      timeNow = newTime.format(context).toString();
+      timeNow = newTime!.format(context).toString();
     });
   }
 
@@ -183,12 +184,14 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                     const SizedBox(height: AppSize.s52),
                     ElevatedButton(
                         onPressed: () async {
+                          newDate = widget.appointment.date;
+                          newTime = TimeOfDay.fromDateTime(widget.appointment.date);
                           Appointment updateAppointment = Appointment(
                             id: _id,
                             title: _titleCtrl.text,
                             description: _descrCtrl.text,
-                            date: DateTime(newDate.year, newDate.month,
-                                newDate.day, newTime.hour, newTime.minute, 0),
+                            date: DateTime(newDate!.year, newDate!.month,
+                                newDate!.day, newTime!.hour, newTime!.minute, 0),
                             author: userCtrl.getCurrentUser.email,
                           );
                           bool validate =

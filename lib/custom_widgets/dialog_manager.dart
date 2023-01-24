@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../controller/notification_service.dart';
+import 'package:provider/provider.dart';
 import 'button_custom.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
@@ -8,6 +8,8 @@ import '../resources/values_manager.dart';
 import '../models/appointment_model.dart';
 import '../resources/dateTimeFormat_manager.dart';
 import '../controller/appointment_controller.dart';
+import '../controller/notification_service.dart';
+import '../controller/timeratiobar_service.dart';
 
 class DialogManager {
   appointmentDialog(
@@ -66,6 +68,7 @@ class DialogManager {
                 onPressed: () {
                   appointmentCtrl.deleteAppointments(context, appointment.id);
                   NotificationService.deleteNotification(appointment);
+                  context.read<TimeRatioBarService>().changeTimeRatio(0);
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.delete)),

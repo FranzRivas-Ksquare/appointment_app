@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../controller/notification_service.dart';
 import '../custom_widgets/dialog_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../custom_widgets/textfield_custom.dart';
@@ -195,8 +196,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
-                          } else if (await appointmentCtrl
-                              .updateAppointments(context, updateAppointment)) {
+                          } else if (await appointmentCtrl.updateAppointments(
+                              context, updateAppointment)) {
+                            NotificationService.updateNotification(
+                                updateAppointment);
                             DialogManager().sucessDialog(
                                 context,
                                 AppString.upSuccess,

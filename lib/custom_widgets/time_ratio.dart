@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../resources/values_manager.dart';
 import '../resources/color_manager.dart';
 import '../controller/appointment_controller.dart';
-import '../controller/timeratio_provider.dart';
+import '../controller/timeratiobar_service.dart';
 
 class TimeRatio extends StatelessWidget {
   TimeRatio({
@@ -18,11 +18,11 @@ class TimeRatio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    int index = context.watch<TimeRatioProvider>().index;
+    int index = context.watch<TimeRatioBarService>().index;
 
     return GestureDetector(
       onTap: () {
-        context.read<TimeRatioProvider>().changeTimeRatio(myIndex);
+        context.read<TimeRatioBarService>().changeTimeRatio(myIndex);
         context.read<AppointmentCtrl>().selectRatio(myIndex);
       },
       child: Container(

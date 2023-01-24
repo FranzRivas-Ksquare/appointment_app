@@ -5,7 +5,7 @@ import '../resources/theme.dart';
 import '../resources/router.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
-import '../controller/timeratio_provider.dart';
+import '../controller/timeratiobar_service.dart';
 import '../controller/database_controller.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DatabaseCtrl()),
         ChangeNotifierProvider(create: (context) => UserCtrl()),
         ChangeNotifierProvider(create: (context) => AppointmentCtrl()),
-        ChangeNotifierProvider(create: (context) => TimeRatioProvider()),
+        ChangeNotifierProvider(create: (context) => TimeRatioBarService()),
       ],
       child: MaterialApp(
         title: AppString.appTitle,

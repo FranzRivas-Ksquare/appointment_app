@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../custom_widgets/time_ratio.dart';
 
-class TimeRatioProvider extends ChangeNotifier {
+class TimeRatioBarService extends ChangeNotifier {
 
   static final List timesText = ["Active", "Today", "Tomorrow", "Past"];
   int _index = 0;

@@ -6,7 +6,7 @@ import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../resources/values_manager.dart';
 import '../models/appointment_model.dart';
-import '../controller/dateTimeFormat.dart';
+import '../resources/dateTimeFormat_manager.dart';
 import '../controller/appointment_controller.dart';
 
 class DialogManager {

@@ -11,7 +11,7 @@ import '../custom_widgets/button_custom.dart';
 import '../custom_widgets/time_ratio.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
-import '../controller/timeratio_provider.dart';
+import '../controller/timeratiobar_service.dart';
 import '../models/user_model.dart';
 import '../models/appointment_model.dart';
 
@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 
 class HomeScreen extends State<Home> {
   late AppointmentCtrl appointmentCtrl;
-  late TimeRatioProvider trService;
+  late TimeRatioBarService trService;
 
   @override
   void initState() {
@@ -33,9 +33,9 @@ class HomeScreen extends State<Home> {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       appointmentCtrl = Provider.of<AppointmentCtrl>(context, listen: false);
       appointmentCtrl.fetchAppointments(context);
-      trService = Provider.of<TimeRatioProvider>(context, listen: false);
+      trService = Provider.of<TimeRatioBarService>(context, listen: false);
       trService.fillTimeRatioArray();
-      context.read<TimeRatioProvider>().changeTimeRatio(0);
+      context.read<TimeRatioBarService>().changeTimeRatio(0);
       context.read<AppointmentCtrl>().timeRatioAll();
       setState(() {});
     });
@@ -45,7 +45,7 @@ class HomeScreen extends State<Home> {
   Widget build(BuildContext context) {
     List<Appointment> appointments = context.watch<AppointmentCtrl>().getAppointments;
     User? currentUser = context.watch<UserCtrl>().getCurrentUser;
-    List<TimeRatio> timeRatios = context.watch<TimeRatioProvider>().timeRatioButtons;
+    List<TimeRatio> timeRatios = context.watch<TimeRatioBarService>().timeRatioButtons;
 
     return Scaffold(
       appBar: AppBar(

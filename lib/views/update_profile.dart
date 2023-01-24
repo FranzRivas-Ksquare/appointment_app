@@ -11,7 +11,7 @@ import '../custom_widgets/textfield_custom.dart';
 import '../custom_widgets/alert_manager.dart';
 import '../custom_widgets/hideKeyboard_custom.dart';
 import '../models/user_model.dart';
-import '../controller/imagePicker.dart';
+import '../controller/imagepicker_service.dart';
 import '../controller/user_controller.dart';
 
 class UpdateProfile extends StatefulWidget {

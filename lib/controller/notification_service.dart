@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -7,26 +8,26 @@ import '../models/appointment_model.dart';
 class NotificationService {
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  static final AndroidNotificationDetails androidNotificationDetails =
+  static const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails("id", "channel_Name",
           importance: Importance.max,
           priority: Priority.max,
           playSound: true,
-          sound: const RawResourceAndroidNotificationSound('listen'));
-  static final DarwinNotificationDetails iosNotificationDetails =
+          sound: RawResourceAndroidNotificationSound('listen'));
+  static const DarwinNotificationDetails iosNotificationDetails =
       DarwinNotificationDetails(threadIdentifier: "thread2");
   static Future<void> initNotifications() async {
     final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    final AndroidInitializationSettings _androidInitializationSettings =
+    const AndroidInitializationSettings _androidInitializationSettings =
         AndroidInitializationSettings('logo');
-    final DarwinInitializationSettings _initializationSettingsIOS =
+    const DarwinInitializationSettings _initializationSettingsIOS =
         DarwinInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
     );
-    InitializationSettings initializationSettings = InitializationSettings(
+    InitializationSettings initializationSettings = const InitializationSettings(
         android: _androidInitializationSettings,
         iOS: _initializationSettingsIOS);
     tz.initializeTimeZones();
@@ -36,23 +37,23 @@ class NotificationService {
       ),
     );
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-    print("Notification Service.");
+    if (kDebugMode) print("Notification Service.");
   }
 
   static Future<void> sendNotification(String title, String body) async {
-    NotificationDetails notificationDetails = NotificationDetails(
+    NotificationDetails notificationDetails = const NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
     _flutterLocalNotificationsPlugin.show(0, title, body, notificationDetails);
   }
 
   static Future<void> pushSchedule(Appointment appointment) async {
     tz.TZDateTime todayDate = tz.TZDateTime.now(tz.local);
-    print("todayDate: $todayDate");
+    if (kDebugMode) print("todayDate: $todayDate");
     Duration diff = appointment.date.difference(todayDate);
-    print("diff: $diff");
+    if (kDebugMode) print("diff: $diff");
     tz.TZDateTime finalDate = todayDate.add(diff);
-    print("finalDate: $finalDate");
-    NotificationDetails notificationDetails = NotificationDetails(
+    if (kDebugMode) print("finalDate: $finalDate");
+    NotificationDetails notificationDetails = const NotificationDetails(
         android: androidNotificationDetails, iOS: iosNotificationDetails);
     await _flutterLocalNotificationsPlugin.zonedSchedule(
         appointment.id,
@@ -67,12 +68,12 @@ class NotificationService {
 
   static Future<void> deleteNotification(Appointment appointment) async {
     await _flutterLocalNotificationsPlugin.cancel(appointment.id);
-    print("Notification ${appointment.id} deleted.");
+    if (kDebugMode) print("Notification ${appointment.id} deleted.");
   }
 
   static tz.TZDateTime calculateTimeDifference(Appointment appointment) {
     tz.TZDateTime todayDate = tz.TZDateTime.now(tz.local);
-    print(appointment.date);
+    if (kDebugMode) print(appointment.date);
     Duration diff = appointment.date.difference(todayDate);
     var finalDate = todayDate.add(diff);
     return finalDate;

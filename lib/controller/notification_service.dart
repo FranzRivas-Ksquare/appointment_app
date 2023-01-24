@@ -27,9 +27,10 @@ class NotificationService {
       requestBadgePermission: true,
       requestAlertPermission: true,
     );
-    InitializationSettings initializationSettings = const InitializationSettings(
-        android: _androidInitializationSettings,
-        iOS: _initializationSettingsIOS);
+    InitializationSettings initializationSettings =
+        const InitializationSettings(
+            android: _androidInitializationSettings,
+            iOS: _initializationSettingsIOS);
     tz.initializeTimeZones();
     tz.setLocalLocation(
       tz.getLocation(
@@ -69,6 +70,11 @@ class NotificationService {
   static Future<void> deleteNotification(Appointment appointment) async {
     await _flutterLocalNotificationsPlugin.cancel(appointment.id);
     if (kDebugMode) print("Notification ${appointment.id} deleted.");
+  }
+
+  static Future<void> updateNotification(Appointment appointment) async {
+    deleteNotification(appointment);
+    pushSchedule(appointment);
   }
 
   static tz.TZDateTime calculateTimeDifference(Appointment appointment) {

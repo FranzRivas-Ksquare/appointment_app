@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import '../resources/dateTime_manager.dart';
 import '../database/appointments_db.dart';
-import '../controller/database_controller.dart';
+import '../controller/database_service.dart';
 import '../controller/user_controller.dart';
 import '../controller/notification_service.dart';
 import '../models/appointment_model.dart';
@@ -15,7 +15,7 @@ class AppointmentCtrl extends ChangeNotifier {
   //--Appointments services
   void fetchAppointments(BuildContext context) async {
     final AppointmentDB refAppointmentDB =
-        context.read<DatabaseCtrl>().getAppointmentDB;
+        context.read<DatabaseService>().getAppointmentDB;
     final currentUser = context.read<UserCtrl>().getCurrentUser;
     _appointments = await refAppointmentDB.fetchAppointments(currentUser);
     _filter = [];
@@ -26,7 +26,7 @@ class AppointmentCtrl extends ChangeNotifier {
   Future<bool> createAppointments(
       BuildContext context, Appointment appointment) async {
     final AppointmentDB refAppointmentDB =
-        context.read<DatabaseCtrl>().getAppointmentDB;
+        context.read<DatabaseService>().getAppointmentDB;
     if (appointment.date != DateTime.now() ||
         appointment.date.isAfter(DateTime.now().add(Duration(seconds: 30)))) {
       bool validate = await refAppointmentDB.create(appointment);
@@ -45,7 +45,7 @@ class AppointmentCtrl extends ChangeNotifier {
   Future<bool> updateAppointments(
       BuildContext context, Appointment appointment) async {
     final AppointmentDB refAppointmentDB =
-        context.read<DatabaseCtrl>().getAppointmentDB;
+        context.read<DatabaseService>().getAppointmentDB;
     bool validate = await refAppointmentDB.update(appointment);
     if (validate) {
       fetchAppointments(context);
@@ -67,7 +67,7 @@ class AppointmentCtrl extends ChangeNotifier {
 
   void deleteAppointments(BuildContext context, int id) async {
     final AppointmentDB refAppointmentDB =
-        context.read<DatabaseCtrl>().getAppointmentDB;
+        context.read<DatabaseService>().getAppointmentDB;
     bool validate = await refAppointmentDB.delete(id);
     if (validate) {
       fetchAppointments(context);

@@ -5,19 +5,19 @@ import '../database/user_db.dart';
 import '../database/appointments_db.dart';
 import '../controller/notification_service.dart';
 
-class DatabaseCtrl extends ChangeNotifier {
+class DatabaseService extends ChangeNotifier {
   static AppDB appDB = AppDB(dbName: 'database.db');
   static UserDB? userDatabase;
   static AppointmentDB? appointmentDatabase;
 
-  DatabaseCtrl() {
-    DatabaseCtrl.initDB();
+  DatabaseService() {
+    DatabaseService.initDB();
     NotificationService.initNotifications();
   }
 
   @override
   void dispose() {
-    DatabaseCtrl.closeDB();
+    DatabaseService.closeDB();
     super.dispose();
   }
 

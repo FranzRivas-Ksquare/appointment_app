@@ -6,7 +6,7 @@ import '../resources/router.dart';
 import '../resources/routes_manager.dart';
 import '../resources/string_manager.dart';
 import '../controller/timeratiobar_service.dart';
-import '../controller/database_controller.dart';
+import '../controller/database_service.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
 
@@ -14,7 +14,7 @@ import '../controller/appointment_controller.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();
-  DatabaseCtrl().startDB();
+  DatabaseService().startDB();
   runApp(const MyApp());
 }
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => DatabaseCtrl()),
+        ChangeNotifierProvider(create: (context) => DatabaseService()),
         ChangeNotifierProvider(create: (context) => UserCtrl()),
         ChangeNotifierProvider(create: (context) => AppointmentCtrl()),
         ChangeNotifierProvider(create: (context) => TimeRatioBarService()),

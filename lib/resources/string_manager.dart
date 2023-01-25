@@ -32,6 +32,7 @@ class AppString {
   static const String wrong = "Wrong Password";
   static const String warning = "Warning";
   static const String alreadyDate = "Date or time already taken";
+  static const String passDate = "Date already pass";
 
   static const String requiredAdd = "This field is required";
   static const String requiredPass = "Password must be 8 chars";

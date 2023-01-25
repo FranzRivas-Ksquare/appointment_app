@@ -195,9 +195,14 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
                           );
                           bool validate =
                               appointmentCtrl.availability(updateAppointment);
+                          bool checkDate = DatetimeManager()
+                              .compareNotPastDates(updateAppointment.date);
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
+                          } else if (!checkDate) {
+                            AlertManager().displaySnackbarDateTime(context,
+                                AppString.warning, AppString.passDate);
                           } else if (await appointmentCtrl.updateAppointments(
                               context, updateAppointment)) {
                             NotificationService.updateNotification(

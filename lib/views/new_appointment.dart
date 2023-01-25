@@ -164,9 +164,13 @@ class _NewAppointmentState extends State<NewAppointment> {
                               description: _descrCtrl.text,
                               author: userCtrl.getCurrentUser.email);
                           bool validate = appontmentCtrl.availability(newApp);
+                          bool checkDate = DatetimeManager().compareNotPastDates(newApp.date);
                           if (!validate) {
                             AlertManager().displaySnackbarDateTime(context,
                                 AppString.warning, AppString.alreadyDate);
+                          } else if (!checkDate) {
+                            AlertManager().displaySnackbarDateTime(context,
+                                AppString.warning, AppString.passDate);
                           } else if (await appontmentCtrl.createAppointments(
                               context, newApp)) {
                             NotificationService.pushSchedule(newApp);

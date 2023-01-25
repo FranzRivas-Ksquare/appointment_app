@@ -49,7 +49,7 @@ class DatetimeManager {
         && today.month == dt.month
         && today.day == dt.day
         && today.hour <= dt.hour
-        && today.minute <= dt.minute) return true;
+        && today.minute + 1 <= dt.minute) return true;
     return false;
   }
 
@@ -78,7 +78,7 @@ class DatetimeManager {
         && today.month <= dt.month
         && today.day <= dt.day
         && today.hour <= dt.hour
-        && today.minute <= dt.minute) return true;
+        && today.minute + 1 <= dt.minute) return true;
     return false;
   }
 }

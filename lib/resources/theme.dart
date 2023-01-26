@@ -127,7 +127,7 @@ ThemeData getApplicationTheme() {
           headline4: getRegularStyle(
               color: ColorManager.darkGreen,
               fontFamily: FontConstants.fontPrimary,
-              fontSize: FontSize.s14), // TODO: Headline4 is Free
+              fontSize: FontSize.s14),
           headline5: getSemiBoldStyle(
               color: ColorManager.textColor,
               fontFamily: FontConstants.fontPrimary,

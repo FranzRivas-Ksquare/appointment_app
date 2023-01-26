@@ -10,7 +10,7 @@ import '../controller/database_service.dart';
 import '../controller/user_controller.dart';
 import '../controller/appointment_controller.dart';
 
-// TODO: Comment all the code
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.remove();

@@ -29,7 +29,7 @@ class CustomWidgets {
     );
   }
 
-  // TODO: check types
+
   circleAvatarProfile(BuildContext context, ImageProvider getAvatar) {
     return CircleAvatar(
       radius: AppSize.s84,

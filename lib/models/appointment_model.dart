@@ -34,7 +34,7 @@ class Appointment {
     };
   }
 
-  // TODO cast data as needed
+
   get getDate {
     return date.toString().split(' ')[0];
   }

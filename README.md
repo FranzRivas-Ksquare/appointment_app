@@ -1,4 +1,4 @@
-# appointment
+# Appointment
 
 A mobile application that manages the user appointments and reminds events.
 
@@ -9,4 +9,4 @@ Users need to have tools that take note of their daily activities and tasks to h
 ### Solution approach:
 The Ksquare team will work in a mobile application that takes note of all the users daily activities, tasks and events in a schedule that will be saved in the cellphone and the information gathered will be available to the user every time he needed. Through these applications it is expected that the user can have more control of their time and reminder of their daily tasks.
 
-- [Documentation](https://www.notion.so/Appointment-App-0030e8794b074d92ac7eb2580938981f)
+### [Documentation](https://www.notion.so/Appointment-App-0030e8794b074d92ac7eb2580938981f)

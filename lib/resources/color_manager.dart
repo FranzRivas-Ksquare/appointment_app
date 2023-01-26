@@ -6,9 +6,12 @@ class ColorManager {
   static Color darkPink = HexColor.fromHex("#a6325f");
   static Color lightPink = HexColor.fromHex("#e195bc");
   static Color auxiliary = HexColor.fromHex("#dedce1");
+  static Color appBarLightPink = HexColor.fromHex("#f3d5e4");
+  static Color appBarDarkPink = HexColor.fromHex("#b34d76");
 
   static Color backgroundColor = HexColor.fromHex("#eeeeee");
   static Color textColor = HexColor.fromHex("#0d0d0d");
+  static Color textWhite = HexColor.fromHex("#FFFFFF");
 
   static Color textFieldBackground = HexColor.fromHex("#E8E8E8");
   static Color textFieldText = HexColor.fromHex("#BDBDBD");
@@ -16,6 +19,8 @@ class ColorManager {
   static Color error = HexColor.fromHex("#FB2576");
   static Color fadeOpacity70 = HexColor.fromHex("#B30d0d0d");
 
+  static Color colorWhite = HexColor.fromHex("#FFFFFF");
+  static Color colorBlack = HexColor.fromHex("#000000");
 }
 
 extension HexColor on Color {

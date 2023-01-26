@@ -1,4 +1,6 @@
 class AppString {
+  static const String appTitle = 'Appointments';
+
   static const String signup = "Sign up";
   static const String signin = "Sign in";
   static const String name = "Name";
@@ -27,16 +29,27 @@ class AppString {
   static const String exists = "User already exists";
   static const String message = "Message";
   static const String noUser = "User no exist in database";
-  static const String wrong = "Wrong email or password";
+  static const String wrong = "Wrong Password";
   static const String warning = "Warning";
   static const String alreadyDate = "Date or time already taken";
+  static const String passDate = "Date already pass";
+
+  static const String requiredAdd = "This field is required";
+  static const String requiredPass = "Password must be 8 chars";
 
   static const String updateAppoint = "Update Appointment";
 
   static const String title = "Title";
+  static const String descr = "Description";
   static const String appointment = "Appointment";
   static const String date = "Date";
   static const String time = "Time";
   static const String newAppoint = "New Appointment";
+  static const String delAppoint = "Delete Appointment";
   static const String upSuccess = "Update Success";
+
+  static const String home = "Home";
+
+  static const String regexEmail =
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 }

@@ -1,16 +1,12 @@
 # appointment
 
-A mobile application that manages the user schedule and reminds events.
+A mobile application that manages the user appointments and reminds events.
 
-## Getting Started
+### Problem definition: 
+Nowadays people use their cellphones more than ever, and are migrating to more digital tools. Because of this trend people are stopping to use notebooks and diaries to take notes of their daily activities and tasks.
+Users need to have tools that take note of their daily activities and tasks to have an order and control of their time throughout the day. The impact of not having an order and control of the activities of the day can be, forgetting pendings and tasks, losing time through the day and being less productive. On the other hand if the users manage their time correctly, in addition to doing everything they need to do at the end of the day, they can get more free time.
 
-This project is a starting point for a Flutter application.
+### Solution approach:
+The Ksquare team will work in a mobile application that takes note of all the users daily activities, tasks and events in a schedule that will be saved in the cellphone and the information gathered will be available to the user every time he needed. Through these applications it is expected that the user can have more control of their time and reminder of their daily tasks.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Documentation](https://www.notion.so/Appointment-App-0030e8794b074d92ac7eb2580938981f)
